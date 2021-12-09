@@ -1,6 +1,10 @@
 window._ = require('lodash');
 
 try {
+    window.$ = window.jQuery = require('jquery');
+    window.Swal = require('sweetalert2');
+    window.datatable = require('datatables.net-bs4');
+
     require('bootstrap');
 } catch (e) {}
 

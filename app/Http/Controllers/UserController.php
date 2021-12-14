@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use http\Env\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
+
 
 class UserController extends Controller
 {
@@ -24,6 +28,21 @@ class UserController extends Controller
         return DataTables::of($users)
                             ->addIndexColumn()
                             ->make(true);
+    }
+
+    public function addUser(Request $request){
+        $validator = \Validator::make($request->all(),[
+            'name'=>'required',
+            'email'=>'required|unique:users',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else{
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $query = $user->save();
+        }
     }
 
     /**

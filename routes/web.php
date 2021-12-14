@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::get('/users/list',[UserController::class,'index'])->name('users.index');
 Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get.users.list');
+Route::post('/addUser',[UserController::class,'addUser'])->name('add.user');
 
 Auth::routes();
 

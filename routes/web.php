@@ -23,6 +23,8 @@ Route::get('/', function () {
 Route::get('/users/list',[UserController::class,'index'])->name('users.index');
 Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get.users.list');
 Route::post('/addUser',[UserController::class,'addUser'])->name('add.user');
+Route::post('/getUserDetails',[UserController::class,'getUserDetails'])->name('get.user.details');
+Route::post('/updateUserDetails',[UserController::class,'updateUserDetails'])->name('update.user.details');
 
 Auth::routes();
 

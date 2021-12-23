@@ -6,6 +6,7 @@ use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Ramsey\Collection\Queue;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,9 +28,16 @@ class UserController extends Controller
         $users = User::all();
         return DataTables::of($users)
                             ->addIndexColumn()
+                            ->addColumn('actions', function ($row){
+                                return '<div class="btn-group">
+                                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].'" id="editUserBtn">E</button>
+                                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteUserBtn">X</button>
+                                        </div>';
+                            })
+                            ->rawColumns(['actions'])
                             ->make(true);
     }
-
+    //Add user - temporary
     public function addUser(Request $request){
         $validator = \Validator::make($request->all(),[
             'name'=>'required',
@@ -42,6 +50,34 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $query = $user->save();
+        }
+    }
+    //Get user details
+    public function getUserDetails(Request $request){
+        $user_id = $request->user_id;
+        $userDetails = User::find($user_id);
+        return response()->json(['details'=>$userDetails]);
+    }
+    //Update user details
+    public function updateUserDetails(Request $request) {
+        $user_id = $request->cid;
+
+        $validator = \Validator::make($request->all(),[
+            /*'name'=>'required',
+            'email'=>'required|unique:users,email'*/
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+        }else{
+            $user = User::find($user_id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $query = $user->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Dane Użytkownika zostały zaktualizowane']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
         }
     }
 

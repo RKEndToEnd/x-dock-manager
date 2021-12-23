@@ -25,6 +25,7 @@ Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get.us
 Route::post('/addUser',[UserController::class,'addUser'])->name('add.user');
 Route::post('/getUserDetails',[UserController::class,'getUserDetails'])->name('get.user.details');
 Route::post('/updateUserDetails',[UserController::class,'updateUserDetails'])->name('update.user.details');
+Route::post('/deleteUser',[UserController::class,'deleteUser'])->name('delete.user');
 
 Auth::routes();
 

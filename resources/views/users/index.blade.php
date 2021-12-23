@@ -137,4 +137,28 @@
             }
         })
     });
+
+    //Delete user
+    $(document).on('click','#deleteUserBtn', function (){
+        var user_id = $(this).data('id');
+        var url = '<?= route("delete.user") ?>';
+        Swal.fire({
+            title: 'Czy na pewno chcesz ususnąć użytkownika z bazy danych?',
+            showDenyButton: true,
+            confirmButtonText: 'Tak, usuń',
+            denyButtonText: `Anuluj`,
+            allowOutsideClick:false,
+        }).then(function (result){
+            if(result.value){
+                $.post(url,{user_id:user_id}, function(data){
+                    if(data.code == 1){
+                        $('#users-all').DataTable().ajax.reload(null, false);
+                        Swal.fire(data.msg);
+                    }else{
+                        Swal.fire(data.msg);
+                    }
+                },'json');
+            }
+        });
+    });
 @endsection

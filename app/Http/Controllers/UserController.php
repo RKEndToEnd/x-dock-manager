@@ -6,6 +6,7 @@ use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Monolog\Handler\CouchDBHandler;
 use Ramsey\Collection\Queue;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +79,16 @@ class UserController extends Controller
             }else{
                 return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
             }
+        }
+    }
+    //Delete user
+    public function deleteUser(Request $request){
+        $user_id = $request->user_id;
+        $query = User::find($user_id)->delete();
+        if ($query){
+            return response()->json(['code'=>1,'msg'=>'Użytkownik został usunity z bazy danych']);
+        }else{
+            return response()->json(['code'=>0, 'msg'=>'Wystąpił nieoczekiwany błąd']);
         }
     }
 

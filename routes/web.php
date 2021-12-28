@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepotController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,9 @@ Route::post('/addUser',[UserController::class,'addUser'])->name('add.user');
 Route::post('/getUserDetails',[UserController::class,'getUserDetails'])->name('get.user.details');
 Route::post('/updateUserDetails',[UserController::class,'updateUserDetails'])->name('update.user.details');
 Route::post('/deleteUser',[UserController::class,'deleteUser'])->name('delete.user');
+
+Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index');
+Route::get('getDepotsList',[DepotController::class,'getDepotsList'])->name('get.depots.list');
 
 Auth::routes();
 

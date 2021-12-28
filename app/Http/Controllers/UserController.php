@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Depot;
 use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        return view('users.index',['depots' =>Depot::all()]);
     }
 
     //Get all users
@@ -73,6 +74,7 @@ class UserController extends Controller
             $user = User::find($user_id);
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->depot_id = $request->depot_id;
             $query = $user->save();
             if ($query){
                 return response()->json(['code'=>1,'msg'=>'Dane Użytkownika zostały zaktualizowane']);

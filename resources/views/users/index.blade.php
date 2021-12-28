@@ -12,6 +12,7 @@
                                     <th>#</th>
                                     <th>Imię</th>
                                     <th>Email</th>
+                                    <th>Depot</th>
                                     <th>Akcje</th>
                                 </thead>
                                 <tbody></tbody>
@@ -65,6 +66,7 @@
             {data:'id', name:'id'},
             {data:'name', name:'name'},
             {data:'email', name: 'email'},
+            {data:'depot_id', name:'depot_id'},
             {data:'actions', name:'actions'},
         ]
     });
@@ -105,8 +107,9 @@
             $('.editUser').find('input[name="cid"]').val(data.details.id);
             $('.editUser').find('input[name="name"]').val(data.details.name);
             $('.editUser').find('input[name="email"]').val(data.details.email);
+            $('.editUser').find('input[name="depot_id"]').val(data.details.depot_id);
             $('.editUser').modal('show');
-        },'json');
+                },'json');
     });
 
     //Update user details

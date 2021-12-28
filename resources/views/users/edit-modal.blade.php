@@ -19,6 +19,16 @@
                         <input type="text" class="form-control" name="email"placeholder="Wpisz email">
                         <span class="text-danger error-text email_error"></span>
                     </div>
+                    <div class="form-group">
+                        <label for="">Depot</label>
+                        <select class="form-control" name="depot_id">
+                            <option>Brak</option>
+                            @foreach($depots as $depot)
+                                <option value="{{ $depot->id }}" @if(!is_null($depot->depot_id) && $depot->depot_id->id == $depot->id))selected @endif>{{ $depot->name }}</option>
+                            @endforeach
+                        </select>
+                        <span class="text-danger error-text depot_id_error"></span>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
                         <button type="submit" class="btn btn-primary">Zapisz zmiany</button>

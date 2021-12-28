@@ -5,7 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-md container-fluid">
                 <div class="card">
-                    <div class="card-header"><h4>Depoty</h4></div>
+                    <div class="card-header"><h4>Depoty</h4>
+                        <button class="btn btn-sm btn-outline-primary" id="createDepotBtn" data-bs-toggle="modal" data-bs-target=".createDepot">Dodaj depot</button>
+                    </div>
                         <div class="card-body">
                             <table class=" table table-hover table-bordered table-striped table-responsive" id="depots-all">
                                 <thead>
@@ -23,7 +25,7 @@
         </div>
     </div>
 
-
+@include('depots.create-modal')
 @endsection
 
 @section('javascript')
@@ -43,13 +45,14 @@
             {data:'id', name:'id'},
             {data:'name', name:'name'},
             {data:'city', name:'city'},
-            {data:'map_link', name: 'map_link'},
+            {data:'map_link', name:'map_link'},
             {data:'actions', name:'actions'},
         ]
     });
 
-    {{--//Add new user
-    $('#add-user-form').on('submit', function (e){
+
+    //Create new depot
+    $('#create-depot-form').on('submit', function (e){
         e.preventDefault()
         var form = this;
         $.ajax({
@@ -68,15 +71,17 @@
                         $(form).find('span.'+prefix+'_error').text(val[0]);
                     });
                     }else{
-                        $(form)[0].reset();
-                        alert(data.msg);
+                        $('#depots-all').DataTable().ajax.reload(null,false);
+                        $('.createDepot').modal('hide');
+                        $('.createDepot').find('form')[0].reset();
+                        Swal.fire(data.msg);
                     }
             }
         });
     });
 
     //Edit user
-    $(document).on('click', '#editUserBtn', function (){
+    {{--$(document).on('click', '#editUserBtn', function (){
         var user_id = $(this).data('id');
         $('.editUser').find('form')[0].reset();
         $('.editUser').find('span.error-text').text('');
@@ -88,10 +93,10 @@
             $('.editUser').find('input[name="depot_id"]').val(data.details.depot_id);
             $('.editUser').modal('show');
                 },'json');
-    });
+    });--}}
 
     //Update user details
-    $('#update-user-form').on('submit', function (e){
+    /*$('#update-user-form').on('submit', function (e){
        e.preventDefault();
        var form = this;
        $.ajax({
@@ -117,9 +122,9 @@
                 }
             }
         })
-    });
+    });*/
 
-    //Delete user
+    {{--//Delete user
     $(document).on('click','#deleteUserBtn', function (){
         var user_id = $(this).data('id');
         var url = '<?= route("delete.user") ?>';

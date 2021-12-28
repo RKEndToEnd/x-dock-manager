@@ -27,4 +27,19 @@ class DepotController extends Controller
             ->rawColumns(['actions'])
             ->make(true);
     }
+    //Create new depot
+    public function createDepot(Request $request)
+    {
+        $depot = new Depot(($request->all()));
+        $depot->name = $request->name;
+        $depot->city = $request->city;
+        $depot->map_link = $request->map_link;
+        $query = $depot->save();
+        if ($query){
+            return response()->json(['code'=>1,'msg'=>'Depot został dodany do bazy danych']);
+        }else{
+            return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+
 }

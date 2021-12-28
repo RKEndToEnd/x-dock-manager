@@ -73,6 +73,7 @@ class UserController extends Controller
         }else{
             $user = User::find($user_id);
             $user->name = $request->name;
+            $user->surname = $request->surname;
             $user->email = $request->email;
             $user->depot_id = $request->depot_id;
             $query = $user->save();

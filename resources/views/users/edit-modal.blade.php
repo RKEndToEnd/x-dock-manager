@@ -15,6 +15,11 @@
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="form-group">
+                        <label for="">Nazwisko</label>
+                        <input type="text" class="form-control" name="surname"placeholder="Wpisz nazwisko">
+                        <span class="text-danger error-text surname_error"></span>
+                    </div>
+                    <div class="form-group">
                         <label for="">Email</label>
                         <input type="text" class="form-control" name="email"placeholder="Wpisz email">
                         <span class="text-danger error-text email_error"></span>

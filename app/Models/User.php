@@ -20,9 +20,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'surname',
         'email',
-        'password',
         'depot_id',
+        'password',
     ];
 
     public function depot(): BelongsTo

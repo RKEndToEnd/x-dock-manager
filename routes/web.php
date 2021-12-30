@@ -31,6 +31,7 @@ Route::post('/deleteUser',[UserController::class,'deleteUser'])->name('delete.us
 Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index');
 Route::get('getDepotsList',[DepotController::class,'getDepotsList'])->name('get.depots.list');
 Route::post('createDepot',[DepotController::class,'createDepot'])->name('create.depot');
+Route::get('getMap',[DepotController::class,'getMap'])->name('get.map');
 
 Auth::routes();
 

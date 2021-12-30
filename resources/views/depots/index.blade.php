@@ -14,7 +14,8 @@
                                     <th>#</th>
                                     <th>Oznaczenie</th>
                                     <th>Miejscowość</th>
-                                    <th>Mapa</th>
+                                    {{--<th>Mapa</th>--}}
+                                    <th>Nawigacja</th>
                                     <th>Akcje</th>
                                 </thead>
                                 <tbody></tbody>
@@ -26,6 +27,8 @@
     </div>
 
 @include('depots.create-modal')
+@include('depots.map-modal')
+
 @endsection
 
 @section('javascript')
@@ -45,7 +48,8 @@
             {data:'id', name:'id'},
             {data:'name', name:'name'},
             {data:'city', name:'city'},
-            {data:'map_link', name:'map_link'},
+            /*{data:'map_link', name:'map_link'},*/
+            {data:'traffic', name:'traffic'},
             {data:'actions', name:'actions'},
         ]
     });
@@ -78,6 +82,17 @@
                     }
             }
         });
+    });
+
+    //Map show
+    $(document).on('click','#trafficBtn', function (){
+       var depot_map = $(this).data('id');
+       $.get('<?= route("get.map") ?>',{depot_map:depot_map}, function(data){
+           // alert(data.details.map_link);
+            $('.traffic-map').find('input[name="cid_map"]').val(data.details.id);
+            $('.traffic-map').find('div[name="map_link"]').val(data.details.map_link);
+            $('.traffic-map').modal('show');
+        },'json');
     });
 
     //Edit user

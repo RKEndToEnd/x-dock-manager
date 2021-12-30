@@ -20,11 +20,16 @@ class DepotController extends Controller
             ->addIndexColumn()
             ->addColumn('actions', function ($row){
                 return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].'" id="editDepotBtn">E</button>
-                                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteDepotBtn">X</button>
-                                        </div>';
+                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].'" id="editDepotBtn">E</button>
+                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteDepotBtn">X</button>
+                        </div>';
             })
-            ->rawColumns(['actions'])
+            ->addColumn('traffic', function ($row){
+                return '<div class="btn-group">
+                            <button class="btn btn-sm btn-outline-success" data-id="'.$row['id'].'" id="trafficBtn">MAP</button>
+                        </div>';
+            })
+            ->rawColumns(['actions','traffic'])
             ->make(true);
     }
     //Create new depot
@@ -41,5 +46,11 @@ class DepotController extends Controller
             return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
             }
         }
-
+    //View map
+    public function getMap(Request $request)
+    {
+        $depot_map = $request->depot_map;
+        $depotDetails = Depot::find($depot_map);
+        return response()->json(['details'=>$depotDetails]);
+    }
 }

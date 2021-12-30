@@ -17,7 +17,7 @@ class CreateDepotsTable extends Migration
             $table->id();
             $table->string('name',255)->unique();
             $table->string('city',255);
-            $table->string('map_link')->nullable();
+            $table->text('map_link')->nullable();
             $table->timestamps();
         });
         Schema::table('users', function (Blueprint $table) {

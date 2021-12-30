@@ -1,4 +1,6 @@
-<div class="modal fade traffic-map" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+{{--ONLY FOR TESTING--}}
+
+{{--<div class="modal fade traffic-map" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{--<input type="hidden" name="cid_map">--}}
+                --}}{{--<input type="hidden" name="cid_map">--}}{{--
 
                     <div id="fetched-data" resource="map_link"></div>
 
@@ -18,4 +20,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}

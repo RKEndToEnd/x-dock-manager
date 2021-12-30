@@ -24,12 +24,12 @@ class DepotController extends Controller
                             <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteDepotBtn">X</button>
                         </div>';
             })
-            ->addColumn('traffic', function ($row){
+            /*->addColumn('traffic', function ($row){
                 return '<div class="btn-group">
                             <button class="btn btn-sm btn-outline-success" data-id="'.$row['id'].'" id="trafficBtn">MAP</button>
                         </div>';
-            })
-            ->rawColumns(['actions','traffic'])
+            })*/
+            ->rawColumns(['actions'])
             ->make(true);
     }
     //Create new depot
@@ -38,7 +38,7 @@ class DepotController extends Controller
         $depot = new Depot(($request->all()));
         $depot->name = $request->name;
         $depot->city = $request->city;
-        $depot->map_link = $request->map_link;
+        /*$depot->map_link = $request->map_link;*/
         $query = $depot->save();
         if ($query){
             return response()->json(['code'=>1,'msg'=>'Depot został dodany do bazy danych']);
@@ -46,11 +46,11 @@ class DepotController extends Controller
             return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
             }
         }
-    //View map
-    public function getMap(Request $request)
+    //View map ONLY FOR TESTING
+    /*public function getMap(Request $request)
     {
         $depot_map = $request->depot_map;
         $depotDetails = Depot::find($depot_map);
         return response()->json(['details'=>$depotDetails]);
-    }
+    }*/
 }

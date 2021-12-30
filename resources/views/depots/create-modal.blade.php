@@ -19,11 +19,11 @@
                         <input type="text" class="form-control" name="city"placeholder="Wpisz miejscowość">
                         <span class="text-danger error-text city_error"></span>
                     </div>
-                    <div class="form-group">
+                    {{--<div class="form-group">
                         <label for="">Mapa</label>
                         <input type="text" class="form-control" name="map_link"placeholder="Wstaw link do mapy">
                         <span class="text-danger error-text map_link_error"></span>
-                    </div>
+                    </div>--}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
                         <button type="submit" class="btn btn-primary">Dodaj depot</button>

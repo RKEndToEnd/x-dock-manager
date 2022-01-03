@@ -33,6 +33,7 @@ Route::get('getDepotsList',[DepotController::class,'getDepotsList'])->name('get.
 Route::post('createDepot',[DepotController::class,'createDepot'])->name('create.depot');
 Route::post('/getDepotDetails',[DepotController::class,'getDepotDetails'])->name('get.depot.details');
 Route::post('/updateDepotDetails',[DepotController::class,'updateDepotDetails'])->name('update.depot.details');
+Route::post('/deleteDepot',[DepotController::class,'deleteDepot'])->name('delete.depot');
 
 // ONLY FOR TESTING
 /*Route::get('getMap',[DepotController::class,'getMap'])->name('get.map');*/

@@ -73,6 +73,16 @@ class DepotController extends Controller
             }
         }
     }
+    //Delete depot
+    public function deleteDepot(Request $request){
+        $depot_id = $request->depot_id;
+        $query = Depot::find($depot_id)->delete();
+        if ($query){
+            return response()->json(['code'=>1,'msg'=>'Depot został usuniety z bazy danych']);
+        }else{
+            return response()->json(['code'=>0,'msg'=>'Wystapił nieoczekiwany błąd']);
+        }
+    }
     //View map ONLY FOR TESTING
     /*public function getMap(Request $request)
     {

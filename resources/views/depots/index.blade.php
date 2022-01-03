@@ -137,21 +137,21 @@
         })
     });
 
-    {{--//Delete user
-    $(document).on('click','#deleteUserBtn', function (){
-        var user_id = $(this).data('id');
-        var url = '<?= route("delete.user") ?>';
+    //Delete depot
+    $(document).on('click','#deleteDepotBtn', function (){
+        var depot_id = $(this).data('id');
+        var url = '<?= route("delete.depot") ?>';
         Swal.fire({
-            title: 'Czy na pewno chcesz ususnąć użytkownika z bazy danych?',
+            title: 'Czy na pewno chcesz ususnąć depot z bazy danych?',
             showDenyButton: true,
             confirmButtonText: 'Tak, usuń',
             denyButtonText: `Anuluj`,
             allowOutsideClick:false,
         }).then(function (result){
             if(result.value){
-                $.post(url,{user_id:user_id}, function(data){
+                $.post(url,{depot_id:depot_id}, function(data){
                     if(data.code == 1){
-                        $('#users-all').DataTable().ajax.reload(null, false);
+                        $('#depots-all').DataTable().ajax.reload(null, false);
                         Swal.fire(data.msg);
                     }else{
                         Swal.fire(data.msg);
@@ -159,5 +159,5 @@
                 },'json');
             }
         });
-    });--}}
+    });
 @endsection

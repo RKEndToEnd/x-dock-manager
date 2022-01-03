@@ -10,8 +10,8 @@
                     @csrf
                     <input type="hidden" name="cid_create_depot">
                     <div class="form-group">
-                        <label for="">Oznaczenie</label>
-                        <input type="text" class="form-control" name="name"placeholder="Wpisz oznaczenie">
+                        <label for="">Kod depotu</label>
+                        <input type="text" class="form-control" name="name"placeholder="Wpisz kod depotu">
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="form-group">

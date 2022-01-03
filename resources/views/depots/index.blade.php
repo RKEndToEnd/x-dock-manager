@@ -12,7 +12,7 @@
                             <table class=" table table-hover table-bordered table-striped table-responsive" id="depots-all">
                                 <thead>
                                     <th>#</th>
-                                    <th>Oznaczenie</th>
+                                    <th>Kod depotu</th>
                                     <th>Miejscowość</th>
                                     {{--<th>Mapa</th>--}}
                                     {{--<th>Nawigacja</th>--}}
@@ -27,7 +27,7 @@
     </div>
 
 @include('depots.create-modal')
-@include('depots.map-modal')
+@include('depots.edit-modal')
 
 @endsection
 
@@ -95,23 +95,21 @@
         },'json');
     });--}}
 
-    //Edit user
-    {{--$(document).on('click', '#editUserBtn', function (){
-        var user_id = $(this).data('id');
-        $('.editUser').find('form')[0].reset();
-        $('.editUser').find('span.error-text').text('');
-        $.post('<?= route("get.user.details") ?>',{user_id:user_id}, function(data){
-            $('.editUser').find('input[name="cid"]').val(data.details.id);
-            $('.editUser').find('input[name="name"]').val(data.details.name);
-            $('.editUser').find('input[name="surname"]').val(data.details.surname);
-            $('.editUser').find('input[name="email"]').val(data.details.email);
-            $('.editUser').find('input[name="depot_id"]').val(data.details.depot_id);
-            $('.editUser').modal('show');
+    //Edit depot - get details
+    $(document).on('click', '#editDepotBtn', function (){
+        var depot_id = $(this).data('id');
+        /*$('.editDepot').find('form')[0].reset();
+        $('.editdepot').find('span.error-text').text('');*/
+        $.post('<?= route("get.depot.details") ?>',{depot_id:depot_id}, function(data){
+            $('.editDepot').find('input[name="cid_depot"]').val(data.details.id);
+            $('.editDepot').find('input[name="name"]').val(data.details.name);
+            $('.editDepot').find('input[name="city"]').val(data.details.city);
+            $('.editDepot').modal('show');
                 },'json');
-    });--}}
+    });
 
-    //Update user details
-    /*$('#update-user-form').on('submit', function (e){
+    //Update depot details
+    $('#update-depot-form').on('submit', function (e){
        e.preventDefault();
        var form = this;
        $.ajax({
@@ -130,14 +128,14 @@
                        $(form).find('span.'+prefix+'_error').text(val[0]);
                     });
                 }else{
-                    $('#users-all').DataTable().ajax.reload(null,false);
-                    $('.editUser').modal('hide');
-                    $('.editUser').find('form')[0].reset();
+                    $('#depots-all').DataTable().ajax.reload(null,false);
+                    $('.editDepot').modal('hide');
+                    $('.editDepot').find('form')[0].reset();
                     Swal.fire(data.msg);
                 }
             }
         })
-    });*/
+    });
 
     {{--//Delete user
     $(document).on('click','#deleteUserBtn', function (){

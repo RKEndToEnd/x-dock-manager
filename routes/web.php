@@ -31,6 +31,8 @@ Route::post('/deleteUser',[UserController::class,'deleteUser'])->name('delete.us
 Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index');
 Route::get('getDepotsList',[DepotController::class,'getDepotsList'])->name('get.depots.list');
 Route::post('createDepot',[DepotController::class,'createDepot'])->name('create.depot');
+Route::post('/getDepotDetails',[DepotController::class,'getDepotDetails'])->name('get.depot.details');
+Route::post('/updateDepotDetails',[DepotController::class,'updateDepotDetails'])->name('update.depot.details');
 
 // ONLY FOR TESTING
 /*Route::get('getMap',[DepotController::class,'getMap'])->name('get.map');*/

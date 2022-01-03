@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Depot;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -46,6 +47,32 @@ class DepotController extends Controller
             return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
             }
         }
+    //Get depot details
+    public function getDepotDetails(Request $request){
+        $depot_id = $request->depot_id;
+        $depotDetails = Depot::find($depot_id);
+        return response()->json(['details'=>$depotDetails]);
+    }
+    //Update dep[ot details
+    public function updateDepotDetails(Request $request){
+        $depot_id = $request->cid_depot;
+        $validator = \Validator::make($request->all(),[
+
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+        }else{
+            $depot = Depot::find($depot_id);
+            $depot->name = $request->name;
+            $depot->city = $request->city;
+            $query = $depot->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Dane depotu zostały zaktualizowane']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
     //View map ONLY FOR TESTING
     /*public function getMap(Request $request)
     {

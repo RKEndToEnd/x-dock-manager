@@ -28,7 +28,6 @@
 
 @include('depots.create-modal')
 @include('depots.edit-modal')
-
 @endsection
 
 @section('javascript')

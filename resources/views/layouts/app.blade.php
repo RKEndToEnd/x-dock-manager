@@ -61,6 +61,7 @@
 
                                     <a class="dropdown-item" href="{{ route('users.index') }}">Użytkownicy</a>
                                     <a class="dropdown-item" href="{{ route('depots.index') }}">Depoty</a>
+                                    <a class="dropdown-item" href="{{ route('tower.index') }}">Control Tower</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

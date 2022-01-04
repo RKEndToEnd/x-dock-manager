@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/depot.js": "/js/depot.js",
     "/js/users.js": "/js/users.js",
+    "/js/track.js": "/js/track.js",
     "/css/app.css": "/css/app.css"
 }

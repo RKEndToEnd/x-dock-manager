@@ -36,7 +36,7 @@ class DepotController extends Controller
     //Create new depot
     public function createDepot(Request $request)
     {
-        $depot = new Depot(($request->all()));
+        $depot = new Depot($request->all());
         $depot->name = $request->name;
         $depot->city = $request->city;
         /*$depot->map_link = $request->map_link;*/
@@ -46,14 +46,14 @@ class DepotController extends Controller
         }else{
             return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
             }
-        }
+    }
     //Get depot details
     public function getDepotDetails(Request $request){
         $depot_id = $request->depot_id;
         $depotDetails = Depot::find($depot_id);
         return response()->json(['details'=>$depotDetails]);
     }
-    //Update dep[ot details
+    //Update depot details
     public function updateDepotDetails(Request $request){
         $depot_id = $request->cid_depot;
         $validator = \Validator::make($request->all(),[

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepotController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ControlTowerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,10 @@ Route::post('createDepot',[DepotController::class,'createDepot'])->name('create.
 Route::post('/getDepotDetails',[DepotController::class,'getDepotDetails'])->name('get.depot.details');
 Route::post('/updateDepotDetails',[DepotController::class,'updateDepotDetails'])->name('update.depot.details');
 Route::post('/deleteDepot',[DepotController::class,'deleteDepot'])->name('delete.depot');
+
+Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
+Route::get('getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');
+Route::post('createTrack',[ControlTowerController::class,'createTrack'])->name('create.track');
 
 // ONLY FOR TESTING
 /*Route::get('getMap',[DepotController::class,'getMap'])->name('get.map');*/

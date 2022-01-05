@@ -48,7 +48,8 @@ class DepotController extends Controller
             }
     }
     //Get depot details
-    public function getDepotDetails(Request $request){
+    public function getDepotDetails(Request $request)
+    {
         $depot_id = $request->depot_id;
         $depotDetails = Depot::find($depot_id);
         return response()->json(['details'=>$depotDetails]);

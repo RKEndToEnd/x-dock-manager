@@ -38,15 +38,17 @@
     </div>
 
 @include('tower.create-modal')
+@include('tower.edit-modal')
 @endsection
 
 @section('javascript')
     const trackAllUrl = "{{ route('get.track.list') }}/";
+    const trackGetUrl ="{{ route('get.track.details') }}/";
 
     $.ajaxSetup({
     headers:{
     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-    }
+        }
     });
 
 @endsection

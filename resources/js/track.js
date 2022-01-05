@@ -51,3 +51,19 @@ $('#create-track-form').on('submit', function (e){
         }
     });
 });
+//Edit track - get details
+$(document).on('click', '#editTrackBtn', function (){
+    var track_id = $(this).data('id');
+    /*alert(track_ids);*/
+    $('.editTrack').find('form')[0].reset();
+    $('.editTrack').find('span.error-text').text('');
+    $.get(trackGetUrl,{track_id:track_id}, function(data){
+        $('.editTrack').find('input[name="cid_track"]').val(data.details.id);
+        $('.editTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
+        $('.editTrack').find('input[name="track_id"]').val(data.details.track_id);
+        $('.editTrack').find('input[name="track_type"]').val(data.details.track_type);
+        $('.editTrack').find('input[name="freight"]').val(data.details.freight);
+        $('.editTrack').find('input[name="eta"]').val(data.details.eta);
+        $('.editTrack').modal('show');
+    },'json');
+});

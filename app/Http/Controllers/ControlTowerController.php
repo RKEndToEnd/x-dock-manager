@@ -27,9 +27,8 @@ class ControlTowerController extends Controller
             ->addIndexColumn()
             ->addColumn('actions', function($row){
                 return'<div class="btn-group">
-                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].' id="editTrackBtn">E</button>
-                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].' id="deleteTrackBtn">X</button>
-
+                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].'" id="editTrackBtn">E</button>
+                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteTrackBtn">X</button>
             </div>';
         })
         ->rawColumns(['actions'])
@@ -50,6 +49,13 @@ class ControlTowerController extends Controller
         }else{
             return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
         }
+    }
+    //Get track details
+    public function getTrackDetails(Request $request)
+    {
+        $track_id = $request->track_id;
+        $trackDetails = ControlTower::find($track_id);
+        return response()->json(['details'=>$trackDetails]);
     }
 
     /**

@@ -44,7 +44,7 @@ $('#create-depot-form').on('submit', function (e){
 $(document).on('click', '#editDepotBtn', function (){
     var depot_id = $(this).data('id');
     /*$('.editDepot').find('form')[0].reset();
-    $('.editdepot').find('span.error-text').text('');*/
+    $('.editDepot').find('span.error-text').text('');*/
     $.post(depotGetUrl,{depot_id:depot_id}, function(data){
         $('.editDepot').find('input[name="cid_depot"]').val(data.details.id);
         $('.editDepot').find('input[name="name"]').val(data.details.name);

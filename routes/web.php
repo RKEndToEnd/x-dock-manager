@@ -39,6 +39,9 @@ Route::post('/deleteDepot',[DepotController::class,'deleteDepot'])->name('delete
 Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
 Route::get('getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');
 Route::post('createTrack',[ControlTowerController::class,'createTrack'])->name('create.track');
+Route::get('/getTrackDetails',[ControlTowerController::class,'getTrackDetails'])->name('get.track.details');
+Route::post('/updateTrackDetails',[DepotController::class,'updateTrackDetails'])->name('update.track.details');
+
 
 // ONLY FOR TESTING
 /*Route::get('getMap',[DepotController::class,'getMap'])->name('get.map');*/

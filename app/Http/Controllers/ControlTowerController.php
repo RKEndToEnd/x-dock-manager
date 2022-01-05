@@ -57,6 +57,29 @@ class ControlTowerController extends Controller
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details'=>$trackDetails]);
     }
+    //Update track details
+    public function updateTrackDetails(Request $request){
+        $track_id = $request->cid_track;
+        $validator = \Validator::make($request->all(),[
+
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+        }else{
+            $track = ControlTower::find($track_id);
+            $track->vehicle_id = $request->vehicle_id;
+            $track->track_id = $request->track_id;
+            $track->track_type = $request->track_type;
+            $track->freight = $request->freight;
+            $track->eta = $request->eta;
+            $query = $track->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Dane trasy zostały zaktualizowane']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
 
     /**
      * Store a newly created resource in storage.

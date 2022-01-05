@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ControlTower;
 use Carbon\Carbon;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -14,7 +15,7 @@ class ControlTowerController extends Controller
     {
         return view('tower.index');
     }
-    //Get all tracks
+//Get all tracks
     public function getTrackList()
     {
         $tracks = ControlTower::all();
@@ -24,12 +25,15 @@ class ControlTowerController extends Controller
                 return '<div class="btn-group">
                             <button class="btn btn-sm btn-warning" data-id="' . $row['id'] . '" id="editTrackBtn">E</button>
                             <button class="btn btn-sm btn-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn">X</button>
-            </div>';
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-primary" data-id="'.$row['id'].'" id="dockTrackBtn">P</button>
+                        </div>';
             })
             ->rawColumns(['actions'])
             ->make(true);
     }
-    //Create new track
+//Create new track
     public function createTrack(Request $request)
     {
         $track = new ControlTower($request->all());
@@ -46,14 +50,14 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
         }
     }
-    //Get track details
+//Get track details
     public function getTrackDetails(Request $request)
     {
         $track_id = $request->track_id;
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details' => $trackDetails]);
     }
-    //Update track details
+//Update track details
     public function updateTrackDetails(Request $request)
     {
         $track_id = $request->cid_track;
@@ -79,7 +83,7 @@ class ControlTowerController extends Controller
             }
         }
     }
-    //Delete track
+//Delete track
     public function deleteTrack(Request $request)
     {
         $track_id = $request->track_id;
@@ -89,5 +93,12 @@ class ControlTowerController extends Controller
         } else {
             return response()->json(['code' => 0, 'msg' => 'Wystapił nieoczekiwany błąd']);
         }
+    }
+//Docking track get data
+    public function getDockDataTrack(Request $request)
+    {
+        $track_id = $request->track_id;
+        $trackDetails = ControlTower::find($track_id);
+        return response()->json(['details'=>$trackDetails]);
     }
 }

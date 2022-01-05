@@ -3,5 +3,6 @@
     "/js/depot.js": "/js/depot.js",
     "/js/users.js": "/js/users.js",
     "/js/track.js": "/js/track.js",
+    "/js/trackOps.js": "/js/trackOps.js",
     "/css/app.css": "/css/app.css"
 }

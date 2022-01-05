@@ -43,6 +43,8 @@ Route::post('/getTrackDetails',[ControlTowerController::class,'getTrackDetails']
 Route::post('/updateTrackDetails',[ControlTowerController::class,'updateTrackDetails'])->name('update.track.details');
 Route::post('/deleteTrack',[ControlTowerController::class,'deleteTrack'])->name('delete.track');
 
+Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack'])->name('get.dock.data.track');
+
 
 // ONLY FOR TESTING
 /*Route::get('getMap',[DepotController::class,'getMap'])->name('get.map');*/

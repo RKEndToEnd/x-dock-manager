@@ -19,8 +19,8 @@
                             <th>Godz. przyjazdu / wyjazdu</th>
                             <th>Podstawienie plan</th>
                             <th>Podstawiono</th>
-                            <th>Rampa</th>
                             <th>ID</th>
+                            <th>Rampa</th>
                             <th>Operacja START</th>
                             <th>STOP PLAN</th>
                             <th>Dokumenty PLAN</th>

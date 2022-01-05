@@ -22,8 +22,8 @@ class CreateControlTowersTable extends Migration
             $table->dateTime('eta');
             $table->dateTime('docking_plan')->nullable();
             $table->dateTime('docked_at')->nullable();
-            $table->string('worker_id',10)->nullable();
             $table->string('ramp',10)->nullable();
+            $table->string('worker_id',10)->nullable();
             $table->dateTime('task_start')->nullable();
             $table->dateTime('task_end_exp')->nullable();
             $table->dateTime('doc_return_exp')->nullable();

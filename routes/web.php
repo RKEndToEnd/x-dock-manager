@@ -44,6 +44,7 @@ Route::post('/updateTrackDetails',[ControlTowerController::class,'updateTrackDet
 Route::post('/deleteTrack',[ControlTowerController::class,'deleteTrack'])->name('delete.track');
 
 Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack'])->name('get.dock.data.track');
+Route::post('/dockTrack',[ControlTowerController::class,'dockTrack'])->name('dock.track');
 
 
 // ONLY FOR TESTING

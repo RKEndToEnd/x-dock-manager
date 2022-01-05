@@ -101,4 +101,25 @@ class ControlTowerController extends Controller
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details'=>$trackDetails]);
     }
+//Docking track update data
+    public function dockTrack(Request $request)
+    {
+        $track_id = $request->cid_dock_track;
+        $validator = \Validator::make($request->all(),[
+            'ramp'=>'required',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else{
+            $track = ControlTower::find($track_id);
+            $track->ramp = $request->ramp;
+            $track->docked_at = Carbon::now();
+            $query = $track->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Samochód poodstawiony pod rampę']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
 }

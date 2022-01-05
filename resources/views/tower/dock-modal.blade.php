@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {{--<form action="<?= route('create.track') ?>" method="post" id="dock-track-form">--}}
+                <form action="<?= route('dock.track') ?>" method="post" id="dock-track-form">
                     @csrf
                     <input type="hidden" name="cid_dock_track">
                     <div class="form-group">

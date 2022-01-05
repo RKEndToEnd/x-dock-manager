@@ -70,6 +70,7 @@ class ControlTowerController extends Controller
             $track->track_type = $request->track_type;
             $track->freight = $request->freight;
             $track->eta = $request->eta;
+            $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
             $query = $track->save();
             if ($query) {
                 return response()->json(['code' => 1, 'msg' => 'Dane trasy zostały zaktualizowane']);

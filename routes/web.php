@@ -37,10 +37,11 @@ Route::post('/updateDepotDetails',[DepotController::class,'updateDepotDetails'])
 Route::post('/deleteDepot',[DepotController::class,'deleteDepot'])->name('delete.depot');
 
 Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
-Route::get('getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');
-Route::post('createTrack',[ControlTowerController::class,'createTrack'])->name('create.track');
-Route::get('/getTrackDetails',[ControlTowerController::class,'getTrackDetails'])->name('get.track.details');
+Route::get('/getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');
+Route::post('/createTrack',[ControlTowerController::class,'createTrack'])->name('create.track');
+Route::post('/getTrackDetails',[ControlTowerController::class,'getTrackDetails'])->name('get.track.details');
 Route::post('/updateTrackDetails',[ControlTowerController::class,'updateTrackDetails'])->name('update.track.details');
+Route::post('/deleteTrack',[ControlTowerController::class,'deleteTrack'])->name('delete.track');
 
 
 // ONLY FOR TESTING

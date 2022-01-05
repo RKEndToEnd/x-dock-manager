@@ -43,7 +43,8 @@
 
 @section('javascript')
     const trackAllUrl = "{{ route('get.track.list') }}/";
-    const trackGetUrl ="{{ route('get.track.details') }}/";
+    const trackGetUrl ="{{ route('get.track.details') }}";
+    const trackDeleteUrl ="{{ route('delete.track') }}";
 
     $.ajaxSetup({
     headers:{

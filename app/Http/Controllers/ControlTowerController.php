@@ -130,4 +130,27 @@ class ControlTowerController extends Controller
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details'=>$trackDetails]);
     }
+//Load start update data
+    public function loadStart(Request $request)
+    {
+        $track_id = $request->cid_l_start_track;
+        $validator = \Validator::make($request->all(),[
+           'worker_id'=>'required'
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+        }else{
+            $track = ControlTower::find($track_id);
+            $track->worker_id = $request->worker_id;
+            $track->task_start = Carbon::now();
+            $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 +15);
+            $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+            $query = $track->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Operacja przeładunku rozpoczęta']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
 }

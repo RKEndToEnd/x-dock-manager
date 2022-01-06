@@ -65,11 +65,13 @@ class UserController extends Controller
         $user_id = $request->cid;
 
         $validator = \Validator::make($request->all(),[
-            /*'name'=>'required',
-            'email'=>'required|unique:users,email'*/
+            'name'=>'required|string|max:50',
+            'surname'=>'required|string|max:50',
+            'email'=>'required|email|unique:users',
+            'depot_id'=>'required',
         ]);
         if (!$validator->passes()){
-            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
             $user = User::find($user_id);
             $user->name = $request->name;

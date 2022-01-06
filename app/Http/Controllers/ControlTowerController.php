@@ -37,18 +37,30 @@ class ControlTowerController extends Controller
 //Create new track
     public function createTrack(Request $request)
     {
-        $track = new ControlTower($request->all());
-        $track->vehicle_id = $request->vehicle_id;
-        $track->track_id = $request->track_id;
-        $track->track_type = $request->track_type;
-        $track->freight = $request->freight;
-        $track->eta = $request->eta;
-        $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
-        $query = $track->save();
-        if ($query) {
-            return response()->json(['code' => 1, 'msg' => 'Trasa została dodana do bazy danych']);
+        $track_id = $request->cid_create_track;
+        $validator = \Validator::make($request->all(), [
+            'vehicle_id'=>'required|max:20',
+            'track_id'=>'required|unique:control_towers|max:10',
+            'track_type'=>'required|max:5',
+            'freight'=>'required|numeric|between:1,66',
+            'eta'=>'required|date',
+        ]);
+        if (!$validator->passes()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-            return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            $track = new ControlTower($request->all());
+            $track->vehicle_id = $request->vehicle_id;
+            $track->track_id = $request->track_id;
+            $track->track_type = $request->track_type;
+            $track->freight = $request->freight;
+            $track->eta = $request->eta;
+            $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+            $query = $track->save();
+            if ($query) {
+                return response()->json(['code' => 1, 'msg' => 'Trasa została dodana do bazy danych']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            }
         }
     }
 //Get track details
@@ -63,11 +75,14 @@ class ControlTowerController extends Controller
     {
         $track_id = $request->cid_track;
         $validator = \Validator::make($request->all(), [
-
+            'vehicle_id'=>'required|max:20',
+            'track_id'=>'required|unique:control_towers|max:10',
+            'track_type'=>'required|max:5',
+            'freight'=>'required|numeric|between:1,66',
+            'eta'=>'required|date',
         ]);
-        if (!$validator->passes())
-        {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray]);
+        if (!$validator->passes()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
             $track->vehicle_id = $request->vehicle_id;
@@ -107,7 +122,7 @@ class ControlTowerController extends Controller
     {
         $track_id = $request->cid_dock_track;
         $validator = \Validator::make($request->all(),[
-            'ramp'=>'required',
+            'ramp'=>'required|max:5',
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -135,10 +150,10 @@ class ControlTowerController extends Controller
     {
         $track_id = $request->cid_l_start_track;
         $validator = \Validator::make($request->all(),[
-           'worker_id'=>'required'
+           'worker_id'=>'required|max:5',
         ]);
         if (!$validator->passes()){
-            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
             $track = ControlTower::find($track_id);
             $track->worker_id = $request->worker_id;

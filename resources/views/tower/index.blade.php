@@ -19,8 +19,8 @@
                             <th>Godz. przyjazdu / wyjazdu</th>
                             <th>Podstawienie plan</th>
                             <th>Podstawiono</th>
-                            <th>ID</th>
                             <th>Rampa</th>
+                            <th>ID</th>
                             <th>Operacja START</th>
                             <th>STOP PLAN</th>
                             <th>Dokumenty PLAN</th>
@@ -37,9 +37,10 @@
         </div>
     </div>
 
-@include('tower.create-modal')
-@include('tower.edit-modal')
-@include('tower.dock-modal')
+    @include('tower.create-modal')
+    @include('tower.edit-modal')
+    @include('tower.dock-modal')
+    @include('tower.load-start-modal')
 @endsection
 
 @section('javascript')
@@ -47,6 +48,7 @@
     const trackGetUrl ="{{ route('get.track.details') }}";
     const trackDeleteUrl ="{{ route('delete.track') }}";
     const dockDataUrl = "{{ route('get.dock.data.track') }}";
+    const loadStartUrl = "{{ route('get.load.start.data') }}";
 
     $.ajaxSetup({
     headers:{

@@ -37,3 +37,15 @@ $('#dock-track-form').on('submit', function (e){
         }
     });
 });
+//Load start get data
+$(document).on('click','#startTrackBtn',function (){
+    var track_id = $(this).data('id');
+        $.post(loadStartUrl,{track_id:track_id}, function (data){
+            $('.loadStartTrack').find('input[name="cid_l_start_track"]').val(data.details.id);
+            $('.loadStartTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
+            $('.loadStartTrack').find('input[name="track_id"]').val(data.details.track_id);
+            $('.loadStartTrack').find('input[name="ramp"]').val(data.details.ramp);
+            $('.loadStartTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+            $('.loadStartTrack').modal('show');
+        },'json');
+});

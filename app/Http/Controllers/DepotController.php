@@ -36,16 +36,26 @@ class DepotController extends Controller
     //Create new depot
     public function createDepot(Request $request)
     {
-        $depot = new Depot($request->all());
-        $depot->name = $request->name;
-        $depot->city = $request->city;
-        /*$depot->map_link = $request->map_link;*/
-        $query = $depot->save();
-        if ($query){
-            return response()->json(['code'=>1,'msg'=>'Depot został dodany do bazy danych']);
-        }else{
-            return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+        $depot_id = $request->cid_depot;
+        $validator = \Validator::make($request->all(),[
+            'name'=>'required|string|max:5',
+            'city'=>'required|string|max:50',
+            'map_link'=>'string|max:300|nullable',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else {
+            $depot = new Depot($request->all());
+            $depot->name = $request->name;
+            $depot->city = $request->city;
+            /*$depot->map_link = $request->map_link;*/
+            $query = $depot->save();
+            if ($query) {
+                return response()->json(['code' => 1, 'msg' => 'Depot został dodany do bazy danych']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }
+        }
     }
     //Get depot details
     public function getDepotDetails(Request $request)
@@ -58,10 +68,12 @@ class DepotController extends Controller
     public function updateDepotDetails(Request $request){
         $depot_id = $request->cid_depot;
         $validator = \Validator::make($request->all(),[
-
+            'name'=>'required|string|max:5',
+            'city'=>'required|string|max:50',
+            'map_link'=>'string|max:300|nullable',
         ]);
         if (!$validator->passes()){
-            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray]);
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
             $depot = Depot::find($depot_id);
             $depot->name = $request->name;

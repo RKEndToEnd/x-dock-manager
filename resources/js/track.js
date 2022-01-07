@@ -23,6 +23,13 @@ $('#tracks-all').DataTable({
        {data:'comment', name:'comment'},
        {data:'actions',name:'actions',orderable:false, searchable:false},
    ]
+}).on('draw',function (){
+    $('input[name="track-checkbox"]').each(function (){
+        this.checked = false;
+    });
+    $('input[name="tracks-checkbox"]').prop('checked', false);
+    $('button#deleteAllMarkedBtn').addClass('d-none');
+
 });
 //Create new track
 $('#create-track-form').on('submit', function (e){
@@ -129,6 +136,7 @@ $(document).on('click','input[name="tracks-checkbox"]', function (){
            this.checked=false;
        })
    }
+    toggledeleteAllMarkedBtn();
 });
 $(document).on('change','input[name="track-checkbox"]',function (){
    if ($('input[name="track-checkbox"]').length == $('input[name="track-checkbox"]:checked').length){
@@ -136,4 +144,13 @@ $(document).on('change','input[name="track-checkbox"]',function (){
    }else{
        $('input[name="tracks-checkbox"]').prop('checked',false);
    }
+    toggledeleteAllMarkedBtn();
 });
+//deleteAllMarkedBtn hiding
+function toggledeleteAllMarkedBtn(){
+    if ($('input[name="track-checkbox"]:checked').length > 0){
+        $('button#deleteAllMarkedBtn').text('Usuń ('+$('input[name="track-checkbox"]:checked').length+')').removeClass('d-none');
+    }else{
+        $('button#deleteAllMarkedBtn').addClass('d-none');
+    }
+}

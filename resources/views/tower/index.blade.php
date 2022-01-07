@@ -28,7 +28,7 @@
                             <th>Operacja STOP</th>
                             <th>Dokumenty gotowe</th>
                             <th>Komentarz</th>
-                            <th>Akcje<button class="btn btn-sm btn-outline-danger">Usuń zaznaczone</button></th>
+                            <th>Akcje<button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone</button></th>
                             </thead>
                             <tbody></tbody>
                         </table>

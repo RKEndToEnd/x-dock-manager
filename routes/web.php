@@ -42,6 +42,7 @@ Route::post('/createTrack',[ControlTowerController::class,'createTrack'])->name(
 Route::post('/getTrackDetails',[ControlTowerController::class,'getTrackDetails'])->name('get.track.details');
 Route::post('/updateTrackDetails',[ControlTowerController::class,'updateTrackDetails'])->name('update.track.details');
 Route::post('/deleteTrack',[ControlTowerController::class,'deleteTrack'])->name('delete.track');
+Route::post('/bulkDeleteTrack',[ControlTowerController::class,'bulkDeleteTrack'])->name('bulk.delete.track');
 
 Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack'])->name('get.dock.data.track');
 Route::post('/dockTrack',[ControlTowerController::class,'dockTrack'])->name('dock.track');

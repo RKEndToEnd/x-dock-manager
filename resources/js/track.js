@@ -154,3 +154,30 @@ function toggledeleteAllMarkedBtn(){
         $('button#deleteAllMarkedBtn').addClass('d-none');
     }
 }
+//Deleting marked tracks
+$(document).on('click', 'button#deleteAllMarkedBtn', function (){
+    var checkedTracks = [];
+    $('input[name="track-checkbox"]:checked').each(function (){
+       checkedTracks.push($(this).data('id'));
+    })
+    var url = trackBulkDeleteUrl;
+    if (checkedTracks.length > 0){
+        Swal.fire({
+            title: 'Potwierdź!',
+            html:'Czy na pewno usunąć zaznaczone <b>('+checkedTracks.length+')</b> trasy?',
+            showDenyButton: true,
+            confirmButtonText: 'Tak, usuń',
+            denyButtonText: `Anuluj`,
+            allowOutsideClick:false,
+        }).then(function (result){
+            if (result.value){
+                $.post(url,{tracks_ids:checkedTracks},function (data) {
+                    if (data.code == 1) {
+                        $('#tracks-all').DataTable().ajax.reload(null, true);
+                        Swal.fire(data.msg);
+                    }
+                },'json');
+            }
+        })
+    }
+});

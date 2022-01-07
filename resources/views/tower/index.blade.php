@@ -50,6 +50,7 @@
     const trackDeleteUrl ="{{ route('delete.track') }}";
     const dockDataUrl = "{{ route('get.dock.data.track') }}";
     const loadStartUrl = "{{ route('get.load.start.data') }}";
+    const trackBulkDeleteUrl = "{{ route('bulk.delete.track') }}";
 
     $.ajaxSetup({
     headers:{

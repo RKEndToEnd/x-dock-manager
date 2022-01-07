@@ -113,6 +113,13 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'msg' => 'Wystapił nieoczekiwany błąd']);
         }
     }
+//Deleting selected tracks
+    public function bulkDeleteTrack(Request $request)
+    {
+        $track_ids = $request->tracks_ids;
+        ControlTower::whereIn('id',$track_ids)->delete();
+        return response()->json(['code'=>1,'msg'=>'Zaznaczone trasy zostały usuniete z bazy danych']);
+    }
 //Docking track get data
     public function getDockDataTrack(Request $request)
     {

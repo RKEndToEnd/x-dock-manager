@@ -5,12 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md container-fluid">
                 <div class="card">
-                    <div class="card-header"><h4>Trasy - Tablica przyjazdów i wyjazdów</h4>
+                    <div class="card-header"><h4>Trasy - Tablica operacyjna przyjazdów i wyjazdów</h4>
                         <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack">Dodaj trasę</button>
                     </div>
                     <div class="card-body">
                         <table class=" table table-hover table-bordered table-striped table-responsive" id="tracks-all">
                             <thead>
+                            <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
                             <th>#</th>
                             <th>Pojazd</th>
                             <th>Trasa</th>
@@ -27,7 +28,7 @@
                             <th>Operacja STOP</th>
                             <th>Dokumenty gotowe</th>
                             <th>Komentarz</th>
-                            <th>Akcje</th>
+                            <th>Akcje<button class="btn btn-sm btn-outline-danger">Usuń zaznaczone</button></th>
                             </thead>
                             <tbody></tbody>
                         </table>

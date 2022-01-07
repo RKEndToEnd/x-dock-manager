@@ -4,7 +4,8 @@ $('#tracks-all').DataTable({
    info:true,
    ajax: trackAllUrl,
    columns:[
-       {data:'id', name:'id'},
+       {data:'checkbox', name:'checkbox',orderable:false, searchable:false},
+       {data:'DT_RowIndex', name:'DT_RowIndex'},
        {data:'vehicle_id', name:'vehicle_id'},
        {data:'track_id', name:'track_id'},
        {data:'track_type', name:'track_type'},
@@ -20,7 +21,7 @@ $('#tracks-all').DataTable({
        {data:'task_end', name:'task_end'},
        {data:'doc_ready', name:'doc_ready'},
        {data:'comment', name:'comment'},
-       {data:'actions',name:'actions'},
+       {data:'actions',name:'actions',orderable:false, searchable:false},
    ]
 });
 //Create new track
@@ -116,4 +117,23 @@ $(document).on('click','#deleteTrackBtn', function (){
             },'json');
         }
     });
+});
+//Checkbox marking
+$(document).on('click','input[name="tracks-checkbox"]', function (){
+   if (this.checked){
+       $('input[name="track-checkbox"]').each(function (){
+           this.checked=true;
+       });
+   }else{
+       $('input[name="track-checkbox"]').each(function (){
+           this.checked=false;
+       })
+   }
+});
+$(document).on('change','input[name="track-checkbox"]',function (){
+   if ($('input[name="track-checkbox"]').length == $('input[name="track-checkbox"]:checked').length){
+       $('input[name="tracks-checkbox"]').prop('checked',true);
+   }else{
+       $('input[name="tracks-checkbox"]').prop('checked',false);
+   }
 });

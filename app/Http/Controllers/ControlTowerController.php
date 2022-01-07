@@ -31,7 +31,10 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-primary" data-id="'.$row['id'].'" id="startTrackBtn">S</button>
                         </div>';
             })
-            ->rawColumns(['actions'])
+            ->addColumn('checkbox', function ($row){
+                return'<input type="checkbox" name="track-checkbox" data-id="'.$row['id'].'"><label></label>';
+            })
+            ->rawColumns(['actions','checkbox'])
             ->make(true);
     }
 //Create new track

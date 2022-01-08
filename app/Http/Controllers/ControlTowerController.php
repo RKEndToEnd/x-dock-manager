@@ -34,6 +34,11 @@ class ControlTowerController extends Controller
             ->addColumn('checkbox', function ($row){
                 return'<input type="checkbox" name="track-checkbox" data-id="'.$row['id'].'"><label></label>';
             })
+            ->setRowId('id')
+            ->setRowClass(function ($row){
+                 if ($row->docked_at>$row->eta)
+                 return  2 == 0 ? '' : 'alert-danger';
+            })
             ->rawColumns(['actions','checkbox'])
             ->make(true);
     }

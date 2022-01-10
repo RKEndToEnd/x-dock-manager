@@ -90,7 +90,6 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_track;
         $validator = \Validator::make($request->all(), [
             'vehicle_id'=>'required|max:20',
-            'track_id'=>'required|unique:control_towers|max:10',
             'track_type'=>'required|max:5',
             'freight'=>'required|numeric|between:1,66',
             'eta'=>'required|date',
@@ -100,7 +99,6 @@ class ControlTowerController extends Controller
         } else {
             $track = ControlTower::find($track_id);
             $track->vehicle_id = $request->vehicle_id;
-            $track->track_id = $request->track_id;
             $track->track_type = $request->track_type;
             $track->freight = $request->freight;
             $track->eta = $request->eta;
@@ -159,14 +157,14 @@ class ControlTowerController extends Controller
             }
         }
     }
-//Load start get data
+//Load start track get data
     public function getLoadStartData(Request $request)
     {
         $track_id = $request->track_id;
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details'=>$trackDetails]);
     }
-//Load start update data
+//Load start track update data
     public function loadStart(Request $request)
     {
         $track_id = $request->cid_l_start_track;

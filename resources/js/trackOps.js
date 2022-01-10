@@ -37,7 +37,7 @@ $('#dock-track-form').on('submit', function (e){
         }
     });
 });
-//Load start get data
+//Load start track get data
 $(document).on('click','#startTrackBtn',function (){
     var track_id = $(this).data('id');
         $.post(loadStartUrl,{track_id:track_id}, function (data){
@@ -49,7 +49,7 @@ $(document).on('click','#startTrackBtn',function (){
             $('.loadStartTrack').modal('show');
         },'json');
 });
-//Load track update data
+//Load start track update data
 $('#load-start-track-form').on('submit', function (e){
     e.preventDefault();
     var form = this;

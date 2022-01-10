@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Numer trasy</label>
-                        <input type="text" class="form-control" name="track_id"placeholder="Wpisz numer trasy">
+                        <input type="text" class="form-control" name="track_id" disabled>
                         <span class="text-danger error-text track_id_error"></span>
                     </div>
                     <div class="form-group">

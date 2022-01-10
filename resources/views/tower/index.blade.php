@@ -42,6 +42,7 @@
     @include('tower.edit-modal')
     @include('tower.dock-modal')
     @include('tower.load-start-modal')
+    @include('tower.load-stop-modal')
 @endsection
 
 @section('javascript')
@@ -51,6 +52,7 @@
     const dockDataUrl = "{{ route('get.dock.data.track') }}";
     const loadStartUrl = "{{ route('get.load.start.data') }}";
     const trackBulkDeleteUrl = "{{ route('bulk.delete.track') }}";
+    const loadStopUrl = "{{ route('get.load.stop.data') }}";
 
     $.ajaxSetup({
     headers:{

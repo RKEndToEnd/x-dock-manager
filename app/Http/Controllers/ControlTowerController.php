@@ -27,24 +27,22 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn">X</button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-id="'.$row['id'].'" id="dockTrackBtn" name="dockTest">P</button>
+                            <button class="btn btn-sm btn-outline-info" data-id="'.$row['id'].'" id="dockTrackBtn">P</button>
                             <button class="btn btn-sm btn-outline-primary" data-id="'.$row['id'].'" id="startTrackBtn">S</button>
+                            <button class="btn btn-sm btn-outline-success" data-id="'.$row['id'].'" id="stopTrackBtn">F</button>
+
                         </div>';
             })
             ->addColumn('checkbox', function ($row){
                 return'<input type="checkbox" name="track-checkbox" data-id="'.$row['id'].'"><label></label>';
             })
-            ->setRowId('id')
+            /*->setRowId('id')*/
             ->setRowClass(function ($row){
                  if (Carbon::now()>$row->docking_plan)
                     return  2 == 0 ? '' : 'alert-danger';
                  else if (Carbon::now()>Carbon::parse($row->docking_plan)->subMinutes(30) && $row->ramp == null)
                     return  2 == 0 ? '' : 'alert-warning';
             })
-            /*->editColumn('actions',function($row){
-                if ($row->docked_at->exists())
-                    return id('#dockTest').addClass('d-none');
-            })*/
             ->rawColumns(['actions','checkbox'])
             ->make(true);
     }
@@ -182,6 +180,32 @@ class ControlTowerController extends Controller
             $query = $track->save();
             if ($query){
                 return response()->json(['code'=>1,'msg'=>'Operacja przeładunku rozpoczęta']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
+//Load stop track get data
+    public function getLoadStopData(Request $request)
+    {
+        $track_id = $request->track_id;
+        $trackDetails = ControlTower::find($track_id);
+        return response()->json(['details'=>$trackDetails]);
+    }
+//Load stop track update data
+    public function loadStop(Request $request)
+    {
+        $track_id = $request->cid_l_stop_track;
+        $validator = \Validator::make($request->all(),[
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else{
+            $track = ControlTower::find($track_id);
+            $track->task_end = Carbon::now();
+            $query = $track->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Operacja przeładunku zakończona']);
             }else{
                 return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
             }

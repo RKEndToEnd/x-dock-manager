@@ -48,6 +48,8 @@ Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack
 Route::post('/dockTrack',[ControlTowerController::class,'dockTrack'])->name('dock.track');
 Route::post('/getLoadStartData',[ControlTowerController::class,'getLoadStartData'])->name('get.load.start.data');
 Route::post('/loadStart',[ControlTowerController::class,'loadStart'])->name('load.start');
+Route::post('/getLoadStopData',[ControlTowerController::class,'getLoadStopData'])->name('get.load.stop.data');
+Route::post('/loadStop',[ControlTowerController::class,'loadStop'])->name('load.stop');
 
 
 // ONLY FOR TESTING

@@ -77,3 +77,43 @@ $('#load-start-track-form').on('submit', function (e){
         }
     });
 });
+//Load stop track get data
+$(document).on('click','#stopTrackBtn',function (){
+    var track_id = $(this).data('id');
+    $.post(loadStopUrl,{track_id:track_id}, function (data){
+        $('.loadStopTrack').find('input[name="cid_l_stop_track"]').val(data.details.id);
+        $('.loadStopTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
+        $('.loadStopTrack').find('input[name="track_id"]').val(data.details.track_id);
+        $('.loadStopTrack').find('input[name="ramp"]').val(data.details.ramp);
+        $('.loadStopTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.loadStopTrack').modal('show');
+    },'json');
+});
+//Load stop track update data
+$('#load-stop-track-form').on('submit', function (e){
+    e.preventDefault();
+    var form = this;
+    $.ajax({
+        url:$(form).attr('action'),
+        method:$(form).attr('method'),
+        data:new FormData(form),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend: function (){
+            $(form).find('span.error-text').text('');
+        },
+        success: function(data){
+            if(data.code == 0){
+                $.each(data.error, function(prefix, val){
+                    $(form).find('span.'+prefix+'_error').text(val[0]);
+                });
+            }else{
+                $('#tracks-all').DataTable().ajax.reload(null, false);
+                $('.loadStopTrack').modal('hide');
+                $('.loadStopTrack').find('form')[0].reset();
+                Swal.fire(data.msg);
+            }
+        }
+    });
+});

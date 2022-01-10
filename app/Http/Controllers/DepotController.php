@@ -38,7 +38,7 @@ class DepotController extends Controller
     {
         $depot_id = $request->cid_depot;
         $validator = \Validator::make($request->all(),[
-            'name'=>'required|string|max:5',
+            'name'=>'required|string|unique:depots|max:5',
             'city'=>'required|string|max:50',
             'map_link'=>'string|max:300|nullable',
         ]);
@@ -68,7 +68,7 @@ class DepotController extends Controller
     public function updateDepotDetails(Request $request){
         $depot_id = $request->cid_depot;
         $validator = \Validator::make($request->all(),[
-            'name'=>'required|string|max:5',
+            'name'=>'required|string|unique:depots|max:5',
             'city'=>'required|string|max:50',
             'map_link'=>'string|max:300|nullable',
         ]);

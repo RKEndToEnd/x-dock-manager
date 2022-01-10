@@ -36,9 +36,9 @@ class ControlTowerController extends Controller
             })
             ->setRowId('id')
             ->setRowClass(function ($row){
-                 if (Carbon::now()>$row->eta)
+                 if (Carbon::now()>$row->docking_plan)
                     return  2 == 0 ? '' : 'alert-danger';
-                 else if (Carbon::now()>Carbon::parse($row->eta)->subMinutes(30))
+                 else if (Carbon::now()>Carbon::parse($row->docking_plan)->subMinutes(30) && $row->ramp == null)
                     return  2 == 0 ? '' : 'alert-warning';
             })
             /*->editColumn('actions',function($row){

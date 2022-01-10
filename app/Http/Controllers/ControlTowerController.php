@@ -27,7 +27,7 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn">X</button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-id="'.$row['id'].'" id="dockTrackBtn">P</button>
+                            <button class="btn btn-sm btn-outline-info" data-id="'.$row['id'].'" id="dockTrackBtn" name="dockTest">P</button>
                             <button class="btn btn-sm btn-outline-primary" data-id="'.$row['id'].'" id="startTrackBtn">S</button>
                         </div>';
             })
@@ -36,9 +36,15 @@ class ControlTowerController extends Controller
             })
             ->setRowId('id')
             ->setRowClass(function ($row){
-                 if ($row->docked_at>$row->eta)
-                 return  2 == 0 ? '' : 'alert-danger';
+                 if (Carbon::now()>$row->eta)
+                    return  2 == 0 ? '' : 'alert-danger';
+                 else if (Carbon::now()>Carbon::parse($row->eta)->subMinutes(30))
+                    return  2 == 0 ? '' : 'alert-warning';
             })
+            /*->editColumn('actions',function($row){
+                if ($row->docked_at->exists())
+                    return id('#dockTest').addClass('d-none');
+            })*/
             ->rawColumns(['actions','checkbox'])
             ->make(true);
     }

@@ -29,8 +29,8 @@ $('#tracks-all').DataTable({
     });
     $('input[name="tracks-checkbox"]').prop('checked', false);
     $('button#deleteAllMarkedBtn').addClass('d-none');
-
 });
+
 //Create new track
 $('#create-track-form').on('submit', function (e){
     e.preventDefault()

@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md container-fluid">
                 <div class="card">
-                    <div class="card-header"><h4>Trasy - Tablica operacyjna przyjazdów i wyjazdów</h4>
+                    <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
                         <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack">Dodaj trasę</button>
                     </div>
                     <div class="card-body">

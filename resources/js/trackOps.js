@@ -117,3 +117,43 @@ $('#load-stop-track-form').on('submit', function (e){
         }
     });
 });
+//Documents ready data
+$(document).on('click','#docReadyBtn', function (){
+   var track_id = $(this).data('id');
+    $.post(docReadyUrl,{track_id:track_id}, function (data){
+        $('.docReady').find('input[name="cid_doc_ready"]').val(data.details.id);
+        $('.docReady').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
+        $('.docReady').find('input[name="track_id"]').val(data.details.track_id);
+        $('.docReady').find('input[name="ramp"]').val(data.details.ramp);
+        $('.docReady').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.docReady').modal('show');
+    },'json');
+});
+//Documents ready update data
+$('#doc-ready-form').on('submit', function (e){
+    e.preventDefault();
+    var form = this;
+    $.ajax({
+        url:$(form).attr('action'),
+        method:$(form).attr('method'),
+        data:new FormData(form),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend: function (){
+            $(form).find('span.error-text').text('');
+        },
+        success: function(data){
+            if(data.code == 0){
+                $.each(data.error, function(prefix, val){
+                    $(form).find('span.'+prefix+'_error').text(val[0]);
+                });
+            }else{
+                $('#tracks-all').DataTable().ajax.reload(null, false);
+                $('.docReady').modal('hide');
+                $('.docReady').find('form')[0].reset();
+                Swal.fire(data.msg);
+            }
+        }
+    });
+});

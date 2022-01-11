@@ -9,7 +9,7 @@
                         <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack">Dodaj trasę</button>
                     </div>
                     <div class="card-body">
-                        <table class=" table table-hover table-bordered table-striped table-responsive" id="tracks-all">
+                        <table class=" table table-hover table-bordered table-responsive" id="tracks-all">
                             <thead>
                             <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
                             <th>#</th>
@@ -43,6 +43,7 @@
     @include('tower.dock-modal')
     @include('tower.load-start-modal')
     @include('tower.load-stop-modal')
+    @include('tower.doc-ready-modal')
 @endsection
 
 @section('javascript')
@@ -53,6 +54,7 @@
     const loadStartUrl = "{{ route('get.load.start.data') }}";
     const trackBulkDeleteUrl = "{{ route('bulk.delete.track') }}";
     const loadStopUrl = "{{ route('get.load.stop.data') }}";
+    const docReadyUrl = "{{ route('get.doc.ready.data') }}";
 
     $.ajaxSetup({
     headers:{

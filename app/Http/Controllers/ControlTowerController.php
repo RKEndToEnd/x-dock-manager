@@ -31,7 +31,7 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn">P</button>
                             <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn">S</button>
                             <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn">F</button>
-                               <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn>D</button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn>D</button>
                         </div>';
             })
             ->addColumn('checkbox', function ($row) {
@@ -236,16 +236,32 @@ class ControlTowerController extends Controller
     public function docReady(Request $request)
     {
         $track_id = $request->cid_doc_ready;
-        $validator = \Validator::make($request->all(), [
-        ]);
-        if (!$validator->passes()) {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        $track = ControlTower::find($track_id);
+
+        if ($track->eta < Carbon::now()){
+            $validator = \Validator::make($request->all(), [
+                'comment'=>'required|string|max:255',
+            ]);
+            if (!$validator->passes()) {
+                return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+            } else {
+                $track = ControlTower::find($track_id);
+                $track->doc_ready = Carbon::now();
+                $track->comment = $request->comment;
+                $query = $track->save();
+                if ($query){
+                    return response()->json(['code' => 2, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
+                } else {
+                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                }
+            }
         } else {
             $track = ControlTower::find($track_id);
             $track->doc_ready = Carbon::now();
+            $track->comment = $request->comment;
             $query = $track->save();
-            if ($query) {
-                return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru']);
+            if ($query){
+                return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga!']);
             } else {
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }

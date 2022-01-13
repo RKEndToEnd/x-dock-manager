@@ -126,6 +126,9 @@ $(document).on('click','#docReadyBtn', function (){
         $('.docReady').find('input[name="track_id"]').val(data.details.track_id);
         $('.docReady').find('input[name="ramp"]').val(data.details.ramp);
         $('.docReady').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.docReady').find('input[name="eta"]').val(data.details.eta);
+        $('.docReady').find('input[name="doc_ready"]').val(data.details.doc_ready);
+        $('.docReady').find('input[name="comment"]').val(data.details.comment);
         $('.docReady').modal('show');
     },'json');
 });
@@ -144,10 +147,22 @@ $('#doc-ready-form').on('submit', function (e){
             $(form).find('span.error-text').text('');
         },
         success: function(data){
-            if(data.code == 0){
-                $.each(data.error, function(prefix, val){
-                    $(form).find('span.'+prefix+'_error').text(val[0]);
+            if(data.code == 0) {
+                $.each(data.error, function (prefix, val) {
+                    $(form).find('span.' + prefix + '_error').text(val[0]);
                 });
+            }else if(data.code == 2){
+                $('#tracks-all').DataTable().ajax.reload(null, false);
+                $('.docReady').modal('hide');
+                $('.docReady').find('form')[0].reset();
+
+                /*Swal.fire({
+                    title:data.msg,
+                    confirmButtonText:'<button class="btn btn-lg btn-primary" id="delayBtn">Podaj powód opóźnienia</button>',
+
+                    allowOutsideClick:false,
+                    icon:'warning',
+                });*/
             }else{
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.docReady').modal('hide');

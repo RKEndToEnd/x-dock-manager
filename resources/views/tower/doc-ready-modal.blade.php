@@ -28,10 +28,24 @@
                         <label for="">ID pracownika</label>
                         <input type="text" class="form-control" name="worker_id" disabled>
                         <span class="text-danger error-text worker_id_error"></span>
-                    </div>
+                        <div class="form-group">
+                            <label for="">Zaplanowana godzina przyjazdu / wyjazdu</label>
+                            <input type="text" class="form-control" name="eta" disabled>
+                            <span class="text-danger error-text eta_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Zaplanowana godzina zakończenia przeładunku (dokumenty gotowe)</label>
+                            <input type="text" class="form-control" name="doc_ready" disabled>
+                            <span class="text-danger error-text doc_ready_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Komentarz. UWAGA - w przypadku opóźnienia trasy komentarz jest wymagany.</label>
+                            <input type="text" class="form-control" name="comment" placeholder="Wpisz wymagany komentarz do trasy">
+                            <span class="text-danger error-text comment_error"></span>
+                        </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Dokumenty gotowe do odbioru</button>
+                        <button type="submit" class="btn btn-primary" id="openDelay">Dokumenty gotowe do odbioru</button>
                     </div>
                 </form>
             </div>

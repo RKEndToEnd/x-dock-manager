@@ -21,8 +21,8 @@ class DepotController extends Controller
             ->addIndexColumn()
             ->addColumn('actions', function ($row){
                 return '<div class="btn-group">
-                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].'" id="editDepotBtn">E</button>
-                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteDepotBtn">X</button>
+                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editDepotBtn"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteDepotBtn"><i class="fas fa-trash"></i></button>
                         </div>';
             })
             /*->addColumn('traffic', function ($row){

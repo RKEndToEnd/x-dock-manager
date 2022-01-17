@@ -6,7 +6,7 @@
             <div class="col-md container-fluid">
                 <div class="card">
                     <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
-                        <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack">Dodaj trasę</button>
+                        <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę</button>
                     </div>
                     <div class="card-body">
                         <table class=" table table-hover table-bordered table-responsive" id="tracks-all">
@@ -28,7 +28,7 @@
                             <th>Operacja STOP</th>
                             <th>Dokumenty gotowe</th>
                             <th>Komentarz</th>
-                            <th>Akcje<button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone</button></th>
+                            <th>Akcje<button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone<i class="fas fa-trash-alt"></i></button></th>
                             </thead>
                             <tbody></tbody>
                         </table>

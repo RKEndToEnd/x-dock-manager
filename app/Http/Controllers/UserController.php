@@ -32,8 +32,8 @@ class UserController extends Controller
                             ->addIndexColumn()
                             ->addColumn('actions', function ($row){
                                 return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-warning" data-id="'.$row['id'].'" id="editUserBtn">E</button>
-                                            <button class="btn btn-sm btn-danger" data-id="'.$row['id'].'" id="deleteUserBtn">X</button>
+                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editUserBtn"><i class="fas fa-user-edit"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteUserBtn"><i class="fas fa-trash"></i></button>
                                         </div>';
                             })
                             ->rawColumns(['actions'])

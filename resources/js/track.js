@@ -185,3 +185,28 @@ $(document).on('click', 'button#deleteAllMarkedBtn', function (){
         })
     }
 });
+//Super Admin edit data
+$(document).on('click','#saEditTrackBtn', function (){
+    var track_id = $(this).data('id');
+    /*$('.saEditTrack').find('form')[0].reset();
+    $('.saEditTrack').find('span.error-text').text('');*/
+    $.post(saEditUrl,{track_id:track_id}, function (data){
+         $('.saEditTrack').find('input[name="cid_sa_track"]').val(data.details.id);
+         $('.saEditTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
+         $('.saEditTrack').find('input[name="track_id"]').val(data.details.track_id);
+         $('.saEditTrack').find('input[name="track_type"]').val(data.details.track_type);
+         $('.saEditTrack').find('input[name="freight"]').val(data.details.freight);
+         $('.saEditTrack').find('input[name="eta"]').val(data.details.eta);
+         $('.saEditTrack').find('input[name="docking_plan"]').val(data.details.docking_plan);
+         $('.saEditTrack').find('input[name="docked_at"]').val(data.details.docked_at);
+         $('.saEditTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+         $('.saEditTrack').find('input[name="ramp"]').val(data.details.ramp);
+         $('.saEditTrack').find('input[name="task_start"]').val(data.details.task_start);
+         $('.saEditTrack').find('input[name="task_end_exp"]').val(data.details.task_end_exp);
+         $('.saEditTrack').find('input[name="doc_return_exp"]').val(data.details.doc_return_exp);
+         $('.saEditTrack').find('input[name="task_end"]').val(data.details.task_end);
+         $('.saEditTrack').find('input[name="doc_ready"]').val(data.details.doc_ready);
+         $('.saEditTrack').find('input[name="comment"]').val(data.details.comment);
+         $('.saEditTrack').modal('show');
+    },'json');
+});

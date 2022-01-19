@@ -40,6 +40,7 @@
 
     @include('tower.create-modal')
     @include('tower.edit-modal')
+    @include('tower.sa-edit-modal')
     @include('tower.dock-modal')
     @include('tower.load-start-modal')
     @include('tower.load-stop-modal')
@@ -55,6 +56,7 @@
     const trackBulkDeleteUrl = "{{ route('bulk.delete.track') }}";
     const loadStopUrl = "{{ route('get.load.stop.data') }}";
     const docReadyUrl = "{{ route('get.doc.ready.data') }}";
+    const saEditUrl = "{{ route('get.sa.edit.data') }}";
 
     $.ajaxSetup({
     headers:{

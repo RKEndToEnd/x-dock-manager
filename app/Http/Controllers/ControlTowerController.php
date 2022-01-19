@@ -24,6 +24,9 @@ class ControlTowerController extends Controller
             ->addIndexColumn()
             ->addColumn('actions', function ($row) {
                 return '<div class="btn-group">
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn">SA <i class="fas fa-user-cog"></i></button>
+                        </div>
+                        <div class="btn-group">
                             <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn"><i class="far fa-edit"></i></button>
                             <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn"><i class="fas fa-trash"></i></button>
                         </div>
@@ -250,7 +253,7 @@ class ControlTowerController extends Controller
                 $track->comment = $request->comment;
                 $query = $track->save();
                 if ($query){
-                    return response()->json(['code' => 2, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
+                    return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
                 } else {
                     return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                 }
@@ -266,5 +269,12 @@ class ControlTowerController extends Controller
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }
         }
+    }
+//Super Admin edit track data
+    public function getSaEditData(Request $request)
+    {
+        $track_id = $request->track_id;
+        $trackDetails = ControlTower::find($track_id);
+        return response()->json(['details' => $trackDetails]);
     }
 }

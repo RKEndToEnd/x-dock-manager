@@ -192,15 +192,20 @@ class ControlTowerController extends Controller
             $track = ControlTower::find($track_id);
             if (ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
                 $track->worker_id = $request->worker_id;
-                $track->task_start = Carbon::now();
-                $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
-                $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
-                $query = $track->save();
-                if ($query) {
-                    return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku rozpoczęta']);
-                } else {
-                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
-                }
+                    if (!ControlTower::where('worker_id','=',$request->input($track->worker_id))->exists()) {
+                        $track->worker_id = $request->worker_id;
+                        $track->task_start = Carbon::now();
+                        $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
+                        $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+                        $query = $track->save();
+                        if ($query) {
+                            return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku rozpoczęta']);
+                        } else {
+                            return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                        }
+                    }else{
+                        return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja załadunku w trakcie. Zmiany mozna dokonać w trybie edycji Super Admin']);
+                    }
             }else{
                 return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można ropocząć operacji załadunku. Trasa nie jest podstawiona pod rampę.']);
             }
@@ -290,28 +295,5 @@ class ControlTowerController extends Controller
             }
         }
     }
-//Super Admin edit track data
-    public function getSaEditData(Request $request)
-    {
-        $track_id = $request->track_id;
-        $trackDetails = ControlTower::find($track_id);
-        return response()->json(['details' => $trackDetails]);
-    }
-//Super Admin update track data
-    public function saUpdateData(Request $request)
-    {
-        $track_id = $request->cid_track;
-        $validator = \Validator::make($request->all(), [
-            'vehicle_id' => 'required|max:20',
-            'track_type' => 'required|max:5',
-            'freight' => 'required|numeric|between:1,66',
-            'eta' => 'required|date',
-            'ramp' => 'unique:control_towers',
-        ]);
-        if (!$validator->passes()){
-            return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-        }else{
 
-        }
-    }
 }

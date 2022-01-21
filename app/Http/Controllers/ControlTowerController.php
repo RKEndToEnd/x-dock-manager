@@ -261,24 +261,32 @@ class ControlTowerController extends Controller
                 return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
             } else {
                 $track = ControlTower::find($track_id);
-                $track->doc_ready = Carbon::now();
-                $track->comment = $request->comment;
-                $query = $track->save();
-                if ($query){
-                    return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
-                } else {
-                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                if (ControlTower::where('task_start','=',$request->input($track->task_start))->exists()) {
+                    $track->doc_ready = Carbon::now();
+                    $track->comment = $request->comment;
+                    $query = $track->save();
+                    if ($query){
+                        return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
+                    } else {
+                        return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                    }
+                }else{
+                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotowac dokumentów. Trasa nie została załadowana.']);
                 }
             }
         } else {
             $track = ControlTower::find($track_id);
-            $track->doc_ready = Carbon::now();
-            $track->comment = $request->comment;
-            $query = $track->save();
-            if ($query){
-                return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru.']);
+            if (ControlTower::where('task_start', '=', $request->input($track->task_start))->exists()) {
+                $track->doc_ready = Carbon::now();
+                $track->comment = $request->comment;
+                $query = $track->save();
+                if ($query) {
+                    return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru.']);
+                } else {
+                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                }
             } else {
-                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotowac dokumentów. Trasa nie została załadowana.']);
             }
         }
     }

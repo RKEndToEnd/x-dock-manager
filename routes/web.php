@@ -43,6 +43,8 @@ Route::post('/getTrackDetails',[ControlTowerController::class,'getTrackDetails']
 Route::post('/updateTrackDetails',[ControlTowerController::class,'updateTrackDetails'])->name('update.track.details');
 Route::post('/deleteTrack',[ControlTowerController::class,'deleteTrack'])->name('delete.track');
 Route::post('/bulkDeleteTrack',[ControlTowerController::class,'bulkDeleteTrack'])->name('bulk.delete.track');
+Route::post('/getSaEditData',[ControlTowerController::class,'getSaEditData'])->name('get.sa.edit.data');
+Route::post('/saUpdateData',[ControlTowerController::class,'saUpdateData'])->name('sa.update.data');
 
 Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack'])->name('get.dock.data.track');
 Route::post('/dockTrack',[ControlTowerController::class,'dockTrack'])->name('dock.track');
@@ -52,7 +54,6 @@ Route::post('/getLoadStopData',[ControlTowerController::class,'getLoadStopData']
 Route::post('/loadStop',[ControlTowerController::class,'loadStop'])->name('load.stop');
 Route::post('/getDocReadyData',[ControlTowerController::class,'getDocReadyData'])->name('get.doc.ready.data');
 Route::post('/docReady',[ControlTowerController::class,'docReady'])->name('doc.ready');
-Route::post('/getSaEditData',[ControlTowerController::class,'getSaEditData'])->name('get.sa.edit.data');
 
 
 // ONLY FOR TESTING

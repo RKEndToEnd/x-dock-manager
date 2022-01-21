@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="<?= route('update.track.details') ?>" method="post" id="update-track-form">
+                <form action="<?= route('sa.update.data') ?>" method="post" id="sa-update-track-form">
                     @csrf
                     <input type="hidden" name="cid_sa_track">
                     <div class="form-group">
@@ -36,8 +36,14 @@
                     </div>
                     <div class="form-group">
                         <label for="">Zaplanowana godzina podstawienia</label>
-                        <input type="text" class="form-control" name="docking_plan" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM">
+                        <input type="text" class="form-control" name="docking_plan" id="" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM" disabled>
                         <span class="text-danger error-text docking_plan_error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Rampa</label>
+                        <input type="text" class="form-control" name="ramp" placeholder="Wpisz numer rampy">
+                        <span class="text-danger error-text ramp_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Rzeczywista godzina podstawienia</label>
@@ -50,27 +56,22 @@
                         <span class="text-danger error-text worker_id_error"></span>
                     </div>
                     <div class="form-group">
-                        <label for="">Rampa</label>
-                        <input type="text" class="form-control" name="ramp" placeholder="Wpisz numer rampy">
-                        <span class="text-danger error-text ramp_error"></span>
-                    </div>
-                    <div class="form-group">
                         <label for="">Godzina rozpoczęcia operacji</label>
                         <input type="text" class="form-control" name="task_start" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM">
                         <span class="text-danger error-text task_start_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Przewidywana godzina zakończenia operacji</label>
-                        <input type="text" class="form-control" name="task_end_exp" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM">
+                        <input type="text" class="form-control" name="task_end_exp" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM" disabled>
                         <span class="text-danger error-text task_end_exp_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Przewidywana godzina oddania dokumentów z magazynu</label>
-                        <input type="text" class="form-control" name="doc_return_exp" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM">
+                        <input type="text" class="form-control" name="doc_return_exp" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM" disabled>
                         <span class="text-danger error-text doc_return_exp_error"></span>
                     </div>
                     <div class="form-group">
-                        <label for="">Rzewczywsita godzina zakończenia operacji</label>
+                        <label for="">Rzewczywista godzina zakończenia operacji</label>
                         <input type="text" class="form-control" name="task_end" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM">
                         <span class="text-danger error-text task_end_error"></span>
                     </div>

@@ -156,13 +156,17 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
+            if (!ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
             $track->ramp = $request->ramp;
             $track->docked_at = Carbon::now();
             $query = $track->save();
             if ($query) {
-                return response()->json(['code' => 1, 'msg' => 'Samochód poodstawiony pod rampę']);
+                return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
             } else {
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            }
+            }else{
+                return response()->json(['code' => 1, 'msg' => 'Trasa jest już podstawiona pod rampę. Zmiany może dokonać w trybie edycji Super Admin.']);
             }
         }
     }
@@ -264,7 +268,7 @@ class ControlTowerController extends Controller
             $track->comment = $request->comment;
             $query = $track->save();
             if ($query){
-                return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga!']);
+                return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru.']);
             } else {
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }
@@ -276,5 +280,22 @@ class ControlTowerController extends Controller
         $track_id = $request->track_id;
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details' => $trackDetails]);
+    }
+//Super Admin update track data
+    public function saUpdateData(Request $request)
+    {
+        $track_id = $request->cid_track;
+        $validator = \Validator::make($request->all(), [
+            'vehicle_id' => 'required|max:20',
+            'track_type' => 'required|max:5',
+            'freight' => 'required|numeric|between:1,66',
+            'eta' => 'required|date',
+            'ramp' => 'unique:control_towers',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+        }else{
+
+        }
     }
 }

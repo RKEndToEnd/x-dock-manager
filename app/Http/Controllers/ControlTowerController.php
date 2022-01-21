@@ -157,14 +157,14 @@ class ControlTowerController extends Controller
         } else {
             $track = ControlTower::find($track_id);
             if (!ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
-            $track->ramp = $request->ramp;
-            $track->docked_at = Carbon::now();
-            $query = $track->save();
-            if ($query) {
-                return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
-            } else {
-                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
-            }
+                $track->ramp = $request->ramp;
+                $track->docked_at = Carbon::now();
+                $query = $track->save();
+                if ($query) {
+                    return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
+                } else {
+                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                }
             }else{
                 return response()->json(['code' => 1, 'msg' => 'Trasa jest już podstawiona pod rampę. Zmiany może dokonać w trybie edycji Super Admin.']);
             }
@@ -190,15 +190,19 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            $track->worker_id = $request->worker_id;
-            $track->task_start = Carbon::now();
-            $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
-            $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
-            $query = $track->save();
-            if ($query) {
-                return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku rozpoczęta']);
-            } else {
-                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            if (ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
+                $track->worker_id = $request->worker_id;
+                $track->task_start = Carbon::now();
+                $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
+                $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+                $query = $track->save();
+                if ($query) {
+                    return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku rozpoczęta']);
+                } else {
+                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                }
+            }else{
+                return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można ropocząć operacji załadunku. Trasa nie jest podstawiona pod rampę.']);
             }
         }
     }

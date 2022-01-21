@@ -166,7 +166,7 @@ class ControlTowerController extends Controller
                     return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                 }
             }else{
-                return response()->json(['code' => 1, 'msg' => 'Trasa jest już podstawiona pod rampę. Zmiany może dokonać w trybie edycji Super Admin.']);
+                return response()->json(['code' => 1, 'msg' => 'Trasa jest już podstawiona pod rampę. Zmiany można dokonać w trybie edycji Super Admin.']);
             }
         }
     }
@@ -225,12 +225,16 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            $track->task_end = Carbon::now();
-            $query = $track->save();
-            if ($query) {
-                return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona']);
-            } else {
-                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            if (ControlTower::where('task_start','=',$request->input($track->task_start))->exists()) {
+                $track->task_end = Carbon::now();
+                $query = $track->save();
+                if ($query) {
+                    return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona']);
+                } else {
+                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                }
+            }else{
+                return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można zakończyć operacji załadunku, ponieważ nie została ona ropoczęta.']);
             }
         }
     }

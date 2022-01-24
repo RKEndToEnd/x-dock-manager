@@ -38,14 +38,14 @@
             </div>
         </div>
     </div>
-
-    @include('tower.create-modal')
-    @include('tower.edit-modal')
-    @include('tower.sa-edit-modal')
-    @include('tower.dock-modal')
-    @include('tower.load-start-modal')
-    @include('tower.load-stop-modal')
-    @include('tower.doc-ready-modal')
+    @include('tower.create-modal');
+    @include('tower.sa-edit-modal');
+    @include('tower.edit-modal');
+    @include('tower.dock-modal');
+    @include('tower.load-start-modal');
+    @include('tower.load-stop-modal');
+    @include('tower.doc-ready-modal');
+    @include('tower.departure-modal');
 @endsection
 
 @section('javascript')
@@ -58,6 +58,7 @@
     const loadStopUrl = "{{ route('get.load.stop.data') }}";
     const docReadyUrl = "{{ route('get.doc.ready.data') }}";
     const saEditUrl = "{{ route('get.sa.edit.data') }}";
+    const departureUrl = "{{ route('get.departure.data') }}"
 
     $.ajaxSetup({
     headers:{

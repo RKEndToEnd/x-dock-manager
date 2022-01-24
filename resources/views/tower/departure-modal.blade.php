@@ -1,14 +1,14 @@
-<div class="modal fade docReady" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade departureTrack" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Dokumenty gotowe do odbioru</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Odjazd trasy</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="<?= route('doc.ready') ?>" method="post" id="doc-ready-form">
                     @csrf
-                    <input type="hidden" name="cid_doc_ready">
+                    <input type="hidden" name="cid_departure">
                     <div class="form-group">
                         <label for="">Środek transportu</label>
                         <input type="text" class="form-control" name="vehicle_id" disabled>
@@ -40,8 +40,18 @@
                         <span class="text-danger error-text doc_ready_error"></span>
                     </div>
                     <div class="form-group">
+                        <label for="">Rzewczywista godzina zakończenia operacji</label>
+                        <input type="text" class="form-control" name="task_end" disabled>
+                        <span class="text-danger error-text task_end_error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Dokumenty gotowe do odbioru</label>
+                        <input type="text" class="form-control" name="doc_ready" disabled>
+                        <span class="text-danger error-text doc_ready_error"></span>
+                    </div>
+                    <div class="form-group">
                         <label for="">Komentarz. UWAGA - w przypadku opóźnienia trasy komentarz jest wymagany.</label>
-                        <input type="text" class="form-control" name="comment" placeholder="Wpisz wymagany komentarz do trasy">
+                        <input type="text" class="form-control" name="comment" disabled>
                         <span class="text-danger error-text comment_error"></span>
                     </div>
                     <div class="modal-footer">

@@ -23,9 +23,9 @@ class ControlTowerController extends Controller
         return DataTables::of($tracks)
             ->addIndexColumn()
             ->addColumn('departure', function ($row) {
-                return '<div class=btn-group>
+                return '
                             <button class="btn btn-sm btn-outline-info" data-id="'. $row['id'].'" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
-                        </div>';
+                        ';
             })
             ->addColumn('actions', function ($row) {
                 return '<div class="btn-group">
@@ -312,4 +312,11 @@ class ControlTowerController extends Controller
         }
     }
 
+//Departure track get data
+    public function getDepartureData(Request $request)
+    {
+        $track_id = $request->track_id;
+        $trackDetails = ControlTower::find($track_id);
+        return response()->json(['details' => $trackDetails]);
+    }
 }

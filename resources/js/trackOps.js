@@ -172,3 +172,19 @@ $('#doc-ready-form').on('submit', function (e){
         }
     });
 });
+//Departure track data
+$(document).on('click','#departureTrackBtn', function (){
+    var track_id = $(this).data('id');
+    $.post(departureUrl,{track_id:track_id}, function (data){
+        $('.departureTrack').find('input[name="cid_doc_ready"]').val(data.details.id);
+        $('.departureTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
+        $('.departureTrack').find('input[name="track_id"]').val(data.details.track_id);
+        $('.departureTrack').find('input[name="ramp"]').val(data.details.ramp);
+        $('.departureTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.departureTrack').find('input[name="eta"]').val(data.details.eta);
+        $('.departureTrack').find('input[name="doc_ready"]').val(data.details.doc_ready);
+        $('.departureTrack').find('input[name="task_end"]').val(data.details.task_end);
+        $('.departureTrack').find('input[name="comment"]').val(data.details.comment);
+        $('.departureTrack').modal('show');
+    },'json');
+});

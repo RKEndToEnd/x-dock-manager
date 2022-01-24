@@ -191,7 +191,6 @@ class ControlTowerController extends Controller
         } else {
             $track = ControlTower::find($track_id);
             if (ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
-                $track->worker_id = $request->worker_id;
                     if (!ControlTower::where('worker_id','=',$request->input($track->worker_id))->exists()) {
                         $track->worker_id = $request->worker_id;
                         $track->task_start = Carbon::now();
@@ -231,8 +230,7 @@ class ControlTowerController extends Controller
         } else {
             $track = ControlTower::find($track_id);
             if (ControlTower::where('task_start','=',$request->input($track->task_start))->exists()) {
-                $track->task_end=$request->task_end;
-                if (ControlTower::where('task_end','=',$request->input($track->task_end))->exists()) {
+                if (!ControlTower::where('task_end','=',$request->input($track->task_end))->exists()) {
                     $track->task_end = Carbon::now();
                     $query = $track->save();
                     if ($query) {
@@ -271,32 +269,40 @@ class ControlTowerController extends Controller
                 return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
             } else {
                 $track = ControlTower::find($track_id);
-                if (ControlTower::where('task_start','=',$request->input($track->task_start))->exists()) {
-                    $track->doc_ready = Carbon::now();
-                    $track->comment = $request->comment;
-                    $query = $track->save();
-                    if ($query){
-                        return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
-                    } else {
-                        return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                if (ControlTower::where('task_end','=',$request->input($track->task_end))->exists()) {
+                    if (!ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
+                        $track->doc_ready = Carbon::now();
+                        $track->comment = $request->comment;
+                        $query = $track->save();
+                        if ($query) {
+                            return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru. Uwaga! Trasa została załadowana z opóźnieniem.']);
+                        } else {
+                            return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                        }
+                    }else{
+                        return response()->json(['code' => 1, 'msg' => 'Uwaga! Dokumenty zostały już zarejestrowane. Edycji można dokonać w trybie Super Admin']);
                     }
                 }else{
-                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotowac dokumentów. Trasa nie została załadowana.']);
+                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotować dokumentów. Trasa nie została załadowana.']);
                 }
             }
         } else {
             $track = ControlTower::find($track_id);
-            if (ControlTower::where('task_start', '=', $request->input($track->task_start))->exists()) {
-                $track->doc_ready = Carbon::now();
-                $track->comment = $request->comment;
-                $query = $track->save();
-                if ($query) {
-                    return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru.']);
-                } else {
-                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            if (ControlTower::where('task_end', '=', $request->input($track->task_end))->exists()) {
+                if (!ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
+                    $track->doc_ready = Carbon::now();
+                    $track->comment = $request->comment;
+                    $query = $track->save();
+                    if ($query) {
+                        return response()->json(['code' => 1, 'msg' => 'Dokumenty gotowe do odbioru.']);
+                    } else {
+                        return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                    }
+                }else{
+                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Dokumenty zostały już zarejestrowane. Edycji można dokonać w trybie Super Admin']);
                 }
             } else {
-                return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotowac dokumentów. Trasa nie została załadowana.']);
+                return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotować dokumentów. Trasa nie została załadowana.']);
             }
         }
     }

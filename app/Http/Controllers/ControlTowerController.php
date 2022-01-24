@@ -204,7 +204,7 @@ class ControlTowerController extends Controller
                             return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                         }
                     }else{
-                        return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja załadunku w trakcie. Zmiany mozna dokonać w trybie edycji Super Admin']);
+                        return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już rozpoczęta. Zmiany mozna dokonać w trybie edycji Super Admin']);
                     }
             }else{
                 return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można ropocząć operacji załadunku. Trasa nie jest podstawiona pod rampę.']);
@@ -231,12 +231,17 @@ class ControlTowerController extends Controller
         } else {
             $track = ControlTower::find($track_id);
             if (ControlTower::where('task_start','=',$request->input($track->task_start))->exists()) {
-                $track->task_end = Carbon::now();
-                $query = $track->save();
-                if ($query) {
-                    return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona']);
-                } else {
-                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                $track->task_end=$request->task_end;
+                if (ControlTower::where('task_end','=',$request->input($track->task_end))->exists()) {
+                    $track->task_end = Carbon::now();
+                    $query = $track->save();
+                    if ($query) {
+                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona']);
+                    } else {
+                        return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                    }
+                }else{
+                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już zakończona. Edycji można dokonać w trybie Super Admin']);
                 }
             }else{
                 return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można zakończyć operacji załadunku, ponieważ nie została ona ropoczęta.']);

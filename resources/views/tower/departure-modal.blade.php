@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="<?= route('doc.ready') ?>" method="post" id="doc-ready-form">
+                <form action="<?= route('track.departed') ?>" method="post" id="departure-form">
                     @csrf
                     <input type="hidden" name="cid_departure">
                     <div class="form-group">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary" id="openDelay">Dokumenty gotowe do odbioru</button>
+                        <button type="submit" class="btn btn-primary" id="openDelay">Odjazd</button>
                     </div>
                 </form>
             </div>

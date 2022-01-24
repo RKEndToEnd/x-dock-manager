@@ -319,4 +319,32 @@ class ControlTowerController extends Controller
         $trackDetails = ControlTower::find($track_id);
         return response()->json(['details' => $trackDetails]);
     }
+
+//Departure track update data
+    public function trackDeparted(Request $request)
+    {
+        $track_id = $request->cid_departure;
+        $validator = \Validator::make($request->all(), [
+        ]);
+        if (!$validator->passes()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            $track = ControlTower::find($track_id);
+            if (ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
+                if (!ControlTower::where('departure','=',$request->input($track->departure))->exists()) {
+                    $track->departure = Carbon::now();
+                    $query = $track->save();
+                    if ($query) {
+                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona']);
+                    } else {
+                        return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                    }
+                }else{
+                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już zakończona. Edycji można dokonać w trybie Super Admin']);
+                }
+            }else{
+                return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można zarejestrować wyjazdu trasy, ponieważ dokumenty do trasy nie zostały przygotowane.']);
+            }
+        }
+    }
 }

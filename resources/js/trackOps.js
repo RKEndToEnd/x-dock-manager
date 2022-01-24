@@ -151,18 +151,10 @@ $('#doc-ready-form').on('submit', function (e){
                 $.each(data.error, function (prefix, val) {
                     $(form).find('span.' + prefix + '_error').text(val[0]);
                 });
-            }else if(data.code == 2){
+            /*}else if(data.code == 2){
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.docReady').modal('hide');
-                $('.docReady').find('form')[0].reset();
-
-                /*Swal.fire({
-                    title:data.msg,
-                    confirmButtonText:'<button class="btn btn-lg btn-primary" id="delayBtn">Podaj powód opóźnienia</button>',
-
-                    allowOutsideClick:false,
-                    icon:'warning',
-                });*/
+                $('.docReady').find('form')[0].reset();*/
             }else{
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.docReady').modal('hide');
@@ -176,7 +168,7 @@ $('#doc-ready-form').on('submit', function (e){
 $(document).on('click','#departureTrackBtn', function (){
     var track_id = $(this).data('id');
     $.post(departureUrl,{track_id:track_id}, function (data){
-        $('.departureTrack').find('input[name="cid_doc_ready"]').val(data.details.id);
+        $('.departureTrack').find('input[name="cid_departure"]').val(data.details.id);
         $('.departureTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
         $('.departureTrack').find('input[name="track_id"]').val(data.details.track_id);
         $('.departureTrack').find('input[name="ramp"]').val(data.details.ramp);
@@ -187,4 +179,32 @@ $(document).on('click','#departureTrackBtn', function (){
         $('.departureTrack').find('input[name="comment"]').val(data.details.comment);
         $('.departureTrack').modal('show');
     },'json');
+});
+//Departure track update data
+$('#departure-form').on('submit', function (e){
+    e.preventDefault();
+    var form = this;
+    $.ajax({
+        url:$(form).attr('action'),
+        method:$(form).attr('method'),
+        data:new FormData(form),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend: function (){
+            $(form).find('span.error-text').text('');
+        },
+        success: function(data){
+            if(data.code == 0) {
+                $.each(data.error, function (prefix, val) {
+                    $(form).find('span.' + prefix + '_error').text(val[0]);
+                });
+            }else{
+                $('#tracks-all').DataTable().ajax.reload(null, false);
+                $('.departureTrack').modal('hide');
+                $('.departureTrack').find('form')[0].reset();
+                Swal.fire(data.msg);
+            }
+        }
+    });
 });

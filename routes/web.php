@@ -55,6 +55,8 @@ Route::post('/loadStop',[ControlTowerController::class,'loadStop'])->name('load.
 Route::post('/getDocReadyData',[ControlTowerController::class,'getDocReadyData'])->name('get.doc.ready.data');
 Route::post('/docReady',[ControlTowerController::class,'docReady'])->name('doc.ready');
 Route::post('/getDepartureData',[ControlTowerController::class,'getDepartureData'])->name('get.departure.data');
+Route::post('/trackDeparted',[ControlTowerController::class,'trackDeparted'])->name('track.departed');
+
 
 
 

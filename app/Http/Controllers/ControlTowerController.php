@@ -22,6 +22,11 @@ class ControlTowerController extends Controller
         $tracks = ControlTower::all();
         return DataTables::of($tracks)
             ->addIndexColumn()
+            ->addColumn('departure', function ($row) {
+                return '<div class=btn-group>
+                            <button class="btn btn-sm btn-outline-info" data-id="'. $row['id'].'" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                        </div>';
+            })
             ->addColumn('actions', function ($row) {
                 return '<div class="btn-group">
                             <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn">SA <i class="fas fa-user-cog"></i></button>
@@ -47,7 +52,7 @@ class ControlTowerController extends Controller
                 else if (Carbon::now() > Carbon::parse($row->docking_plan)->subMinutes(30) && $row->ramp == null)
                     return 2 == 0 ? '' : 'alert-warning';
             })
-            ->rawColumns(['actions', 'checkbox'])
+            ->rawColumns(['actions', 'checkbox', 'departure'])
             ->make(true);
     }
 

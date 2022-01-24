@@ -21,6 +21,7 @@ $('#tracks-all').DataTable({
        {data:'task_end', name:'task_end'},
        {data:'doc_ready', name:'doc_ready'},
        {data:'comment', name:'comment'},
+       {data:'departure',name:'departure',orderable:false, searchable:false},
        {data:'actions',name:'actions',orderable:false, searchable:false},
    ]
 }).on('draw',function (){

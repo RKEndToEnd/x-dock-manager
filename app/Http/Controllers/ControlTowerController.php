@@ -333,9 +333,12 @@ class ControlTowerController extends Controller
             if (ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
                 if (!ControlTower::where('departure','=',$request->input($track->departure))->exists()) {
                     $track->departure = Carbon::now();
-                    $query = $track->save();
+                    $newTrack=$track->replicate();
+                    $newTrack->setTable('departures_control_towers');
+                    $track->delete();
+                    $query=$newTrack->save();
                     if ($query) {
-                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona']);
+                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona. Trasa przeniesiona do widoku tras zakończonych.']);
                     } else {
                         return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                     }

@@ -38,14 +38,14 @@
             </div>
         </div>
     </div>
-    @include('tower.create-modal');
-    @include('tower.sa-edit-modal');
-    @include('tower.edit-modal');
-    @include('tower.dock-modal');
-    @include('tower.load-start-modal');
-    @include('tower.load-stop-modal');
-    @include('tower.doc-ready-modal');
-    @include('tower.departure-modal');
+    @include('tower.create-modal')
+    @include('tower.sa-edit-modal')
+    @include('tower.edit-modal')
+    @include('tower.dock-modal')
+    @include('tower.load-start-modal')
+    @include('tower.load-stop-modal')
+    @include('tower.doc-ready-modal')
+    @include('tower.departure-modal')
 @endsection
 
 @section('javascript')

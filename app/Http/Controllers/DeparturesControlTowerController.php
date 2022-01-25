@@ -3,83 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\DeparturesControlTower;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class DeparturesControlTowerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return view('departed_tracks.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+//Get all tracks
+    public function getDepartedTrackList()
     {
-        //
-    }
+        $tracks = DeparturesControlTower::all();
+        return DataTables::of($tracks)
+            ->addIndexColumn()
+            ->addColumn('actions', function($row){
+                return '<div>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepartedTrackBtn"><i class="fas fa-trash"></i></button>
+                        </div>';
+            })
+            ->setRowClass(function ($row) {
+                if ($row->eta < $row->doc_ready)
+                    return 2 == 0 ? '' : 'alert-danger';
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+                else if ($row->eta > $row->doc_ready)
+                    return 2 == 0 ? '' : 'alert-success';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DeparturesControlTower  $departuresControlTower
-     * @return \Illuminate\Http\Response
-     */
-    public function show(DeparturesControlTower $departuresControlTower)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\DeparturesControlTower  $departuresControlTower
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(DeparturesControlTower $departuresControlTower)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DeparturesControlTower  $departuresControlTower
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, DeparturesControlTower $departuresControlTower)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\DeparturesControlTower  $departuresControlTower
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(DeparturesControlTower $departuresControlTower)
-    {
-        //
     }
 }

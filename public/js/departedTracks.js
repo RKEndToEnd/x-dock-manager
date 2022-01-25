@@ -1,0 +1,32 @@
+/*
+ * ATTENTION: An "eval-source-map" devtool has been used.
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./resources/js/departedTracks.js":
+/*!****************************************!*\
+  !*** ./resources/js/departedTracks.js ***!
+  \****************************************/
+/***/ (() => {
+
+eval("//Get all tracks\n$('#tracks-departed').DataTable({\n  processing: true,\n  info: true,\n  ajax: departedTrackGetUrl,\n  columns: [{\n    data: 'DT_RowIndex',\n    name: 'DT_RowIndex'\n  }, {\n    data: 'vehicle_id',\n    name: 'vehicle_id'\n  }, {\n    data: 'track_id',\n    name: 'track_id'\n  }, {\n    data: 'track_type',\n    name: 'track_type'\n  }, {\n    data: 'freight',\n    name: 'freight'\n  }, {\n    data: 'eta',\n    name: 'eta'\n  }, {\n    data: 'docking_plan',\n    name: 'docking_plan'\n  }, {\n    data: 'docked_at',\n    name: 'docked_at'\n  }, {\n    data: 'ramp',\n    name: 'ramp'\n  }, {\n    data: 'worker_id',\n    name: 'worker_id'\n  }, {\n    data: 'task_start',\n    name: 'task_start'\n  }, {\n    data: 'task_end_exp',\n    name: 'task_end_exp'\n  }, {\n    data: 'doc_return_exp',\n    name: 'doc_return_exp'\n  }, {\n    data: 'task_end',\n    name: 'task_end'\n  }, {\n    data: 'doc_ready',\n    name: 'doc_ready'\n  }, {\n    data: 'comment',\n    name: 'comment'\n  }, {\n    data: 'departure',\n    name: 'departure'\n  }, {\n    data: 'actions',\n    name: 'actions',\n    orderable: false,\n    searchable: false\n  }]\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvanMvZGVwYXJ0ZWRUcmFja3MuanM/NTJjYiJdLCJuYW1lcyI6WyIkIiwiRGF0YVRhYmxlIiwicHJvY2Vzc2luZyIsImluZm8iLCJhamF4IiwiZGVwYXJ0ZWRUcmFja0dldFVybCIsImNvbHVtbnMiLCJkYXRhIiwibmFtZSIsIm9yZGVyYWJsZSIsInNlYXJjaGFibGUiXSwibWFwcGluZ3MiOiJBQUFBO0FBQ0FBLENBQUMsQ0FBQyxrQkFBRCxDQUFELENBQXNCQyxTQUF0QixDQUFnQztBQUM1QkMsRUFBQUEsVUFBVSxFQUFDLElBRGlCO0FBRTVCQyxFQUFBQSxJQUFJLEVBQUMsSUFGdUI7QUFHNUJDLEVBQUFBLElBQUksRUFBRUMsbUJBSHNCO0FBSTVCQyxFQUFBQSxPQUFPLEVBQUMsQ0FDSjtBQUFDQyxJQUFBQSxJQUFJLEVBQUMsYUFBTjtBQUFxQkMsSUFBQUEsSUFBSSxFQUFDO0FBQTFCLEdBREksRUFFSjtBQUFDRCxJQUFBQSxJQUFJLEVBQUMsWUFBTjtBQUFvQkMsSUFBQUEsSUFBSSxFQUFDO0FBQXpCLEdBRkksRUFHSjtBQUFDRCxJQUFBQSxJQUFJLEVBQUMsVUFBTjtBQUFrQkMsSUFBQUEsSUFBSSxFQUFDO0FBQXZCLEdBSEksRUFJSjtBQUFDRCxJQUFBQSxJQUFJLEVBQUMsWUFBTjtBQUFvQkMsSUFBQUEsSUFBSSxFQUFDO0FBQXpCLEdBSkksRUFLSjtBQUFDRCxJQUFBQSxJQUFJLEVBQUMsU0FBTjtBQUFpQkMsSUFBQUEsSUFBSSxFQUFDO0FBQXRCLEdBTEksRUFNSjtBQUFDRCxJQUFBQSxJQUFJLEVBQUMsS0FBTjtBQUFhQyxJQUFBQSxJQUFJLEVBQUM7QUFBbEIsR0FOSSxFQU9KO0FBQUNELElBQUFBLElBQUksRUFBQyxjQUFOO0FBQXNCQyxJQUFBQSxJQUFJLEVBQUM7QUFBM0IsR0FQSSxFQVFKO0FBQUNELElBQUFBLElBQUksRUFBQyxXQUFOO0FBQW1CQyxJQUFBQSxJQUFJLEVBQUM7QUFBeEIsR0FSSSxFQVNKO0FBQUNELElBQUFBLElBQUksRUFBQyxNQUFOO0FBQWNDLElBQUFBLElBQUksRUFBQztBQUFuQixHQVRJLEVBVUo7QUFBQ0QsSUFBQUEsSUFBSSxFQUFDLFdBQU47QUFBbUJDLElBQUFBLElBQUksRUFBQztBQUF4QixHQVZJLEVBV0o7QUFBQ0QsSUFBQUEsSUFBSSxFQUFDLFlBQU47QUFBb0JDLElBQUFBLElBQUksRUFBQztBQUF6QixHQVhJLEVBWUo7QUFBQ0QsSUFBQUEsSUFBSSxFQUFDLGNBQU47QUFBc0JDLElBQUFBLElBQUksRUFBQztBQUEzQixHQVpJLEVBYUo7QUFBQ0QsSUFBQUEsSUFBSSxFQUFDLGdCQUFOO0FBQXdCQyxJQUFBQSxJQUFJLEVBQUM7QUFBN0IsR0FiSSxFQWNKO0FBQUNELElBQUFBLElBQUksRUFBQyxVQUFOO0FBQWtCQyxJQUFBQSxJQUFJLEVBQUM7QUFBdkIsR0FkSSxFQWVKO0FBQUNELElBQUFBLElBQUksRUFBQyxXQUFOO0FBQW1CQyxJQUFBQSxJQUFJLEVBQUM7QUFBeEIsR0FmSSxFQWdCSjtBQUFDRCxJQUFBQSxJQUFJLEVBQUMsU0FBTjtBQUFpQkMsSUFBQUEsSUFBSSxFQUFDO0FBQXRCLEdBaEJJLEVBaUJKO0FBQUNELElBQUFBLElBQUksRUFBQyxXQUFOO0FBQWtCQyxJQUFBQSxJQUFJLEVBQUM7QUFBdkIsR0FqQkksRUFrQko7QUFBQ0QsSUFBQUEsSUFBSSxFQUFDLFNBQU47QUFBZ0JDLElBQUFBLElBQUksRUFBQyxTQUFyQjtBQUErQkMsSUFBQUEsU0FBUyxFQUFDLEtBQXpDO0FBQWdEQyxJQUFBQSxVQUFVLEVBQUM7QUFBM0QsR0FsQkk7QUFKb0IsQ0FBaEMiLCJzb3VyY2VzQ29udGVudCI6WyIvL0dldCBhbGwgdHJhY2tzXG4kKCcjdHJhY2tzLWRlcGFydGVkJykuRGF0YVRhYmxlKHtcbiAgICBwcm9jZXNzaW5nOnRydWUsXG4gICAgaW5mbzp0cnVlLFxuICAgIGFqYXg6IGRlcGFydGVkVHJhY2tHZXRVcmwsXG4gICAgY29sdW1uczpbXG4gICAgICAgIHtkYXRhOidEVF9Sb3dJbmRleCcsIG5hbWU6J0RUX1Jvd0luZGV4J30sXG4gICAgICAgIHtkYXRhOid2ZWhpY2xlX2lkJywgbmFtZTondmVoaWNsZV9pZCd9LFxuICAgICAgICB7ZGF0YTondHJhY2tfaWQnLCBuYW1lOid0cmFja19pZCd9LFxuICAgICAgICB7ZGF0YTondHJhY2tfdHlwZScsIG5hbWU6J3RyYWNrX3R5cGUnfSxcbiAgICAgICAge2RhdGE6J2ZyZWlnaHQnLCBuYW1lOidmcmVpZ2h0J30sXG4gICAgICAgIHtkYXRhOidldGEnLCBuYW1lOidldGEnfSxcbiAgICAgICAge2RhdGE6J2RvY2tpbmdfcGxhbicsIG5hbWU6J2RvY2tpbmdfcGxhbid9LFxuICAgICAgICB7ZGF0YTonZG9ja2VkX2F0JywgbmFtZTonZG9ja2VkX2F0J30sXG4gICAgICAgIHtkYXRhOidyYW1wJywgbmFtZToncmFtcCd9LFxuICAgICAgICB7ZGF0YTond29ya2VyX2lkJywgbmFtZTond29ya2VyX2lkJ30sXG4gICAgICAgIHtkYXRhOid0YXNrX3N0YXJ0JywgbmFtZTondGFza19zdGFydCd9LFxuICAgICAgICB7ZGF0YTondGFza19lbmRfZXhwJywgbmFtZTondGFza19lbmRfZXhwJ30sXG4gICAgICAgIHtkYXRhOidkb2NfcmV0dXJuX2V4cCcsIG5hbWU6J2RvY19yZXR1cm5fZXhwJ30sXG4gICAgICAgIHtkYXRhOid0YXNrX2VuZCcsIG5hbWU6J3Rhc2tfZW5kJ30sXG4gICAgICAgIHtkYXRhOidkb2NfcmVhZHknLCBuYW1lOidkb2NfcmVhZHknfSxcbiAgICAgICAge2RhdGE6J2NvbW1lbnQnLCBuYW1lOidjb21tZW50J30sXG4gICAgICAgIHtkYXRhOidkZXBhcnR1cmUnLG5hbWU6J2RlcGFydHVyZSd9LFxuICAgICAgICB7ZGF0YTonYWN0aW9ucycsbmFtZTonYWN0aW9ucycsb3JkZXJhYmxlOmZhbHNlLCBzZWFyY2hhYmxlOmZhbHNlfSxcbiAgICBdXG59KTtcbiJdLCJmaWxlIjoiLi9yZXNvdXJjZXMvanMvZGVwYXJ0ZWRUcmFja3MuanMuanMiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/js/departedTracks.js\n");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval-source-map devtool is used.
+/******/ 	var __webpack_exports__ = {};
+/******/ 	__webpack_modules__["./resources/js/departedTracks.js"]();
+/******/ 	
+/******/ })()
+;

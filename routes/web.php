@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeparturesControlTowerController;
 use App\Http\Controllers\DepotController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -56,6 +57,9 @@ Route::post('/getDocReadyData',[ControlTowerController::class,'getDocReadyData']
 Route::post('/docReady',[ControlTowerController::class,'docReady'])->name('doc.ready');
 Route::post('/getDepartureData',[ControlTowerController::class,'getDepartureData'])->name('get.departure.data');
 Route::post('/trackDeparted',[ControlTowerController::class,'trackDeparted'])->name('track.departed');
+
+Route::get('/departed_tracks',[DeparturesControlTowerController::class,'index'])->name('departed_tracks.index');
+Route::get('getDepartedTrackList',[DeparturesControlTowerController::class,'getDepartedTrackList'])->name('get.departed.track.list');
 
 
 

@@ -28,7 +28,6 @@ class DeparturesControlTowerController extends Controller
             ->setRowClass(function ($row) {
                 if ($row->eta < $row->doc_ready)
                     return 2 == 0 ? '' : 'alert-danger';
-
                 else if ($row->eta > $row->doc_ready)
                     return 2 == 0 ? '' : 'alert-success';
             })

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\TrackImport;
 use App\Models\ControlTower;
 use Carbon\Carbon;
-use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Events\AfterImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class ControlTowerController extends Controller
@@ -62,7 +65,7 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_create_track;
         $validator = \Validator::make($request->all(), [
             'vehicle_id' => 'required|max:20',
-            'track_id' => 'required|unique:control_towers|max:10',
+            'track_id' => 'required|unique:control_towers|unique:departures_control_towers|max:10',
             'track_type' => 'required|max:5',
             'freight' => 'required|numeric|between:1,66',
             'eta' => 'required|date',
@@ -84,6 +87,29 @@ class ControlTowerController extends Controller
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }
         }
+    }
+//Track import from file
+    /*public function importTrack ()
+    {
+        return view('import.track');
+    }*/
+    public function import (Request $request)
+    {
+        Excel::import(new TrackImport,$request->file);
+        return response()->json(['code' => 1, 'msg' => 'Trasa została usunieta z bazy danych']);
+
+        // WSTAWIĆ OBSERVER
+        /*if ($this) {
+            $track = ControlTower::all();
+            $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+            $query = $track->save();
+            if ($query) {
+                return response()->json(['code' => 1, 'msg' => 'Trasa została usunieta z bazy danych']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'Wystapił nieoczekiwany błąd']);
+            }
+        }*/
+
     }
 
 //Get track details

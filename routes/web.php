@@ -37,6 +37,7 @@ Route::post('/getDepotDetails',[DepotController::class,'getDepotDetails'])->name
 Route::post('/updateDepotDetails',[DepotController::class,'updateDepotDetails'])->name('update.depot.details');
 Route::post('/deleteDepot',[DepotController::class,'deleteDepot'])->name('delete.depot');
 
+
 Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
 Route::get('/getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');
 Route::post('/createTrack',[ControlTowerController::class,'createTrack'])->name('create.track');
@@ -46,6 +47,7 @@ Route::post('/deleteTrack',[ControlTowerController::class,'deleteTrack'])->name(
 Route::post('/bulkDeleteTrack',[ControlTowerController::class,'bulkDeleteTrack'])->name('bulk.delete.track');
 Route::post('/getSaEditData',[ControlTowerController::class,'getSaEditData'])->name('get.sa.edit.data');
 Route::post('/saUpdateData',[ControlTowerController::class,'saUpdateData'])->name('sa.update.data');
+Route::post('/import',[ControlTowerController::class,'import'])->name('track.import');
 
 Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack'])->name('get.dock.data.track');
 Route::post('/dockTrack',[ControlTowerController::class,'dockTrack'])->name('dock.track');

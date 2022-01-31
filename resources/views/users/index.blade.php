@@ -45,8 +45,8 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
+
     @include('users.edit-modal')
 @endsection
 

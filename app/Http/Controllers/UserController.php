@@ -26,8 +26,29 @@ class UserController extends Controller
     }
 
     //Get all users
-    public function getUsersList(){
-        $users = User::all();
+    public function getUsersList(Request $request){
+
+        if ($request->ajax()) {
+            $users = User::with(['depot']);
+            return DataTables::of($users)
+                ->addIndexColumn()
+                ->addColumn('depot', function (User $user) {
+                    return $user->depot->name;
+
+                })
+                ->addColumn('actions', function ($row){
+                    return '<div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editUserBtn"><i class="fas fa-user-edit"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteUserBtn"><i class="fas fa-trash"></i></button>
+                                        </div>';
+                })
+                ->rawColumns(['actions'])
+
+                ->toJson();
+        }
+        /*return view('users.index');*/
+
+        /*$users = User::all();
         return DataTables::of($users)
                             ->addIndexColumn()
                             ->addColumn('actions', function ($row){
@@ -37,7 +58,7 @@ class UserController extends Controller
                                         </div>';
                             })
                             ->rawColumns(['actions'])
-                            ->make(true);
+                            ->make(true);*/
     }
     //Add user - temporary
     public function addUser(Request $request){
@@ -68,7 +89,7 @@ class UserController extends Controller
             'name'=>'required|string|max:50',
             'surname'=>'required|string|max:50',
             'email'=>'required|email|unique:users',
-            'depot_id'=>'required',
+            /*'depot_id'=>'required',*/
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -77,7 +98,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->surname = $request->surname;
             $user->email = $request->email;
-            $user->depot_id = $request->depot_id;
+            $user->depot_id = $request->depot;
             $query = $user->save();
             if ($query){
                 return response()->json(['code'=>1,'msg'=>'Dane Użytkownika zostały zaktualizowane']);

@@ -6,11 +6,38 @@
             <div class="col-md container-fluid">
                 <div class="card">
                     <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
+                        <div>
                         <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę</button>
                         <button class="btn btn-sm btn-outline-primary" id="importTrackBtn" data-bs-toggle="modal" data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy z pliku</button>
+                        <button class="btn btn-sm btn-outline-primary" id="refreshTrackBtn" ><i class="fas fa-sync-alt"></i> Odśwież</button>
+                        </div>
+                    <div>
+                        <table class="table table-sm  table-bordered">
+                            <thead>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                                <th>rapma</th>
+                            </thead>
+                            <tbody>
+                            {{--@foreach($depots as $depot)
+                                <tr>{{ $depot->name }}</tr>
+                            @endforeach--}}
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                     <div class="card-body">
-                        <table class=" table table-hover table-bordered table-responsive" id="tracks-all">
+                        <table class="table table-sm table-hover table-bordered table-responsive" id="tracks-all">
                             <thead>
                             <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
                             <th>#</th>
@@ -61,6 +88,7 @@
     const docReadyUrl = "{{ route('get.doc.ready.data') }}";
     const saEditUrl = "{{ route('get.sa.edit.data') }}";
     const departureUrl = "{{ route('get.departure.data') }}"
+    const importUpdtUrl = "{{ route('import.update') }}"
 
     $.ajaxSetup({
     headers:{

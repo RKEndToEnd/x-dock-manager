@@ -8,7 +8,7 @@ $('#users-all').DataTable({
         {data:'name', name:'name'},
         {data:'surname', name:'surname'},
         {data:'email', name: 'email'},
-        {data:'depot_id', name:'depot_id'},
+        {data:'depot', name:'depot.name'},
         {data:'actions', name:'actions'},
     ]
 });
@@ -22,7 +22,7 @@ $(document).on('click', '#editUserBtn', function (){
         $('.editUser').find('input[name="name"]').val(data.details.name);
         $('.editUser').find('input[name="surname"]').val(data.details.surname);
         $('.editUser').find('input[name="email"]').val(data.details.email);
-        $('.editUser').find('input[name="depot_id"]').val(data.details.depot_id);
+        $('.editUser').find('input[name="depot"]').val(data.details.depot_id);
         $('.editUser').modal('show');
     },'json');
 });

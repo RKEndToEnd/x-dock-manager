@@ -5,6 +5,7 @@ use App\Http\Controllers\DepotController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ControlTowerController;
+use App\Models\Depot;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,8 @@ Route::post('/bulkDeleteTrack',[ControlTowerController::class,'bulkDeleteTrack']
 Route::post('/getSaEditData',[ControlTowerController::class,'getSaEditData'])->name('get.sa.edit.data');
 Route::post('/saUpdateData',[ControlTowerController::class,'saUpdateData'])->name('sa.update.data');
 Route::post('/import',[ControlTowerController::class,'import'])->name('track.import');
+Route::post('/importUpdate',[ControlTowerController::class,'importUpdate'])->name('import.update');
+
 
 Route::post('/getDockDataTrack',[ControlTowerController::class,'getDockDataTrack'])->name('get.dock.data.track');
 Route::post('/dockTrack',[ControlTowerController::class,'dockTrack'])->name('dock.track');

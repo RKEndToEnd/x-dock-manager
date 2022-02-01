@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <div class="container-fluid">
@@ -11,33 +11,9 @@
                         <button class="btn btn-sm btn-outline-primary" id="importTrackBtn" data-bs-toggle="modal" data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy z pliku</button>
                         <button class="btn btn-sm btn-outline-primary" id="refreshTrackBtn" ><i class="fas fa-sync-alt"></i> Odśwież</button>
                         </div>
-                    <div>
-                        <table class="table table-sm  table-bordered">
-                            <thead>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                                <th>rapma</th>
-                            </thead>
-                            <tbody>
-                            {{--@foreach($depots as $depot)
-                                <tr>{{ $depot->name }}</tr>
-                            @endforeach--}}
-                            </tbody>
-                        </table>
-                    </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-hover table-bordered table-responsive" id="tracks-all">
+                        <table class="table table-sm table-hover table-bordered" id="tracks-all">
                             <thead>
                             <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
                             <th>#</th>

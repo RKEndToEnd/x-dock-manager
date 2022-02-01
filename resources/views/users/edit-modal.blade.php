@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label for="depot">Depot</label>
                         <select id="depot" class="form-control" name="depot">
-                            <option>Brak</option>
+                            <option value="null">Wybierz depot z listy</option>
                             @foreach($depots as $depot)
                                 <option name="depot" value="{{ $depot->id }}" @if(!is_null($depot->depot_id) && $depot->depot_id->id == $depot->id) selected @endif>{{ $depot->name }}</option>
                             @endforeach

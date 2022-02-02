@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header"><h4>Użytkownicy</h4></div>
                         <div class="card-body">
-                            <table class=" table table-hover table-bordered table-striped table-responsive" id="users-all">
+                            <table class=" table table-hover table-bordered table-striped" id="users-all">
                                 <thead>
                                     <th>#</th>
                                     <th>Imię</th>

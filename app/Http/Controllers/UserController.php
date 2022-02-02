@@ -46,19 +46,6 @@ class UserController extends Controller
 
                 ->toJson();
         }
-        /*return view('users.index');*/
-
-        /*$users = User::all();
-        return DataTables::of($users)
-                            ->addIndexColumn()
-                            ->addColumn('actions', function ($row){
-                                return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editUserBtn"><i class="fas fa-user-edit"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteUserBtn"><i class="fas fa-trash"></i></button>
-                                        </div>';
-                            })
-                            ->rawColumns(['actions'])
-                            ->make(true);*/
     }
     //Add user - temporary
     public function addUser(Request $request){

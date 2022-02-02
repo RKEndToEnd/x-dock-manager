@@ -15,7 +15,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
 
     <!-- Navbar -->
@@ -73,28 +73,33 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('home') }}" class="brand-link">
-            <img src="dist/img/AdminLTELogo.png" alt="XDM" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="dist/img/AdminLTELogo.png" alt="xDM" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">xDockManager</span>
         </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex" data-widget="treeview">
-
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>{{ Auth::user()->name }}</p>
                     </a>
-                        <a class="nav-link" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                            Wyloguj
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
+                    <i class=" nav-icon fas fa-sign-out-alt"></i>
+                    <p>Wyloguj</p>
+                </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
+                </ul>
             </div>
 
             <!-- SidebarSearch Form -->
@@ -116,7 +121,7 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
+                            <i class="nav-icon fas fa-tasks"></i>
                             <p>
                                 Operacje
                                 <i class="right fas fa-angle-left"></i>
@@ -136,9 +141,38 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/charts/inline.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Plac</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Zarządzanie
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('users.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Uzytkownicy</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('depots.index') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Depoty</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Rampy</p>
                                 </a>
                             </li>
                         </ul>

@@ -29,6 +29,11 @@
                         <input type="text" class="form-control" name="worker_id" disabled>
                         <span class="text-danger error-text worker_id_error"></span>
                     </div>
+                    <div class="form-group">
+                        <label for="">Pezwidywana godzina zakończenia przeładunku</label>
+                        <input type="text" class="form-control" name="task_end_exp" disabled>
+                        <span class="text-danger error-text task_end_exp_error"></span>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
                         <button type="submit" class="btn btn-primary">Zakończ przeładunek</button>

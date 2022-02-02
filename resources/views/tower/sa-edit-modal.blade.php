@@ -39,7 +39,6 @@
                         <input type="text" class="form-control" name="docking_plan" id="" placeholder="Wpisz w formacie: RRRR-DD-MM GG:MM" disabled>
                         <span class="text-danger error-text docking_plan_error"></span>
                     </div>
-
                     <div class="form-group">
                         <label for="">Rampa</label>
                         <input type="text" class="form-control" name="ramp" placeholder="Wpisz numer rampy">

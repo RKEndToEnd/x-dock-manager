@@ -364,4 +364,75 @@ class ControlTowerController extends Controller
             }
         }
     }
+
+//Super Admin edit get track data
+    public function getSaEditData(Request $request)
+    {
+        $track_id = $request->track_id;
+        $trackDetails = ControlTower::find($track_id);
+        return response()->json(['details' => $trackDetails]);
+    }
+
+//Super Admin update track data
+    public function saUpdateData(Request $request)
+    {
+        $track_id = $request->cid_sa_track;
+        $validator = \Validator::make($request->all(), [
+            'vehicle_id' => 'required|max:20',
+            'track_type' => 'required|max:5',
+            'freight' => 'required|numeric|between:1,66',
+            'eta' => 'required|date',
+            'worker_id'=>'max:5',
+            'task_start'=>'date|nullable',
+            'task_end'=>'date|nullable',
+            'doc_ready'=>'date|nullable',
+            'comment'=>'max:255|nullable',
+            'departure' => 'date|nullable',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+        }else{
+            $track = ControlTower::find($track_id);
+            $track->vehicle_id = $request->vehicle_id;
+            $track->track_type = $request->track_type;
+            $track->freight = $request->freight;
+            if($track->isDirty('freight')){
+                $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+            }
+            $track->eta = $request->eta;
+            if($track->isDirty('eta')) {
+                $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+            }
+            $track->docked_at = $request->docked_at;
+            $track->worker_id = $request->worker_id;
+            $track->ramp = $request->ramp;
+            if($track->isDirty('ramp')){
+                $validator = \Validator::make($request->all(), [
+                    'ramp' => 'required|unique:control_towers'
+                    ]);
+                if(!$validator->passes()){
+                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+                }else {
+                    $track->ramp = $request->ramp;
+                }
+            }
+            $track->task_start = $request->task_start;
+            if($track->isDirty('task_start')){
+                $track->task_start = $request->task_start;
+                $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
+                $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+            }
+            $track->task_start = $request->task_start;
+            $track->task_end = $request->task_end;
+            $track->doc_ready = $request->doc_ready;
+            $track->comment = $request->comment;
+            $track->departure = $request->departure;
+            $query = $track->save();
+            if ($query) {
+                return response()->json(['code' => 1, 'msg' => 'Zmiany w trasie zostały wprowadzone']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
 }

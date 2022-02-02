@@ -36,8 +36,8 @@
                     </div>
                     <div class="form-group">
                         <label for="">Zaplanowana godzina zakończenia przeładunku (dokumenty gotowe)</label>
-                        <input type="text" class="form-control" name="doc_ready" disabled>
-                        <span class="text-danger error-text doc_ready_error"></span>
+                        <input type="text" class="form-control" name="doc_return_exp" disabled>
+                        <span class="text-danger error-text doc_end_return_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Komentarz. UWAGA - w przypadku opóźnienia trasy komentarz jest wymagany.</label>

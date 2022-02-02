@@ -86,6 +86,7 @@ $(document).on('click','#stopTrackBtn',function (){
         $('.loadStopTrack').find('input[name="track_id"]').val(data.details.track_id);
         $('.loadStopTrack').find('input[name="ramp"]').val(data.details.ramp);
         $('.loadStopTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.loadStopTrack').find('input[name="task_end_exp"]').val(data.details.task_end_exp);
         $('.loadStopTrack').modal('show');
     },'json');
 });
@@ -127,7 +128,7 @@ $(document).on('click','#docReadyBtn', function (){
         $('.docReady').find('input[name="ramp"]').val(data.details.ramp);
         $('.docReady').find('input[name="worker_id"]').val(data.details.worker_id);
         $('.docReady').find('input[name="eta"]').val(data.details.eta);
-        $('.docReady').find('input[name="doc_ready"]').val(data.details.doc_ready);
+        $('.docReady').find('input[name="doc_return_exp"]').val(data.details.doc_return_exp);
         $('.docReady').find('input[name="comment"]').val(data.details.comment);
         $('.docReady').modal('show');
     },'json');

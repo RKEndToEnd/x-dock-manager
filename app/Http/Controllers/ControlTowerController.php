@@ -169,7 +169,7 @@ class ControlTowerController extends Controller
     {
         $track_id = $request->cid_dock_track;
         $validator = \Validator::make($request->all(), [
-            'ramp' => 'required|max:5',
+            'ramp' => 'required|max:5|unique:control_towers',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -408,11 +408,11 @@ class ControlTowerController extends Controller
             $track->ramp = $request->ramp;
             if($track->isDirty('ramp')){
                 $validator = \Validator::make($request->all(), [
-                    'ramp' => 'required|unique:control_towers'
+                    'ramp' => 'nullable|unique:control_towers'
                     ]);
                 if(!$validator->passes()){
                     return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else {
+                }else{
                     $track->ramp = $request->ramp;
                 }
             }

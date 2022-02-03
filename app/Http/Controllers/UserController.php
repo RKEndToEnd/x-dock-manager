@@ -34,7 +34,6 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('depot', function (User $user) {
                     return $user->depot->name;
-
                 })
                 ->addColumn('actions', function ($row){
                     return '<div class="btn-group">
@@ -43,7 +42,6 @@ class UserController extends Controller
                                         </div>';
                 })
                 ->rawColumns(['actions'])
-
                 ->toJson();
         }
     }
@@ -76,7 +74,7 @@ class UserController extends Controller
             'name'=>'required|string|max:50',
             'surname'=>'required|string|max:50',
             'email'=>'required|email|unique:users',
-            'depot_id'=>'required',
+            /*'depot_id'=>'required',*/
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);

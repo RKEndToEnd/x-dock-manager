@@ -6,11 +6,8 @@ use App\Imports\TrackImport;
 use App\Models\ControlTower;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpParser\Node\Stmt\Return_;
 use Yajra\DataTables\DataTables;
 
 class ControlTowerController extends Controller
@@ -27,8 +24,7 @@ class ControlTowerController extends Controller
         return DataTables::of($tracks)
             ->addIndexColumn()
             ->addColumn('departure', function ($row) {
-                return '
-                            <button class="btn btn-sm btn-outline-info" data-id="'. $row['id'].'" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                return '<button class="btn btn-sm btn-outline-info" data-id="'. $row['id'].'" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
                         ';
             })
             ->addColumn('actions', function ($row) {

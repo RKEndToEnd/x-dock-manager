@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/track.js','public/js')
     .js('resources/js/trackOps.js','public/js')
     .js('resources/js/departedTracks.js','public/js')
+    .js('resources/js/ramp.js','public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
 

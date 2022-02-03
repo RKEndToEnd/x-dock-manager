@@ -3,6 +3,7 @@
 use App\Http\Controllers\DeparturesControlTowerController;
 use App\Http\Controllers\DepotController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RampController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ControlTowerController;
 use App\Models\Depot;
@@ -38,6 +39,10 @@ Route::post('/getDepotDetails',[DepotController::class,'getDepotDetails'])->name
 Route::post('/updateDepotDetails',[DepotController::class,'updateDepotDetails'])->name('update.depot.details');
 Route::post('/deleteDepot',[DepotController::class,'deleteDepot'])->name('delete.depot');
 
+Route::get('/ramps/list',[RampController::class,'index'])->name('ramps.index');
+Route::get('getRampsList',[RampController::class,'getRampsList'])->name('get.ramps.list');
+Route::post('createRamp',[RampController::class,'createRamp'])->name('create.ramp');
+Route::post('/deleteRamp',[RampController::class,'deleteRamp'])->name('delete.ramp');
 
 Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
 Route::get('/getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');

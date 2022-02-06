@@ -17,7 +17,7 @@ class CreateRampsTable extends Migration
             $table->id();
             $table->string('name',5)->unique();
             $table->string('status',50);
-            $table->set('power',['Tak','Nie']);
+            $table->set('power',['Tak','Nie','Awaria']);
             $table->timestamps();
         });
         Schema::table('control_towers',function (Blueprint $table){

@@ -9,7 +9,7 @@
                         <button class="btn btn-sm btn-outline-primary" id="createRampBtn" data-bs-toggle="modal" data-bs-target=".createRamp">Dodaj rampę</button>
                     </div>
                         <div class="card-body">
-                            <table class=" table table-hover table-bordered table-striped table-responsive" id="ramps-all">
+                            <table class=" table table-hover  table-bordered {{--table-striped--}}" id="ramps-all">
                                 <thead>
                                     <th>#</th>
                                     <th>Oznaczenie rampy</th>

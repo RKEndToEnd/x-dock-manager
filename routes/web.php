@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RampController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ControlTowerController;
-use App\Models\Depot;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

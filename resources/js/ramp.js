@@ -1,4 +1,4 @@
-//Get all depots
+//Get all ramps
 $('#ramps-all').DataTable({
     processing:true,
     info:true,
@@ -11,7 +11,7 @@ $('#ramps-all').DataTable({
         {data:'actions', name:'actions'},
     ]
 });
-//Create new depot
+//Create new ramp
 $('#create-ramp-form').on('submit', function (e){
     e.preventDefault()
     var form = this;
@@ -39,7 +39,7 @@ $('#create-ramp-form').on('submit', function (e){
         }
     });
 });
-//Delete depot
+//Delete ramp
 $(document).on('click','#deleteRampBtn', function (){
     var ramp_id = $(this).data('id');
     var url = rampDeleteUrl;

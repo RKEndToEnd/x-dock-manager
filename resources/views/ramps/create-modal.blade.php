@@ -25,6 +25,7 @@
                             <option value="null">Wybierz z listy</option>
                             <option value="Tak">Tak</option>
                             <option value="Nie">Nie</option>
+                            <option value="Awaria">Awaria</option>
                         </select>
                         <span class="text-danger error-text depot_error"></span>
                     </div>

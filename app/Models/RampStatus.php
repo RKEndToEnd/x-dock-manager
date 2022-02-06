@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Ramp extends Model
+class RampStatus extends Model
 {
     use HasFactory;
     /**
@@ -16,16 +15,10 @@ class Ramp extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
         'status',
-        'power',
     ];
-    public function ramps(): HasOne
+    public function ramps():HasMany
     {
-        return $this->hasOne(ControlTower::class);
-    }
-    public function statuses(): HasOne
-    {
-        return $this->hasOne(RampStatus::class);
+        return $this->hasMany(Ramp::class);
     }
 }

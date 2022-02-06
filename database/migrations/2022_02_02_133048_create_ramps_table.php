@@ -16,7 +16,6 @@ class CreateRampsTable extends Migration
         Schema::create('ramps', function (Blueprint $table) {
             $table->id();
             $table->string('name',5)->unique();
-            $table->string('status',50);
             $table->set('power',['Tak','Nie','Awaria']);
             $table->timestamps();
         });

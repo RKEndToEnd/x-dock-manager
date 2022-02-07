@@ -10,13 +10,20 @@
                     @csrf
                     <input type="hidden" name="cid_create_ramp">
                     <div class="form-group">
-                        <label for="">Oznaczenie rampyu</label>
+                        <label for="">Oznaczenie rampy</label>
                         <input type="text" class="form-control" name="name"placeholder="Wpisz oznaczenie rampy">
                         <span class="text-danger error-text name_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Status</label>
-                        <input type="text" class="form-control" name="status"placeholder="Wpisz status">
+                        <select id="status" class="form-control" name="status">
+                            <option value="null">Wybierz status z listy</option>
+                            @foreach($ramp_statuses as $status)
+                                <option name="status" value="{{ $status->id }}" @if(!is_null($status->status_id) && $status->status_id->id == $status->id) selected @endif>{{ $status->status }}</option>
+                            @endforeach
+                        </select>
+
+                        {{--<input type="text" class="form-control" value="" name="status"placeholder="Wpisz status">--}}
                         <span class="text-danger error-text status_error"></span>
                     </div>
                     <div class="form-group">

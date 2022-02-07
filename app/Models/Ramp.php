@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -24,8 +25,8 @@ class Ramp extends Model
     {
         return $this->hasOne(ControlTower::class);
     }
-    public function statuses(): HasOne
+    public function status(): BelongsTo
     {
-        return $this->hasOne(RampStatus::class);
+        return $this->belongsTo(RampStatus::class);
     }
 }

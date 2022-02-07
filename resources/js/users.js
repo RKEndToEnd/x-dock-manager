@@ -4,7 +4,7 @@ $('#users-all').DataTable({
     info:true,
     ajax:getUsersUrl,
     columns:[
-        {data:'id', name:'id'},
+        {data:'DT_RowIndex', name:'DT_RowIndex'},
         {data:'name', name:'name'},
         {data:'surname', name:'surname'},
         {data:'email', name: 'email'},

@@ -4,13 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Depot;
 use App\Models\User;
-use http\Env\Response;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Monolog\Handler\CouchDBHandler;
-use Ramsey\Collection\Queue;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Facades\Validator;
 
 
 class UserController extends Controller
@@ -26,8 +21,8 @@ class UserController extends Controller
     }
 
     //Get all users
-    public function getUsersList(Request $request){
-
+    public function getUsersList(Request $request)
+    {
         if ($request->ajax()) {
             $users = User::with(['depot']);
             return DataTables::of($users)

@@ -6,5 +6,6 @@
     "/js/trackOps.js": "/js/trackOps.js",
     "/js/departedTracks.js": "/js/departedTracks.js",
     "/js/ramp.js": "/js/ramp.js",
+    "/js/rampStatus.js": "/js/rampStatus.js",
     "/css/app.css": "/css/app.css"
 }

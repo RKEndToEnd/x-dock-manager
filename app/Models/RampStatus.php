@@ -17,7 +17,7 @@ class RampStatus extends Model
     protected $fillable = [
         'status',
     ];
-    public function ramps():HasMany
+    public function statuses():HasMany
     {
         return $this->hasMany(Ramp::class);
     }

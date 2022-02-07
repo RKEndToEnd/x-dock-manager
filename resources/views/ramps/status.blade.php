@@ -5,16 +5,14 @@
         <div class="row justify-content-center">
             <div class="col-md container-fluid">
                 <div class="card">
-                    <div class="card-header"><h4>Rampy</h4>
-                        <button class="btn btn-sm btn-outline-primary" id="createRampBtn" data-bs-toggle="modal" data-bs-target=".createRamp">Dodaj rampę</button>
+                    <div class="card-header"><h4>Statusy ramp</h4>
+                        <button class="btn btn-sm btn-outline-primary" id="createStatusBtn" data-bs-toggle="modal" data-bs-target=".createStatus">Dodaj status</button>
                     </div>
                         <div class="card-body">
-                            <table class=" table table-hover  table-bordered {{--table-striped--}}" id="ramps-all">
+                            <table class=" table table-hover  table-bordered {{--table-striped--}}" id="ramp-status-all">
                                 <thead>
                                     <th>#</th>
-                                    <th>Oznaczenie rampy</th>
                                     <th>Status</th>
-                                    <th>Zasilanie</th>
                                     <th>Akcje</th>
                                 </thead>
                                 <tbody></tbody>
@@ -25,12 +23,13 @@
         </div>
     </div>
 
-    @include('ramps.createRamp-modal')
+    @include('ramps.createStatus-modal')
 @endsection
 
 @section('javascript')
-    const rampAllUrl = "{{ route('get.ramps.list') }}";
-    const rampDeleteUrl = "{{ route('delete.ramp') }}";
+    const statusAllUrl = "{{ route('get.statuses.list') }}";
+    const statusDeleteUrl = "{{ route('delete.status') }}";
+
 
     $.ajaxSetup({
         headers:{
@@ -41,5 +40,5 @@
 @endsection
 
 @section('js-files')
-    <script src="{{ asset('js/ramp.js') }}"></script>
+    <script src="{{ asset('js/rampStatus.js') }}"></script>
 @endsection

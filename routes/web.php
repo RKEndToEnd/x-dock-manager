@@ -4,6 +4,7 @@ use App\Http\Controllers\DeparturesControlTowerController;
 use App\Http\Controllers\DepotController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RampController;
+use App\Http\Controllers\RampStatusController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ControlTowerController;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,11 @@ Route::get('/ramps/list',[RampController::class,'index'])->name('ramps.index');
 Route::get('getRampsList',[RampController::class,'getRampsList'])->name('get.ramps.list');
 Route::post('createRamp',[RampController::class,'createRamp'])->name('create.ramp');
 Route::post('/deleteRamp',[RampController::class,'deleteRamp'])->name('delete.ramp');
+
+Route::get('/ramps/statuses',[RampStatusController::class,'statuses'])->name('statuses.index');
+Route::get('getStatusesList',[RampStatusController::class,'getStatusesList'])->name('get.statuses.list');
+Route::post('createStatus',[RampStatusController::class,'createStatus'])->name('create.status');
+Route::post('/deleteStatus',[RampStatusController::class,'deleteStatus'])->name('delete.status');
 
 Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
 Route::get('/getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');

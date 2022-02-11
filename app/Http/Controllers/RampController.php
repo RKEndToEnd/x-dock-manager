@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ramp;
 use App\Models\RampStatus;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -21,14 +20,14 @@ class RampController extends Controller
     }
 
 //Get all ramps
-    /*public function getRampsList(Request $request)
+    public function getRampsList(Request $request)
     {
         if ($request->ajax()) {
-            $ramps = Ramp::with(['status']);
+            $ramps = Ramp::with(['stat']);
             return DataTables::of($ramps)
                 ->addIndexColumn()
                 ->addColumn('status', function (Ramp $ramp) {
-                    return $ramp->status->status;
+                    return $ramp->stat->status;
                 })
                 ->addColumn('actions', function ($row) {
                     return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
@@ -37,19 +36,8 @@ class RampController extends Controller
                 ->rawColumns(['actions'])
                 ->make(true);
         }
-    }*/
-     public function getRampsList()
-     {
-         $ramps = Ramp::all();
-         return DataTables::of($ramps)
-             ->addIndexColumn()
-             ->addColumn('actions', function ($row) {
-                 return '<button class="btn btn-sm btn-outline-danger" data-id="'. $row['id'].'" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
-                         ';
-             })
-             ->rawColumns(['actions'])
-             ->make(true);
-     }
+    }
+
 //Create new ramp
     public function createRamp(Request $request)
     {

@@ -19,7 +19,7 @@ class CreateRampStatusesTable extends Migration
             $table->timestamps();
         });
         Schema::table('ramps',function (Blueprint $table){
-            $table->unsignedBigInteger('status')->after('name')->nullable();
+            $table->unsignedBigInteger('status')->nullable()->after('name');
             $table->foreign('status')->references('id')->on('ramp_statuses');
         });
     }

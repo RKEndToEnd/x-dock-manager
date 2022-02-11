@@ -6,7 +6,7 @@ $('#ramps-all').DataTable({
     columns:[
         {data:'DT_RowIndex', name:'DT_RowIndex'},
         {data:'name', name:'name'},
-        {data:'status', name:'status'},
+        {data:'status', name:'stat.status'},
         {data:'power', name:'power'},
         {data:'actions', name:'actions'},
     ]

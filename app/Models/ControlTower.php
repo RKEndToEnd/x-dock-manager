@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ControlTower extends Model
@@ -34,8 +35,8 @@ class ControlTower extends Model
         'comment',
         'departure',
     ];
-    public function track(): HasOne
+    public function track(): HasMany
     {
-        return $this->hasOne(Ramp::class);
+        return $this->hasMany(Ramp::class);
     }
 }

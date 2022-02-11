@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\TrackImport;
 use App\Models\ControlTower;
+use App\Models\Ramp;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,7 +18,6 @@ class ControlTowerController extends Controller
         return view('tower.index');
     }
 
-//Get all tracks
     public function getTrackList()
     {
         $tracks = ControlTower::all();
@@ -45,7 +45,6 @@ class ControlTowerController extends Controller
             ->addColumn('checkbox', function ($row) {
                 return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
             })
-            /*->setRowId('id')*/
             ->setRowClass(function ($row) {
                 if (Carbon::now() > $row->docking_plan)
                     return 2 == 0 ? '' : 'alert-danger';

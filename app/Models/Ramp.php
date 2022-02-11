@@ -21,12 +21,12 @@ class Ramp extends Model
         'status',
         'power',
     ];
-    public function ramps(): HasOne
+    public function ramps(): BelongsTo
     {
-        return $this->hasOne(ControlTower::class);
+        return $this->belongsTo(ControlTower::class);
     }
-    public function status(): BelongsTo
+    public function stat(): BelongsTo
     {
-        return $this->belongsTo(RampStatus::class);
+        return $this->belongsTo(RampStatus::class,'status');
     }
 }

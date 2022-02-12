@@ -12,6 +12,7 @@
                                     <th>#</th>
                                     <th>Imię</th>
                                     <th>Nazwisko</th>
+                                    <th>ID</th>
                                     <th>Email</th>
                                     <th>Depot</th>
                                     <th>Akcje</th>

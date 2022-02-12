@@ -21,9 +21,9 @@ class Ramp extends Model
         'status',
         'power',
     ];
-    public function ramps(): BelongsTo
+    public function ram(): BelongsTo
     {
-        return $this->belongsTo(ControlTower::class);
+        return $this->belongsTo(ControlTower::class,'ramp');
     }
     public function stat(): BelongsTo
     {

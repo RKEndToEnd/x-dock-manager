@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'surname',
+        'custom_id',
         'role',
         'email',
         'depot_id',
@@ -30,6 +31,13 @@ class User extends Authenticatable
     public function depot(): BelongsTo
     {
         return $this->belongsTo(Depot::class);
+    }
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model){
+            $model->custom_id = User::where($model->custom_id)->max('custom_id')+1;
+        });
     }
 
     /**

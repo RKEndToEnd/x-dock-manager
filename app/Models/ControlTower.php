@@ -35,7 +35,7 @@ class ControlTower extends Model
         'comment',
         'departure',
     ];
-    public function track(): HasMany
+    public function trace(): HasMany
     {
         return $this->hasMany(Ramp::class);
     }

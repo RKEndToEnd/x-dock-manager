@@ -7,6 +7,7 @@ $('#users-all').DataTable({
         {data:'DT_RowIndex', name:'DT_RowIndex'},
         {data:'name', name:'name'},
         {data:'surname', name:'surname'},
+        {data:'custom_id', name:'custom_id'},
         {data:'email', name: 'email'},
         {data:'depot', name:'depot.name'},
         {data:'actions', name:'actions'},

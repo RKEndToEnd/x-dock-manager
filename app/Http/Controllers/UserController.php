@@ -24,7 +24,7 @@ class UserController extends Controller
     public function getUsersList(Request $request)
     {
         if ($request->ajax()) {
-            $users = User::with(['depot']);
+            $users = User::with('depot');
             return DataTables::of($users)
                 ->addIndexColumn()
                 ->addColumn('depot', function (User $user) {

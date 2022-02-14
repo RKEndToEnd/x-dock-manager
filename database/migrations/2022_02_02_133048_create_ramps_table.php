@@ -20,7 +20,7 @@ class CreateRampsTable extends Migration
             $table->timestamps();
         });
         Schema::table('control_towers',function (Blueprint $table){
-           $table->unsignedBigInteger('ramp')->after('docked_at')->nullable();
+           $table->unsignedBigInteger('ramp')->nullable()->after('docked_at');
            $table->foreign('ramp')->references('id')->on('ramps');
         });
     }

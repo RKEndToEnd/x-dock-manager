@@ -39,4 +39,8 @@ class ControlTower extends Model
     {
         return $this->hasMany(Ramp::class);
     }
+    public function ids():BelongsTo
+    {
+        return $this->belongsTo(User::class,'worker_id')->withDefault();
+    }
 }

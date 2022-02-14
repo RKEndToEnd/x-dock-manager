@@ -14,10 +14,10 @@ class AddWorkerIdColumnToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('custom_id',5)->after('surname');
+            $table->string('worker_id',5)->after('surname');
         });
         Schema::table('control_towers',function (Blueprint $table){
-            $table->unsignedBigInteger('worker_id')->after('ramp')->nullable();
+            $table->unsignedBigInteger('worker_id')->nullable()->after('ramp');
             $table->foreign('worker_id')->references('id')->on('users');
         });
 
@@ -31,7 +31,7 @@ class AddWorkerIdColumnToUsersTable extends Migration
     public function down()
     {
         Schema::table('control_towers',function (Blueprint $table){
-        $table->dropForeign('users_worker_id_foreign');
+        $table->dropForeign('control_towers_worker_id_foreign');
         $table->dropColumn('worker_id');
         });
         Schema::table('users', function (Blueprint $table) {

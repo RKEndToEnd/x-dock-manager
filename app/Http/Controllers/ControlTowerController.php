@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Imports\TrackImport;
 use App\Models\ControlTower;
-use App\Models\Ramp;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use phpDocumentor\Reflection\Types\Nullable;
 use Yajra\DataTables\DataTables;
 
 class ControlTowerController extends Controller
@@ -18,17 +19,21 @@ class ControlTowerController extends Controller
         return view('tower.index');
     }
 
-    public function getTrackList()
+    public function getTrackList(Request $request)
     {
-        $tracks = ControlTower::all();
-        return DataTables::of($tracks)
-            ->addIndexColumn()
-            ->addColumn('departure', function ($row) {
-                return '<button class="btn btn-sm btn-outline-info" data-id="'. $row['id'].'" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+        if ($request->ajax()) {
+            $tracks = ControlTower::with('ids');
+            return DataTables::of($tracks)
+                ->addIndexColumn()
+                ->addColumn('ids', function(ControlTower $tower){
+                      return $tower->ids->worker_id;
+                })
+                ->addColumn('departure', function ($row) {
+                    return '<button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
                         ';
-            })
-            ->addColumn('actions', function ($row) {
-                return '<div class="btn-group">
+                })
+                ->addColumn('actions', function ($row) {
+                    return '<div class="btn-group">
                             <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn">SA <i class="fas fa-user-cog"></i></button>
                         </div>
                         <div class="btn-group">
@@ -41,18 +46,19 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
                             <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
                         </div>';
-            })
-            ->addColumn('checkbox', function ($row) {
-                return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
-            })
-            ->setRowClass(function ($row) {
-                if (Carbon::now() > $row->docking_plan)
-                    return 2 == 0 ? '' : 'alert-danger';
-                else if (Carbon::now() > Carbon::parse($row->docking_plan)->subMinutes(30) && $row->ramp == null)
-                    return 2 == 0 ? '' : 'alert-warning';
-            })
-            ->rawColumns(['actions', 'checkbox', 'departure'])
-            ->make(true);
+                })
+                ->addColumn('checkbox', function ($row) {
+                    return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
+                })
+                ->setRowClass(function ($row) {
+                    if (Carbon::now() > $row->docking_plan)
+                        return 2 == 0 ? '' : 'alert-danger';
+                    else if (Carbon::now() > Carbon::parse($row->docking_plan)->subMinutes(30) && $row->ramp == null)
+                        return 2 == 0 ? '' : 'alert-warning';
+                })
+                ->rawColumns(['actions', 'checkbox', 'departure'])
+                ->make(true);
+        }
     }
 
 //Create new track
@@ -164,7 +170,7 @@ class ControlTowerController extends Controller
     {
         $track_id = $request->cid_dock_track;
         $validator = \Validator::make($request->all(), [
-            'ramp' => 'required|max:5|unique:control_towers',
+            /*'ramp' => 'required|max:5|unique:control_towers',*/
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);

@@ -14,7 +14,7 @@ $('#tracks-all').DataTable({
        {data:'docking_plan', name:'docking_plan'},
        {data:'docked_at', name:'docked_at'},
        {data:'ramp', name:'ramp'},
-       {data:'worker_id', name:'worker_id'},
+       {data:'ids', name:'ids.worker_id'},
        {data:'task_start', name:'task_start'},
        {data:'task_end_exp', name:'task_end_exp'},
        {data:'doc_return_exp', name:'doc_return_exp'},

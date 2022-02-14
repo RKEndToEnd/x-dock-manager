@@ -21,7 +21,12 @@
                     </div>
                     <div class="form-group">
                         <label for="">Rampa</label>
-                        <input type="text" class="form-control" name="ramp"placeholder="Podaj numer rampy">
+                        <select id="ramp" class="form-control" name="ramp">
+                            <option value="null">Wybierz rampę z listy</option>
+                            @foreach($ramps as $ramp)
+                                <option name="ramp" value="{{ $ramp->id }}" >{{ $ramp->name }}</option>
+                            @endforeach
+                        </select>
                         <span class="text-danger error-text ramp_error"></span>
                     </div>
                     <div class="modal-footer">

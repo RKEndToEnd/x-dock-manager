@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Monolog\Handler\OverflowHandler;
 
 class Ramp extends Model
 {
@@ -21,9 +22,9 @@ class Ramp extends Model
         'status',
         'power',
     ];
-    public function ram(): BelongsTo
+    public function ram(): HasOne
     {
-        return $this->belongsTo(ControlTower::class,'ramp');
+        return $this->hasOne(ControlTower::class)->withDefault();
     }
     public function stat(): BelongsTo
     {

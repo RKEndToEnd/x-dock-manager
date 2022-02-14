@@ -35,9 +35,9 @@ class ControlTower extends Model
         'comment',
         'departure',
     ];
-    public function trace(): HasMany
+    public function trace(): BelongsTo
     {
-        return $this->hasMany(Ramp::class);
+        return $this->belongsTo(Ramp::class,'ramp')->withDefault();
     }
     public function ids():BelongsTo
     {

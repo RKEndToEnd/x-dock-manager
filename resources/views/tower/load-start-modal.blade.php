@@ -25,8 +25,13 @@
                         <span class="text-danger error-text ramp_error"></span>
                     </div>
                     <div class="form-group">
-                        <label for="">ID pracownika</label>
-                        <input type="text" class="form-control" name="worker_id"placeholder="Wpisz ID pracownika">
+                        <label for="worker_id">ID pracownika</label>
+                        <select id="worker_id" class="form-control" name="worker_id">
+                            <option value="null">Wybierz kod pracownika z listy</option>
+                            @foreach($users as $user)
+                                <option name="worker_id" value="{{ $user->id }}" >{{ $user->worker_id }}</option>
+                            @endforeach
+                        </select>
                         <span class="text-danger error-text worker_id_error"></span>
                     </div>
                     <div class="modal-footer">

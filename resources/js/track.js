@@ -13,7 +13,7 @@ $('#tracks-all').DataTable({
        {data:'eta', name:'eta'},
        {data:'docking_plan', name:'docking_plan'},
        {data:'docked_at', name:'docked_at'},
-       {data:'ramp', name:'ramp'},
+       {data:'trace', name:'trace.name'},
        {data:'ids', name:'ids.worker_id'},
        {data:'task_start', name:'task_start'},
        {data:'task_end_exp', name:'task_end_exp'},

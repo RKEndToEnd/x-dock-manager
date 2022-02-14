@@ -31,7 +31,7 @@ class User extends Authenticatable
 
     public function depot(): BelongsTo
     {
-        return $this->belongsTo(Depot::class);
+        return $this->belongsTo(Depot::class)->withDefault();
     }
     public function id(): HasMany
     {

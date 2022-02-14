@@ -4,29 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Imports\TrackImport;
 use App\Models\ControlTower;
+use App\Models\Ramp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use phpDocumentor\Reflection\Types\Nullable;
 use Yajra\DataTables\DataTables;
+use function PHPUnit\Framework\isNull;
 
 class ControlTowerController extends Controller
 {
     public function index(): View
     {
-        return view('tower.index');
+        return view("tower.index",['users' => User::all()],['ramps' =>Ramp::all()]);
     }
 
     public function getTrackList(Request $request)
     {
         if ($request->ajax()) {
-            $tracks = ControlTower::with('ids');
+            $tracks = ControlTower::with('ids','trace');
             return DataTables::of($tracks)
                 ->addIndexColumn()
                 ->addColumn('ids', function(ControlTower $tower){
                       return $tower->ids->worker_id;
+                })
+                ->addColumn('trace', function(ControlTower $rampTower){
+                    return $rampTower->trace->name;
                 })
                 ->addColumn('departure', function ($row) {
                     return '<button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
@@ -170,7 +174,7 @@ class ControlTowerController extends Controller
     {
         $track_id = $request->cid_dock_track;
         $validator = \Validator::make($request->all(), [
-            /*'ramp' => 'required|max:5|unique:control_towers',*/
+            'ramp' => 'required|max:5|unique:control_towers',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);

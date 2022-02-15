@@ -23,7 +23,6 @@ class User extends Authenticatable
         'name',
         'surname',
         'custom_id',
-        'role',
         'email',
         'depot_id',
         'password',

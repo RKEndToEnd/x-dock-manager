@@ -37,6 +37,14 @@
                             </thead>
                             <tbody></tbody>
                         </table>
+                        <div class="col-md-1">
+                        <table class="table table-sm table-borderless" id="ramp-schema">
+                            <thead class="">
+                            <th class=""></th>
+                            </thead>
+                            <tbody class=""></tbody>
+                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -65,6 +73,7 @@
     const saEditUrl = "{{ route('get.sa.edit.data') }}";
     const departureUrl = "{{ route('get.departure.data') }}"
     const importUpdtUrl = "{{ route('import.update') }}"
+    const rampAllUrl = "{{ route('get.ramps.list') }}";
 
     $.ajaxSetup({
     headers:{

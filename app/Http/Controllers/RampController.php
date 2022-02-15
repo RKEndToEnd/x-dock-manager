@@ -33,6 +33,16 @@ class RampController extends Controller
                     return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
                         ';
                 })
+                ->setRowClass(function ($row){
+                    if ($row->status == '1')
+                        return 2 == 0 ? '' : 'alert-success';
+                    else if ($row->status == 2)
+                        return 2 == 0 ? '' : 'alert-warning';
+                    else if ($row->status == 3)
+                        return 2 == 0 ? '' : 'alert-dark';
+                    else if ($row->status == 4)
+                        return 2 == 0 ? '' : 'alert-danger';
+                })
                 ->rawColumns(['actions'])
                 ->make(true);
         }

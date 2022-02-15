@@ -239,3 +239,12 @@ $('#sa-update-track-form').on('submit', function (e){
         }
     })
 });
+//Get all ramps
+$('#ramp-schema').DataTable({
+    processing:true,
+    info:true,
+    ajax: rampAllUrl,
+    columns:[
+        {data:'name', name:'name'},
+    ]
+});

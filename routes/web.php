@@ -25,12 +25,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/users/list',[UserController::class,'index'])->name('users.index');
-Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get.users.list');
+Route::get('/users/list',[UserController::class,'index'])->name('users.index')->middleware('role:admin');
+Route::get('/getUsersList',[UserController::class,'getUsersList'])->name('get.users.list')->middleware('role:admin');
 Route::post('/addUser',[UserController::class,'addUser'])->name('add.user');
-Route::post('/getUserDetails',[UserController::class,'getUserDetails'])->name('get.user.details');
+Route::post('/getUserDetails',[UserController::class,'getUserDetails'])->name('get.user.details')->middleware('role:user|admin');
 Route::post('/updateUserDetails',[UserController::class,'updateUserDetails'])->name('update.user.details');
 Route::post('/deleteUser',[UserController::class,'deleteUser'])->name('delete.user');
+
+Route::get('users/roles',[UserController::class,'roles'])->name('roles');
+Route::get('getRoles',[UserController::class,'getRoles'])->name('get.roles');
+Route::post('createRole',[UserController::class,'createRole'])->name('create.role');
+
 
 Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index');
 Route::get('getDepotsList',[DepotController::class,'getDepotsList'])->name('get.depots.list');

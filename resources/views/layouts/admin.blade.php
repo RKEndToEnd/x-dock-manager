@@ -193,6 +193,22 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('roles') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Role użytkowników</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('roles') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Użytkownicy - role</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">

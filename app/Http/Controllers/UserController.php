@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Depot;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 
@@ -87,7 +88,7 @@ class UserController extends Controller
             }
         }
     }
-    //Delete user
+//Delete user
     public function deleteUser(Request $request){
         $user_id = $request->user_id;
         $query = User::find($user_id)->delete();
@@ -97,7 +98,46 @@ class UserController extends Controller
             return response()->json(['code'=>0, 'msg'=>'Wystąpił nieoczekiwany błąd']);
         }
     }
-
+//Roles view
+    public function roles()
+    {
+        return view('users.roles');
+    }
+//Get roles list
+    public function getRoles()
+    {
+        $roles = Role::all();
+        return DataTables::of($roles)
+            ->addIndexColumn()
+            ->addColumn('actions', function ($row) {
+                return '<button class="btn btn-sm btn-outline-danger" data-id="'. $row['id'].'" id="deleteStatusBtn"><i class="fas fa-trash"></i></button>
+                        ';
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+//Create new role
+    public function createRole(Request $request)
+    {
+        /*$role_id = $request->cid_create_role;*/
+        $validator = \Validator::make($request->all(),[
+            'name'=>'required|string|unique:roles|max:50',
+            'guard_name'=>'required|string|max:50',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else {
+            $role = new Role($request->all());
+            $role->name = $request->name;
+            $role->guard_name = $request->guard_name;
+            $query = $role->save();
+            if ($query) {
+                return response()->json(['code' => 1, 'msg' => 'Rola została dodana do bazy danych']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            }
+        }
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -26,6 +28,7 @@ class User extends Authenticatable
         'custom_id',
         'email',
         'depot_id',
+        'role',
         'password',
     ];
 
@@ -37,6 +40,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(ControlTower::class);
     }
+    public function role(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    public function rusers(): HasMany
+    {
+        $this->hasMany(ModelHasRole::class,'model_id');
+    }
+
     public static function boot()
     {
         parent::boot();

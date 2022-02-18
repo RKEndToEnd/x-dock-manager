@@ -31,11 +31,10 @@ $('#tracks-all').DataTable({
     $('input[name="tracks-checkbox"]').prop('checked', false);
     $('button#deleteAllMarkedBtn').addClass('d-none');
 });
-//testing
-/*$(document).on('click','tr',function(){
-    var worker_id = $(this).data('id')
-    alert(worker_id);
-})*/
+//Table autorefresh
+/*setInterval(function (){
+    $('#tracks-all').DataTable().ajax.reload();
+},60000);*/
 //Create new track
 $('#create-track-form').on('submit', function (e){
     e.preventDefault()

@@ -8,5 +8,6 @@
     "/js/ramp.js": "/js/ramp.js",
     "/js/rampStatus.js": "/js/rampStatus.js",
     "/js/roles.js": "/js/roles.js",
+    "/js/assignedRoles.js": "/js/assignedRoles.js",
     "/css/app.css": "/css/app.css"
 }

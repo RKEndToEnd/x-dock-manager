@@ -35,6 +35,10 @@ Route::post('/deleteUser',[UserController::class,'deleteUser'])->name('delete.us
 Route::get('users/roles',[UserController::class,'roles'])->name('roles');
 Route::get('getRoles',[UserController::class,'getRoles'])->name('get.roles');
 Route::post('createRole',[UserController::class,'createRole'])->name('create.role');
+Route::get('users/roles/assigned',[UserController::class,'assignedRoles'])->name('assigned.roles');
+Route::get('getAsRoles',[UserController::class,'getAsRoles'])->name('get.as.roles');
+
+
 
 
 Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index');

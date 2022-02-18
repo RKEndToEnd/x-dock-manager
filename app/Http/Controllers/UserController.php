@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Depot;
+use App\Models\ModelHasRole;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 use Yajra\DataTables\DataTables;
 
 
@@ -138,69 +142,27 @@ class UserController extends Controller
             }
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+//Roles view
+    public function assignedRoles()
     {
-        //
+        return view('users.rolesAssign',['model_has_roles' => ModelHasRole::all()]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+//Get roles list
+    public function getAsRoles(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($request->ajax()) {
+            $asRoles = ModelHasRole::with('ruser');
+            return DataTables::of($asRoles)
+                ->addIndexColumn()
+                ->addColumn('user', function (ModelHasRole $userName){
+                    return $userName->ruser->name;
+                })
+                /*->addColumn('actions', function ($row) {
+                    return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn"><i class="fas fa-trash"></i></button>
+                            ';
+                })
+                ->rawColumns(['actions'])*/
+                ->make(true);
+        }
     }
 }

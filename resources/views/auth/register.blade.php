@@ -54,6 +54,19 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="depot_id" class="col-md-4 col-form-label text-md-right">{{ __('Depot ID') }}</label>
+
+                            <div class="col-md-6">
+                            <select id="depot_id" class="form-control" name="depot_id">
+                                <option value="null">Wybierz depot z listy</option>
+                                    @foreach($depots as $depot)
+                                        <option name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
+                                    @endforeach
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

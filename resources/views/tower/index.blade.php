@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-hover table-bordered" id="tracks-all">
+                        <table class="table table-sm table-hover table-bordered compact" id="tracks-all">
                             <thead>
                             <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
                             <th>#</th>

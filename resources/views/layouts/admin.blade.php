@@ -205,7 +205,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('assigned.roles') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Użytkownicy - role</p>
+                                    <p>Uprawnienia dostępu</p>
                                 </a>
                             </li>
                         </ul>

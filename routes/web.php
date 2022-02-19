@@ -37,6 +37,8 @@ Route::get('getRoles',[UserController::class,'getRoles'])->name('get.roles');
 Route::post('createRole',[UserController::class,'createRole'])->name('create.role');
 Route::get('users/roles/assigned',[UserController::class,'assignedRoles'])->name('assigned.roles');
 Route::get('getAsRoles',[UserController::class,'getAsRoles'])->name('get.as.roles');
+Route::post('assignRole',[UserController::class,'assignRole'])->name('assign.role');
+
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Depot;
 use App\Models\ModelHasRole;
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -145,7 +146,7 @@ class UserController extends Controller
 //Roles view
     public function assignedRoles()
     {
-        return view('users.rolesAssign',['model_has_roles' => ModelHasRole::all()]);
+        return view('users.rolesAssign',/*['model_has_roles' => ModelHasRole::all()],*/['roles'=>Roles::all()],['users'=>User::all()]);
     }
 //Get roles list
     public function getAsRoles(Request $request)
@@ -160,12 +161,37 @@ class UserController extends Controller
                 ->addCOlumn('role', function(ModelHasRole $roleName){
                     return $roleName->rrole->name;
                 })
-                /*->addColumn('actions', function ($row) {
-                    return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn"><i class="fas fa-trash"></i></button>
-                            ';
+                ->addColumn('actions', function ($row){
+                    return '<div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editRoleBtn"><i class="fas fa-user-edit"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteRoleBtn"><i class="fas fa-trash"></i></button>
+                                        </div>';
                 })
-                ->rawColumns(['actions'])*/
+                ->rawColumns(['actions'])
                 ->make(true);
+        }
+    }
+//Create new role
+    public function assignRole(Request $request)
+    {
+        /*$role_id = $request->cid_create_role;*/
+        $validator = \Validator::make($request->all(),[
+            'model_id'=>'required|unique:model_has_roles|max:50',
+            'role_id'=>'required|max:50',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else {
+            $assigned = new ModelHasRole($request->all());
+            $assigned->model_id = $request->model_id;
+            $assigned->model_type = "App\Models\User";
+            $assigned->role_id = $request->role_id;
+            $query = $assigned->save();
+            if ($query) {
+                return response()->json(['code' => 1, 'msg' => 'Uprawnienia zostały nadane']);
+            } else {
+                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            }
         }
     }
 }

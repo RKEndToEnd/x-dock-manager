@@ -6,7 +6,7 @@
             <div class="col-md container-fluid">
                 <div class="card">
                     <div class="card-header"><h4>Uprawnienia użytkowników</h4>
-                        <button class="btn btn-sm btn-outline-primary" id="createRoleBtn" data-bs-toggle="modal" data-bs-target=".createRole">Dodaj uprawnienia użytkownikowi</button>
+                        <button class="btn btn-sm btn-outline-primary" id="createRoleBtn" data-bs-toggle="modal" data-bs-target=".assignRole">Dodaj uprawnienia użytkownikowi</button>
                     </div>
                         <div class="card-body">
                             <table class=" table table-hover table-bordered table-striped" id="assigned-roles-all">
@@ -14,6 +14,7 @@
                                     <th>#</th>
                                     <th>Użytkownik</th>
                                     <th>Poziom uprawnień</th>
+                                    <th>Akcje</th>
                                 </thead>
                                 <tbody></tbody>
                             </table>
@@ -23,7 +24,7 @@
             </div>
     </div>
 
-    {{--@include('users.createRole-modal')--}}
+    @include('users.assignRole-modal')
 @endsection
 
 @section('javascript')

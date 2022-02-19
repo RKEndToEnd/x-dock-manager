@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Monolog\Handler\OverflowHandler;
 use Spatie\Permission\Models\Role;
 
-class ModelHasRole extends Model
+class Roles extends Model
 {
     use HasFactory;
     /**
@@ -19,16 +19,11 @@ class ModelHasRole extends Model
      * @var array
      */
     protected $fillable = [
-        'role_id',
-        'model_type',
-        'model_id',
+        'name',
+        'guard_name',
     ];
-    public function ruser(): BelongsTo
+    public function rroles():HasMany
     {
-        return $this->belongsTo(User::class,'model_id');
-    }
-    public function rrole():BelongsTo
-    {
-        return $this->belongsTo(Role::class,'role_id');
+        return $this->hasMany(ModelHasRole::class,'role_id');
     }
 }

@@ -151,11 +151,14 @@ class UserController extends Controller
     public function getAsRoles(Request $request)
     {
         if ($request->ajax()) {
-            $asRoles = ModelHasRole::with('ruser');
+            $asRoles = ModelHasRole::with('ruser','rrole');
             return DataTables::of($asRoles)
                 ->addIndexColumn()
                 ->addColumn('user', function (ModelHasRole $userName){
                     return $userName->ruser->name;
+                })
+                ->addCOlumn('role', function(ModelHasRole $roleName){
+                    return $roleName->rrole->name;
                 })
                 /*->addColumn('actions', function ($row) {
                     return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn"><i class="fas fa-trash"></i></button>

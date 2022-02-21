@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'success',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Get all ramp statuses
 $('#ramp-status-all').DataTable({
     processing:true,
@@ -32,7 +45,7 @@ $('#create-status-form').on('submit', function (e){
                 $('#ramp-status-all').DataTable().ajax.reload(null,false);
                 $('.createStatus').modal('hide');
                 $('.createStatus').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -44,7 +57,9 @@ $(document).on('click','#deleteStatusBtn', function (){
     Swal.fire({
         title: 'Czy na pewno chcesz ususnąć status z bazy danych?',
         showDenyButton: true,
+        icon: 'question',
         confirmButtonText: 'Tak, usuń',
+        confirmButtonColor:'green',
         denyButtonText: `Anuluj`,
         allowOutsideClick:false,
     }).then(function (result){
@@ -52,9 +67,22 @@ $(document).on('click','#deleteStatusBtn', function (){
             $.post(url,{status_id:status_id}, function(data){
                 if(data.code == 1){
                     $('#ramp-status-all').DataTable().ajax.reload(null, false);
-                    Swal.fire(data.msg);
+                    const Toast = Swal.mixin({
+                        icon:'error',
+                        showCloseButton:true,
+                        toast: true,
+                        position: 'center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire(data.msg);
                 }else{
-                    Swal.fire(data.msg);
+                    Toast.fire(data.msg);
                 }
             },'json');
         }

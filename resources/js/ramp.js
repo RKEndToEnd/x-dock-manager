@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'success',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Get all ramps
 $('#ramps-all').DataTable({
     processing:true,
@@ -34,7 +47,7 @@ $('#create-ramp-form').on('submit', function (e){
                 $('#ramps-all').DataTable().ajax.reload(null,false);
                 $('.createRamp').modal('hide');
                 $('.createRamp').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -46,7 +59,9 @@ $(document).on('click','#deleteRampBtn', function (){
     Swal.fire({
         title: 'Czy na pewno chcesz ususnąć rampę z bazy danych?',
         showDenyButton: true,
+        icon:'question',
         confirmButtonText: 'Tak, usuń',
+        confirmButtonColor:'green',
         denyButtonText: `Anuluj`,
         allowOutsideClick:false,
     }).then(function (result){
@@ -54,9 +69,22 @@ $(document).on('click','#deleteRampBtn', function (){
             $.post(url,{ramp_id:ramp_id}, function(data){
                 if(data.code == 1){
                     $('#ramps-all').DataTable().ajax.reload(null, false);
-                    Swal.fire(data.msg);
+                    const Toast = Swal.mixin({
+                        icon:'error',
+                        showCloseButton:true,
+                        toast: true,
+                        position: 'center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire(data.msg);
                 }else{
-                    Swal.fire(data.msg);
+                    Toast.fire(data.msg);
                 }
             },'json');
         }

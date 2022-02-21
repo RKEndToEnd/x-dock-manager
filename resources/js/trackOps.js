@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'info',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Docking track get data
 $(document).on('click','#dockTrackBtn', function (){
    var track_id = $(this).data('id');
@@ -32,7 +45,7 @@ $('#dock-track-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.dockTrack').modal('hide');
                 $('.dockTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -72,7 +85,7 @@ $('#load-start-track-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.loadStartTrack').modal('hide');
                 $('.loadStartTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -113,7 +126,7 @@ $('#load-stop-track-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.loadStopTrack').modal('hide');
                 $('.loadStopTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -160,7 +173,7 @@ $('#doc-ready-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.docReady').modal('hide');
                 $('.docReady').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -204,7 +217,7 @@ $('#departure-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null, false);
                 $('.departureTrack').modal('hide');
                 $('.departureTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });

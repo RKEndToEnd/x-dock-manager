@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'success',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Get asigned roles
 $('#assigned-roles-all').DataTable({
     processing:true,
@@ -33,7 +46,7 @@ $('#assign-role-form').on('submit', function (e){
                 $('#assigned-roles-all').DataTable().ajax.reload(null,false);
                 $('.assignRole').modal('hide');
                 $('.assignRole').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });

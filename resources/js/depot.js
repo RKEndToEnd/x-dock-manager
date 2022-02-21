@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'success',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Get all depots
 $('#depots-all').DataTable({
     processing:true,
@@ -35,7 +48,7 @@ $('#create-depot-form').on('submit', function (e){
                 $('#depots-all').DataTable().ajax.reload(null,false);
                 $('.createDepot').modal('hide');
                 $('.createDepot').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -75,7 +88,7 @@ $('#update-depot-form').on('submit', function (e){
                 $('#depots-all').DataTable().ajax.reload(null,false);
                 $('.editDepot').modal('hide');
                 $('.editDepot').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     })
@@ -87,7 +100,9 @@ $(document).on('click','#deleteDepotBtn', function (){
     Swal.fire({
         title: 'Czy na pewno chcesz ususnąć depot z bazy danych?',
         showDenyButton: true,
+        icon:'question',
         confirmButtonText: 'Tak, usuń',
+        confirmButtonColor:'green',
         denyButtonText: `Anuluj`,
         allowOutsideClick:false,
     }).then(function (result){
@@ -95,9 +110,22 @@ $(document).on('click','#deleteDepotBtn', function (){
             $.post(url,{depot_id:depot_id}, function(data){
                 if(data.code == 1){
                     $('#depots-all').DataTable().ajax.reload(null, false);
-                    Swal.fire(data.msg);
+                    const Toast = Swal.mixin({
+                        icon:'error',
+                        showCloseButton:true,
+                        toast: true,
+                        position: 'center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire(data.msg);
                 }else{
-                    Swal.fire(data.msg);
+                    Toast.fire(data.msg);
                 }
             },'json');
         }

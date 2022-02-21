@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'success',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Get all tracks
 $('#tracks-all').DataTable({
    processing:true,
@@ -57,7 +70,7 @@ $('#create-track-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null,false);
                 $('.createTrack').modal('hide');
                 $('.createTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     });
@@ -100,7 +113,7 @@ $('#update-track-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null,false);
                 $('.editTrack').modal('hide');
                 $('.editTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     })
@@ -112,7 +125,9 @@ $(document).on('click','#deleteTrackBtn', function (){
     Swal.fire({
         title: 'Czy na pewno chcesz ususnąć trasę z bazy danych?',
         showDenyButton: true,
+        icon: 'question',
         confirmButtonText: 'Tak, usuń',
+        confirmButtonColor:'green',
         denyButtonText: `Anuluj`,
         allowOutsideClick:false,
     }).then(function (result){
@@ -120,9 +135,22 @@ $(document).on('click','#deleteTrackBtn', function (){
             $.post(url,{track_id:track_id}, function(data){
                 if(data.code == 1){
                     $('#tracks-all').DataTable().ajax.reload(null, false);
-                    Swal.fire(data.msg);
+                    const Toast = Swal.mixin({
+                        icon:'error',
+                        showCloseButton:true,
+                        toast: true,
+                        position: 'center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire(data.msg);
                 }else{
-                    Swal.fire(data.msg);
+                    Toast.fire(data.msg);
                 }
             },'json');
         }
@@ -169,7 +197,9 @@ $(document).on('click', 'button#deleteAllMarkedBtn', function (){
             title: 'Potwierdź!',
             html:'Czy na pewno usunąć zaznaczone <b>('+checkedTracks.length+')</b> trasy?',
             showDenyButton: true,
+            icon:'question',
             confirmButtonText: 'Tak, usuń',
+            confirmButtonColor: 'green',
             denyButtonText: `Anuluj`,
             allowOutsideClick:false,
         }).then(function (result){
@@ -177,7 +207,20 @@ $(document).on('click', 'button#deleteAllMarkedBtn', function (){
                 $.post(url,{tracks_ids:checkedTracks},function (data) {
                     if (data.code == 1) {
                         $('#tracks-all').DataTable().ajax.reload(null, true);
-                        Swal.fire(data.msg);
+                        const Toast = Swal.mixin({
+                            icon:'error',
+                            showCloseButton:true,
+                            toast: true,
+                            position: 'center',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        Toast.fire(data.msg);
                     }
                 },'json');
             }
@@ -232,7 +275,7 @@ $('#sa-update-track-form').on('submit', function (e){
                 $('#tracks-all').DataTable().ajax.reload(null,false);
                 $('.saEditTrack').modal('hide');
                 $('.saEditTrack').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     })

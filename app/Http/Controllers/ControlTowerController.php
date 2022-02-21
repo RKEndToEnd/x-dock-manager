@@ -361,7 +361,7 @@ class ControlTowerController extends Controller
                     $track->delete();
                     $query=$newTrack->save();
                     if ($query) {
-                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona. Trasa przeniesiona do widoku tras zakończonych.']);
+                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona, dokumenty wydane kierowcy. Trasa przeniesiona do widoku tras zakończonych.']);
                     } else {
                         return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                     }

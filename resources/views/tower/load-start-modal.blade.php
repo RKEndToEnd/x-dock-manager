@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label for="worker_id">ID pracownika</label>
                         <select id="worker_id" class="form-control" name="worker_id">
-                            <option value="null">Wybierz kod pracownika z listy</option>
+                            <option value="">Wybierz kod pracownika z listy</option>
                             @foreach($users as $user)
                                 <option name="worker_id" value="{{ $user->id }}" >{{ $user->worker_id }}</option>
                             @endforeach

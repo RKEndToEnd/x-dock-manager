@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label for="">Rampa</label>
                         <select id="ramp" class="form-control" name="ramp">
-                            <option value="null">Wybierz rampę z listy</option>
+                            <option value="">Wybierz rampę z listy</option>
                             @foreach($ramps as $ramp)
                                 <option name="ramp" value="{{ $ramp->id }}" >{{ $ramp->name }}</option>
                             @endforeach

@@ -32,10 +32,6 @@ class ControlTowerController extends Controller
                 ->addColumn('trace', function(ControlTower $rampTower){
                     return $rampTower->trace->name;
                 })
-                ->addColumn('departure', function ($row) {
-                    return '<button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
-                        ';
-                })
                 ->addColumn('actions', function ($row) {
                     return '<div class="btn-group">
                             <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn">SA <i class="fas fa-user-cog"></i></button>
@@ -49,6 +45,7 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
                             <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
                             <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                 })
                 ->addColumn('checkbox', function ($row) {
@@ -127,16 +124,20 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            $track->vehicle_id = $request->vehicle_id;
-            $track->track_type = $request->track_type;
-            $track->freight = $request->freight;
-            $track->eta = $request->eta;
-            $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
-            $query = $track->save();
-            if ($query) {
-                return response()->json(['code' => 1, 'msg' => 'Dane trasy zostały zaktualizowane']);
-            } else {
-                return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+            if (!ControlTower::where('task_end_exp','=',$request->input($track->task_end_exp))->exists()){
+                $track->vehicle_id = $request->vehicle_id;
+                $track->track_type = $request->track_type;
+                $track->freight = $request->freight;
+                $track->eta = $request->eta;
+                $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+                $query = $track->save();
+                if ($query) {
+                    return response()->json(['code' => 1, 'msg' => 'Dane trasy zostały zaktualizowane']);
+                } else {
+                    return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
+                }
+            }else{
+                return response()->json(['code' => 1, 'msg' => 'Załadunek trasy został rozpoczęty. Zmian można dokonać w trybie Super Admin!']);
             }
         }
     }

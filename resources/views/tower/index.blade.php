@@ -32,8 +32,7 @@
                             <th>Operacja STOP</th>
                             <th>Dokumenty gotowe</th>
                             <th>Komentarz</th>
-                            <th>Wyjazd</th>
-                            <th>Akcje<button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone<i class="fas fa-trash-alt"></i></button></th>
+                            <th>Operacje<button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone<i class="fas fa-trash-alt"></i></button></th>
                             </thead>
                             <tbody></tbody>
                         </table>

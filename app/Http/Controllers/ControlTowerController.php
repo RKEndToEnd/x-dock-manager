@@ -184,11 +184,10 @@ class ControlTowerController extends Controller
                 $track->ramp = $request->ramp;
                 $track->docked_at = Carbon::now();
                 $query = $track->save();
-                $ramp = Ramp::all()->first();
+                /*$ramp = Ramp::all()->first();
                 $ramp->status = 2;
-                $ramp->save();
+                $ramp->save();*/
                 if ($query) {
-
                     return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
                 } else {
                     return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);

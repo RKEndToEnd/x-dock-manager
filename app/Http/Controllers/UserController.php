@@ -23,7 +23,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index',['depots' =>Depot::all()]);
+        return view('users.index',[
+            'depots' =>Depot::all(),
+            'users' => User::all()
+        ]);
     }
 
     //Get all users
@@ -74,8 +77,7 @@ class UserController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string|max:50',
             'surname'=>'required|string|max:50',
-            'email'=>'required|email|unique:users',
-            /*'depot_id'=>'required',*/
+            'depot_id'=>'string|max:10',
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -84,6 +86,16 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->surname = $request->surname;
             $user->email = $request->email;
+            if ($user->isDirty('email')){
+                $validator = \Validator::make($request->all(), [
+                    'email' => 'required|email|unique:users'
+                ]);
+                if(!$validator->passes()){
+                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+                }else{
+                    $user->email = $request->email;
+                }
+            }
             $user->depot_id = $request->depot;
             $query = $user->save();
             if ($query){
@@ -158,20 +170,20 @@ class UserController extends Controller
                 ->addColumn('user', function (ModelHasRole $userName){
                     return $userName->ruser->name;
                 })
-                ->addCOlumn('role', function(ModelHasRole $roleName){
+                ->addColumn('role', function(ModelHasRole $roleName){
                     return $roleName->rrole->name;
                 })
                 ->addColumn('actions', function ($row){
                     return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editRoleBtn"><i class="fas fa-user-edit"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteRoleBtn"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editAssignedRoleBtn"><i class="fas fa-user-edit"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteAssignedRoleBtn"><i class="fas fa-trash"></i></button>
                                         </div>';
                 })
                 ->rawColumns(['actions'])
                 ->make(true);
         }
     }
-//Create new role
+//Assign role to user
     public function assignRole(Request $request)
     {
         /*$role_id = $request->cid_create_role;*/

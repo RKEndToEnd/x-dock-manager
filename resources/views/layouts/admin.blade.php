@@ -85,7 +85,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>{{ Auth::user()->name }}</p>
+                        <p>{{ Auth::user()->name }} {{Auth::user()->surname}}</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -197,7 +197,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('roles') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Role użytkowników</p>
+                                    <p>Poziomy dostępów</p>
                                 </a>
                             </li>
                         </ul>

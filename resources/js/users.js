@@ -1,3 +1,16 @@
+const Toast = Swal.mixin({
+    icon:'success',
+    showCloseButton:true,
+    toast: true,
+    position: 'center',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
 //Get all users
 $('#users-all').DataTable({
     processing:true,
@@ -12,6 +25,32 @@ $('#users-all').DataTable({
         {data:'depot', name:'depot.name'},
         {data:'actions', name:'actions'},
     ]
+});
+$('#create-user').on('submit', function (e){
+    e.preventDefault()
+    var form = this;
+    $.ajax({
+        url:$(form).attr('action'),
+        method:$(form).attr('method'),
+        data:new FormData(form),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend:function (){
+            $(form).find('span.error-text').text('')
+        },
+        success:function (data){
+            if(data.code == 0){
+                $.each(data.error, function (prefix, val){
+                    $(form).find('span.'+prefix+'_error').text(val[0]);
+                });
+            }else{
+                $('#users-all').DataTable().ajax.reload(null,false);
+                $('#create-user')[0].reset();
+                Toast.fire(data.msg);
+            }
+        }
+    });
 });
 //Edit user
 $(document).on('click', '#editUserBtn', function (){
@@ -50,7 +89,7 @@ $('#update-user-form').on('submit', function (e){
                 $('#users-all').DataTable().ajax.reload(null,false);
                 $('.editUser').modal('hide');
                 $('.editUser').find('form')[0].reset();
-                Swal.fire(data.msg);
+                Toast.fire(data.msg);
             }
         }
     })
@@ -70,9 +109,22 @@ $(document).on('click','#deleteUserBtn', function (){
             $.post(url,{user_id:user_id}, function(data){
                 if(data.code == 1){
                     $('#users-all').DataTable().ajax.reload(null, false);
-                    Swal.fire(data.msg);
+                    const Toast = Swal.mixin({
+                        icon:'error',
+                        showCloseButton:true,
+                        toast: true,
+                        position: 'center',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire(data.msg);
                 }else{
-                    Swal.fire(data.msg);
+                    Toast.fire(data.msg);
                 }
             },'json');
         }

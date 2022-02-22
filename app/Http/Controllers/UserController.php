@@ -8,6 +8,7 @@ use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -52,16 +53,28 @@ class UserController extends Controller
     //Add user - temporary
     public function addUser(Request $request){
         $validator = \Validator::make($request->all(),[
-            'name'=>'required',
-            'email'=>'required|unique:users',
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'depot_id' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
             $user = new User();
             $user->name = $request->name;
+            $user->surname = $request->surname;
             $user->email = $request->email;
+            $user->depot_id = $request->depot_id;
+            $user->password = Hash::make($request->password);
+            $user->assignRole('observer');
             $query = $user->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Nowy użytkownik został dodany']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
         }
     }
     //Get user details

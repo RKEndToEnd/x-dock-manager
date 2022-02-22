@@ -20,7 +20,7 @@
                         <span class="text-danger error-text track_id_error"></span>
                     </div>
                     <div class="form-group">
-                        <label for="">Rampa</label>
+                        <label for="ramp">Rampa</label>
                         <select id="ramp" class="form-control" name="ramp">
                             <option value="">Wybierz rampę z listy</option>
                             @foreach($ramps as $ramp)

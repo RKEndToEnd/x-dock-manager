@@ -43,6 +43,7 @@ $('#dock-track-form').on('submit', function (e){
                 });
             }else{
                 $('#tracks-all').DataTable().ajax.reload(null, false);
+                $('#ramp-schema').DataTable().ajax.reload(null, false);
                 $('.dockTrack').modal('hide');
                 $('.dockTrack').find('form')[0].reset();
                 Toast.fire(data.msg);

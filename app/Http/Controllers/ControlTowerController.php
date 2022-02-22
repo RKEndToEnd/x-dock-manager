@@ -8,6 +8,7 @@ use App\Models\Ramp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
@@ -181,10 +182,26 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
+            $ramp = Ramp::all()->first();
+
+            /*$ramp = Ramp::all()->where('id','=','$track->ramp')->first();*/
+            /*$ramp = DB::table('ramps')->where('id','=','$track->ramp')->first();*/
             if (!ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
                 $track->ramp = $request->ramp;
                 $track->docked_at = Carbon::now();
+
+                /*$ramp = Ramp::select('id','=',$request->input($track->ramp))->first();
+                $ramp->status = 2;*/
+
+                /*if ($request->ramp=$ramp->id){
+                    $ramp->status = 2;
+                    $ramp->save();
+                }*/
+
+                $ramp->status = 2;
+                $ramp->save();
                 $query = $track->save();
+
                 /*$ramp = Ramp::all()->first();
                 $ramp->status = 2;
                 $ramp->save();*/

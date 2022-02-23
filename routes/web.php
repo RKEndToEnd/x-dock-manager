@@ -43,7 +43,7 @@ Route::post('assignRole',[UserController::class,'assignRole'])->name('assign.rol
 
 
 
-Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index');
+Route::get('/depots/list',[DepotController::class,'index'])->name('depots.index')->middleware('role:admin');
 Route::get('getDepotsList',[DepotController::class,'getDepotsList'])->name('get.depots.list');
 Route::post('createDepot',[DepotController::class,'createDepot'])->name('create.depot');
 Route::post('/getDepotDetails',[DepotController::class,'getDepotDetails'])->name('get.depot.details');
@@ -60,7 +60,7 @@ Route::get('getStatusesList',[RampStatusController::class,'getStatusesList'])->n
 Route::post('createStatus',[RampStatusController::class,'createStatus'])->name('create.status');
 Route::post('/deleteStatus',[RampStatusController::class,'deleteStatus'])->name('delete.status');
 
-Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index');
+Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index')->middleware('role:admin');
 Route::get('/getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list');
 Route::post('/createTrack',[ControlTowerController::class,'createTrack'])->name('create.track');
 Route::post('/getTrackDetails',[ControlTowerController::class,'getTrackDetails'])->name('get.track.details');

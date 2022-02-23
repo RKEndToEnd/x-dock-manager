@@ -97,10 +97,6 @@ class ControlTowerController extends Controller
     {
         Excel::import(new TrackImport,$request->file);
         return response()->json(['code' => 1, 'msg' => 'Trasy zostały dodane do bazy danych']);
-
-        // WSTAWIĆ OBSERVER
-
-
     }
 
 //Get track details
@@ -182,29 +178,21 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            $ramp = Ramp::all()->first();
+          //  $ramp = Ramp::all()->get($this->$track->ramp);
 
-            /*$ramp = Ramp::all()->where('id','=','$track->ramp')->first();*/
-            /*$ramp = DB::table('ramps')->where('id','=','$track->ramp')->first();*/
+
             if (!ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
                 $track->ramp = $request->ramp;
                 $track->docked_at = Carbon::now();
 
-                /*$ramp = Ramp::select('id','=',$request->input($track->ramp))->first();
-                $ramp->status = 2;*/
+/*                $ramp = Ramp::find('id','status')->get($this->$track->ramp);
 
-                /*if ($request->ramp=$ramp->id){
-                    $ramp->status = 2;
-                    $ramp->save();
-                }*/
 
-                $ramp->status = 2;
-                $ramp->save();
+                   $ramp->status = 2;
+                $ramp->save();*/
                 $query = $track->save();
 
-                /*$ramp = Ramp::all()->first();
-                $ramp->status = 2;
-                $ramp->save();*/
+
                 if ($query) {
                     return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
                 } else {

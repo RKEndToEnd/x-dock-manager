@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\ControlTower;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -23,6 +24,7 @@ class TrackImport implements ToModel,WithHeadingRow
             'track_type' => $row['track_type'],
             'freight' => $row['freight'],
             'eta' => $row['eta'],
+            'docking_plan' => Carbon::parse($row['eta'])->subMinutes($row['freight'] * 1.5 + 15),
         ]);
      }
 }

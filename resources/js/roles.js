@@ -18,7 +18,7 @@ $('#roles-all').DataTable({
     ajax:getRolesUrl,
     columns:[
         {data:'DT_RowIndex', name:'DT_RowIndex'},
-        {data:'name'|'surname', name:'name'|'surname'},
+        {data:'name', name:'name'},
         {data:'guard_name', name:'guard_name'},
     ]
 });

@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md container-fluid">
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 30px">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><h4>Depoty</h4>
                         <button class="btn btn-sm btn-outline-primary" id="createDepotBtn" data-bs-toggle="modal" data-bs-target=".createDepot">Dodaj depot</button>
                     </div>
                         <div class="card-body">
-                            <table class=" table table-hover table-bordered table-striped table-responsive" id="depots-all">
+                            <table class="table table-hover table-bordered table-condensed" id="depots-all">
                                 <thead>
                                     <th>#</th>
                                     <th>Kod depotu</th>

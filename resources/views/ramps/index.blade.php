@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md container-fluid">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><h4>Rampy</h4>
                         <button class="btn btn-sm btn-outline-primary" id="createRampBtn" data-bs-toggle="modal" data-bs-target=".createRamp">Dodaj rampę</button>

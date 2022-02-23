@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row" style="margin-top: 45px">
+        <div class="row" style="margin-top: 30px">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header"><h4>Użytkownicy</h4></div>

@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md container-fluid">
+        <div class="row" style="margin-top: 30px">
+            <div class="container-fluid">
                 <div class="card">
                     <div class="card-header"><h4>Trasy przeładowane</h4></div>
                     <div class="card-body">
-                        <table class=" table table-hover table-bordered table-responsive" id="tracks-departed">
-                            <thead>
+                        <table style="width: 100%" class="table table-sm table-hover table-bordered compact"  id="tracks-departed" >
+                            <thead >
                             <th>#</th>
                             <th>Pojazd</th>
                             <th>Trasa</th>

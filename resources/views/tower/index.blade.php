@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md container-fluid">
+        <div class="row" style="margin-top: 30px">
+            <div class="container-fluid">
                 <div class="card">
                     <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
                         <div>
@@ -13,7 +13,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm table-hover table-bordered compact" id="tracks-all">
+                        <table style="width: 100%" class="table table-sm table-hover table-bordered compact" id="tracks-all">
                             <thead>
                             <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
                             <th>#</th>

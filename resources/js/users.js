@@ -102,6 +102,7 @@ $(document).on('click','#deleteUserBtn', function (){
         title: 'Czy na pewno chcesz ususnąć użytkownika z bazy danych?',
         showDenyButton: true,
         confirmButtonText: 'Tak, usuń',
+        confirmButtonColor:'green',
         denyButtonText: `Anuluj`,
         allowOutsideClick:false,
     }).then(function (result){

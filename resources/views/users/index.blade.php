@@ -25,92 +25,67 @@
 
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header">Dodawanie uzytkowników</div>
+                    <div class="card-header">Dodawanie uzytkownika</div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('add.user') }}" id="create-user">
                             @csrf
 
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <div class="input-group mb-3">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Imię">
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
+                            <div class="input-group mb-3">
+                                    <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" autofocus placeholder=Nazwisko>
 
                                     @error('surname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                            <div class="input-group mb-3">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
 
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="depot_id" class="col-md-4 col-form-label text-md-right">{{ __('Depot ID') }}</label>
-
-                                <div class="col-md-6">
+                            <div class="input-group mb-3">
                                     <select id="depot_id" class="form-control" name="depot_id">
-                                        <option value="null">Wybierz depot z listy</option>
+                                        <option value="null">Depot - wybierz z listy</option>
                                         @foreach($depots as $depot)
                                             <option name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
                                         @endforeach
                                     </select>
-                                </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <div class="input-group mb-3">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Hasło">
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="input-group mb-3">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Powtórz hasło">
                                 </div>
-                            </div>
-
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('Register') }}
+                                        Dodaj użytkownika
                                     </button>
                                 </div>
                             </div>

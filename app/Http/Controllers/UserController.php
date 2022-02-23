@@ -50,7 +50,7 @@ class UserController extends Controller
                 ->toJson();
         }
     }
-    //Add user - temporary
+    //Add user
     public function addUser(Request $request){
         $validator = \Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
@@ -181,7 +181,8 @@ class UserController extends Controller
             return DataTables::of($asRoles)
                 ->addIndexColumn()
                 ->addColumn('user', function (ModelHasRole $userName){
-                    return $userName->ruser->name;
+                    return [$userName->ruser->name,
+                        $userName->ruser->surname];
                 })
                 ->addColumn('role', function(ModelHasRole $roleName){
                     return $roleName->rrole->name;

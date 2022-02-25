@@ -32,11 +32,13 @@ class RampController extends Controller
                 })
                 ->addColumn('actions', function ($row) {
                     if(Auth::user()->hasrole('super-admin')) {
-                        return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
+                        return '<button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="statusRampBtn"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
                         ';
                     }
                     if(Auth::user()->hasrole('admin')) {
-                        return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn" disabled><i class="fas fa-trash"></i></button>
+                        return '<button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="statusRampBtn"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn" disabled><i class="fas fa-trash"></i></button>
                         ';
                     }
                 })
@@ -88,6 +90,46 @@ class RampController extends Controller
             return response()->json(['code' => 1, 'msg' => 'Rampa została usunieta z bazy danych']);
         } else {
             return response()->json(['code' => 0, 'msg' => 'Wystapił nieoczekiwany błąd']);
+        }
+    }
+//Get status details
+    public function getRampStatus(Request $request)
+    {
+        $statusRamp_id = $request->statusRamp_id;
+        $statusRampDetails = Ramp::find($statusRamp_id);
+        return response()->json(['details' => $statusRampDetails]);
+    }
+//Update user details
+    public function updateRampStatus(Request $request) {
+        $statusRamp_id = $request->cid_edit_ramp;
+
+        $validator = \Validator::make($request->all(),[
+            'status'=>'required|string|max:50',
+            'power'=>'required|string|max:20',
+        ]);
+        if (!$validator->passes()){
+            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+        }else{
+            $statusRamp = Ramp::find($statusRamp_id);
+            $statusRamp->name = $request->name;
+            if ($statusRamp->isDirty('name')){
+                $validator = \Validator::make($request->all(), [
+                    'name' => 'required|string|max:50|unique:ramps'
+                ]);
+                if(!$validator->passes()){
+                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+                }else{
+                    $statusRamp->name = $request->name;
+                }
+            }
+            $statusRamp->status = $request->status;
+            $statusRamp->power = $request->power;
+            $query = $statusRamp->save();
+            if ($query){
+                return response()->json(['code'=>1,'msg'=>'Dane rampy zostały zaktualizowane']);
+            }else{
+                return response()->json(['code'=>0,'msg'=>'Wystąpił nieoczekiwany błąd']);
+            }
         }
     }
 }

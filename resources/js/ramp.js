@@ -90,3 +90,44 @@ $(document).on('click','#deleteRampBtn', function (){
         }
     });
 });
+//Get ramp details
+$(document).on('click', '#statusRampBtn', function (){
+    var statusRamp_id = $(this).data('id');
+    $('.editRampStatus').find('form')[0].reset();
+    $('.editRampStatus').find('span.error-text').text('');
+    $.post(rampDetailUrl,{statusRamp_id:statusRamp_id}, function(data){
+        $('.editRampStatus').find('input[name="cid_edit_ramp"]').val(data.details.id);
+        $('.editRampStatus').find('input[name="name"]').val(data.details.name);
+        $('.editRampStatus').find('select[name="status"]').val(data.details.status);
+        $('.editRampStatus').find('select[name="power"]').val(data.details.power);
+        $('.editRampStatus').modal('show');
+    },'json');
+});
+//Update ramp details
+$('#edit-ramp-status-form').on('submit', function (e){
+    e.preventDefault();
+    var form = this;
+    $.ajax({
+        url:$(form).attr('action'),
+        method:$(form).attr('method'),
+        data:new FormData(form),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend: function (){
+            $(form).find('span.error-text').text('');
+        },
+        success: function (data){
+            if (data.code == 0){
+                $.each(data.error, function (prefix, val){
+                    $(form).find('span.'+prefix+'_error').text(val[0]);
+                });
+            }else{
+                $('#ramps-all').DataTable().ajax.reload(null,false);
+                $('.editRampStatus').modal('hide');
+                $('.editRampStatus').find('form')[0].reset();
+                Toast.fire(data.msg);
+            }
+        }
+    })
+});

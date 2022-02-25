@@ -26,11 +26,13 @@
     </div>
 
     @include('ramps.createRamp-modal')
+    @include('ramps.editRampStatus-modal')
 @endsection
 
 @section('javascript')
     const rampAllUrl = "{{ route('get.ramps.list') }}";
     const rampDeleteUrl = "{{ route('delete.ramp') }}";
+    const rampDetailUrl = "{{ route('get.ramp.status') }}";
 
     $.ajaxSetup({
         headers:{

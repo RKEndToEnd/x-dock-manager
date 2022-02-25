@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function (){
     Route::get('getStatusesList',[RampStatusController::class,'getStatusesList'])->name('get.statuses.list')->middleware('role:super-admin|admin|moderator');
     Route::post('createStatus',[RampStatusController::class,'createStatus'])->name('create.status')->middleware('role:super-admin|admin');
     Route::post('/deleteStatus',[RampStatusController::class,'deleteStatus'])->name('delete.status')->middleware('role:super-admin');
+    Route::post('getStatusDetails',[RampStatusController::class,'getStatusDetails'])->name('get.status.details')->middleware('role:super-admin|admin');
+    Route::post('updateStatusDetails',[RampStatusController::class,'updateStatusDetails'])->name('update.status.details')->middleware('role:super-admin|admin');
 
     Route::get('/tower',[ControlTowerController::class,'index'])->name('tower.index')->middleware('role:super-admin|admin|moderator|user|observer');
     Route::get('/getTrackList',[ControlTowerController::class,'getTrackList'])->name('get.track.list')->middleware('role:super-admin|admin|moderator|user|observer');

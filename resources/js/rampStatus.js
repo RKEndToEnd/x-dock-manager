@@ -88,3 +88,42 @@ $(document).on('click','#deleteStatusBtn', function (){
         }
     });
 });
+//Get status details
+$(document).on('click', '#editStatusBtn', function (){
+    var status_id = $(this).data('id');
+    $('.editStatus').find('form')[0].reset();
+    $('.editStatus').find('span.error-text').text('');
+    $.post(statusDetailUrl,{status_id:status_id}, function(data){
+        $('.editStatus').find('input[name="cid_edit_status"]').val(data.details.id);
+        $('.editStatus').find('input[name="status"]').val(data.details.status);
+        $('.editStatus').modal('show');
+    },'json');
+});
+//Update status details
+$('#edit-status-form').on('submit', function (e){
+    e.preventDefault();
+    var form = this;
+    $.ajax({
+        url:$(form).attr('action'),
+        method:$(form).attr('method'),
+        data:new FormData(form),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend: function (){
+            $(form).find('span.error-text').text('');
+        },
+        success: function (data){
+            if (data.code == 0){
+                $.each(data.error, function (prefix, val){
+                    $(form).find('span.'+prefix+'_error').text(val[0]);
+                });
+            }else{
+                $('#ramp-status-all').DataTable().ajax.reload(null,false);
+                $('.editStatus').modal('hide');
+                $('.editStatus').find('form')[0].reset();
+                Toast.fire(data.msg);
+            }
+        }
+    })
+});

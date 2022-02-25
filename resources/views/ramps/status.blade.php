@@ -9,7 +9,7 @@
                         <button class="btn btn-sm btn-outline-primary" id="createStatusBtn" data-bs-toggle="modal" data-bs-target=".createStatus">Dodaj status</button>
                     </div>
                         <div class="card-body">
-                            <table class=" table table-hover  table-bordered {{--table-striped--}}" id="ramp-status-all">
+                            <table class=" table table-hover  table-bordered" id="ramp-status-all">
                                 <thead>
                                     <th>#</th>
                                     <th>Status</th>
@@ -24,11 +24,13 @@
     </div>
 
     @include('ramps.createStatus-modal')
+    @include('ramps.editStatus-modal')
 @endsection
 
 @section('javascript')
     const statusAllUrl = "{{ route('get.statuses.list') }}";
     const statusDeleteUrl = "{{ route('delete.status') }}";
+    const statusDetailUrl = "{{ route('get.status.details')}}";
 
 
     $.ajaxSetup({

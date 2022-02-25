@@ -21,13 +21,21 @@
                     </div>
                     <div class="form-group">
                         <label for="">Rampa</label>
-                        <input type="text" class="form-control" name="ramp"disabled>
+                        <select id="ramp" class="form-control" name="ramp" disabled>
+                            @foreach($ramps as $ramp)
+                                <option name="ramp" value="{{ $ramp->id }}">{{ $ramp->name }}</option>
+                            @endforeach
+                        </select>
                         <span class="text-danger error-text ramp_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">ID pracownika</label>
-                        <input type="text" class="form-control" name="worker_id" disabled>
-                        <span class="text-danger error-text worker_id_error"></span>
+                        <select id="worker_id" class="form-control" name="worker_id" disabled>
+                            @foreach($users as $user)
+                                <option name="worker_id" value="{{ $user->id }}">{{ $user->worker_id }}</option>
+                            @endforeach
+                        </select>
+                            <span class="text-danger error-text worker_id_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="">Zaplanowana godzina przyjazdu / wyjazdu</label>

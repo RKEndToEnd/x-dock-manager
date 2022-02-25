@@ -58,7 +58,7 @@ $(document).on('click','#startTrackBtn',function (){
             $('.loadStartTrack').find('input[name="cid_l_start_track"]').val(data.details.id);
             $('.loadStartTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
             $('.loadStartTrack').find('input[name="track_id"]').val(data.details.track_id);
-            $('.loadStartTrack').find('input[name="ramp"]').val(data.details.ramp);
+            $('.loadStartTrack').find('select[name="ramp"]').val(data.details.ramp);
             $('.loadStartTrack').find('input[name="worker_id"]').val(data.details.worker_id);
             $('.loadStartTrack').modal('show');
         },'json');
@@ -98,8 +98,8 @@ $(document).on('click','#stopTrackBtn',function (){
         $('.loadStopTrack').find('input[name="cid_l_stop_track"]').val(data.details.id);
         $('.loadStopTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
         $('.loadStopTrack').find('input[name="track_id"]').val(data.details.track_id);
-        $('.loadStopTrack').find('input[name="ramp"]').val(data.details.ramp);
-        $('.loadStopTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.loadStopTrack').find('select[name="ramp"]').val(data.details.ramp);
+        $('.loadStopTrack').find('select[name="worker_id"]').val(data.details.worker_id);
         $('.loadStopTrack').find('input[name="task_end_exp"]').val(data.details.task_end_exp);
         $('.loadStopTrack').modal('show');
     },'json');
@@ -139,8 +139,8 @@ $(document).on('click','#docReadyBtn', function (){
         $('.docReady').find('input[name="cid_doc_ready"]').val(data.details.id);
         $('.docReady').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
         $('.docReady').find('input[name="track_id"]').val(data.details.track_id);
-        $('.docReady').find('input[name="ramp"]').val(data.details.ramp);
-        $('.docReady').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.docReady').find('select[name="ramp"]').val(data.details.ramp);
+        $('.docReady').find('select[name="worker_id"]').val(data.details.worker_id);
         $('.docReady').find('input[name="eta"]').val(data.details.eta);
         $('.docReady').find('input[name="doc_return_exp"]').val(data.details.doc_return_exp);
         $('.docReady').find('input[name="comment"]').val(data.details.comment);
@@ -186,8 +186,8 @@ $(document).on('click','#departureTrackBtn', function (){
         $('.departureTrack').find('input[name="cid_departure"]').val(data.details.id);
         $('.departureTrack').find('input[name="vehicle_id"]').val(data.details.vehicle_id);
         $('.departureTrack').find('input[name="track_id"]').val(data.details.track_id);
-        $('.departureTrack').find('input[name="ramp"]').val(data.details.ramp);
-        $('.departureTrack').find('input[name="worker_id"]').val(data.details.worker_id);
+        $('.departureTrack').find('select[name="ramp"]').val(data.details.ramp);
+        $('.departureTrack').find('select[name="worker_id"]').val(data.details.worker_id);
         $('.departureTrack').find('input[name="eta"]').val(data.details.eta);
         $('.departureTrack').find('input[name="doc_ready"]').val(data.details.doc_ready);
         $('.departureTrack').find('input[name="task_end"]').val(data.details.task_end);

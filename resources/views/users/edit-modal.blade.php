@@ -29,7 +29,7 @@
                         <select id="depot" class="form-control" name="depot">
                             <option value="null">Wybierz depot z listy</option>
                             @foreach($depots as $depot)
-                                <option name="depot" value="{{ $depot->id }}" {{--@if(!is_null($users->depot_id) && $users->depot_id->id == $depot_id->id) selected @endif--}}>{{ $depot->name }}</option>
+                                <option name="depot" value="{{ $depot->id }}">{{ $depot->name }}</option>
                             @endforeach
                         </select>
                         <span class="text-danger error-text depot_error"></span>

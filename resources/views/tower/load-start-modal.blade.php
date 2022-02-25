@@ -21,7 +21,11 @@
                     </div>
                     <div class="form-group">
                         <label for="">Rampa</label>
-                        <input type="text" class="form-control" name="ramp"disabled>
+                        <select id="ramp" class="form-control" name="ramp" disabled>
+                            @foreach($ramps as $ramp)
+                                <option name="ramp" value="{{ $ramp->id }}">{{ $ramp->name }}</option>
+                            @endforeach
+                        </select>
                         <span class="text-danger error-text ramp_error"></span>
                     </div>
                     <div class="form-group">

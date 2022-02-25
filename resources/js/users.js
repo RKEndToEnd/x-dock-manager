@@ -62,7 +62,7 @@ $(document).on('click', '#editUserBtn', function (){
         $('.editUser').find('input[name="name"]').val(data.details.name);
         $('.editUser').find('input[name="surname"]').val(data.details.surname);
         $('.editUser').find('input[name="email"]').val(data.details.email);
-        $('.editUser').find('input[name="depot"]').val(data.details.depot_id);
+        $('.editUser').find('select[name="depot"]').val(data.details.depot_id);
         $('.editUser').modal('show');
     },'json');
 });

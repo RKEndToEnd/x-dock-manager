@@ -241,8 +241,8 @@ $(document).on('click','#saEditTrackBtn', function (){
          $('.saEditTrack').find('input[name="eta"]').val(data.details.eta);
          $('.saEditTrack').find('input[name="docking_plan"]').val(data.details.docking_plan);
          $('.saEditTrack').find('input[name="docked_at"]').val(data.details.docked_at);
-         $('.saEditTrack').find('input[name="worker_id"]').val(data.details.worker_id);
-         $('.saEditTrack').find('input[name="ramp"]').val(data.details.ramp);
+         $('.saEditTrack').find('select[name="worker_id"]').val(data.details.worker_id);
+         $('.saEditTrack').find('select[name="ramp"]').val(data.details.ramp);
          $('.saEditTrack').find('input[name="task_start"]').val(data.details.task_start);
          $('.saEditTrack').find('input[name="task_end_exp"]').val(data.details.task_end_exp);
          $('.saEditTrack').find('input[name="doc_return_exp"]').val(data.details.doc_return_exp);

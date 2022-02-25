@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ramp;
 use App\Models\RampStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class RampController extends Controller
@@ -30,8 +31,14 @@ class RampController extends Controller
                     return $ramp->stat->status;
                 })
                 ->addColumn('actions', function ($row) {
-                    return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
+                    if(Auth::user()->hasrole('super-admin')) {
+                        return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn"><i class="fas fa-trash"></i></button>
                         ';
+                    }
+                    if(Auth::user()->hasrole('admin')) {
+                        return '<button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteRampBtn" disabled><i class="fas fa-trash"></i></button>
+                        ';
+                    }
                 })
                 ->setRowClass(function ($row){
                     if ($row->status == '1')

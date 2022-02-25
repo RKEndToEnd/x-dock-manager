@@ -7,6 +7,7 @@ use App\Models\ModelHasRole;
 use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -41,10 +42,19 @@ class UserController extends Controller
                     return $user->depot->name;
                 })
                 ->addColumn('actions', function ($row){
-                    return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editUserBtn"><i class="fas fa-user-edit"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteUserBtn"><i class="fas fa-trash"></i></button>
-                                        </div>';
+                    if(Auth::user()->hasrole('super-admin')) {
+                        return '<div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editUserBtn"><i class="fas fa-user-edit"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteUserBtn"><i class="fas fa-trash"></i></button>
+                                </div>';
+                    }
+                    if(Auth::user()->hasrole('admin')) {
+                        return '<div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editUserBtn"><i class="fas fa-user-edit"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteUserBtn" disabled><i class="fas fa-trash"></i></button>
+
+                                </div>';
+                    }
                 })
                 ->rawColumns(['actions'])
                 ->toJson();

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" style="margin-top: 30px;">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><h4>Rampy</h4>

@@ -5,9 +5,16 @@
         <div class="row justify-content-center" style="margin-top: 30px">
             <div class="col-md-6">
                 <div class="card">
+                    @hasrole('super-admin|admin')
                     <div class="card-header"><h4>Depoty</h4>
                         <button class="btn btn-sm btn-outline-primary" id="createDepotBtn" data-bs-toggle="modal" data-bs-target=".createDepot">Dodaj depot</button>
                     </div>
+                    @endhasrole
+                    @hasrole('moderator')
+                    <div class="card-header"><h4>Depoty</h4>
+                        <button class="btn btn-sm btn-outline-primary" id="createDepotBtn" data-bs-toggle="modal" data-bs-target=".createDepot" disabled>Dodaj depot</button>
+                    </div>
+                    @endhasrole
                         <div class="card-body">
                             <table class="table table-hover table-bordered table-condensed" id="depots-all">
                                 <thead>

@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-
+            @hasrole('super-admin|admin')
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">Dodawanie uzytkownika</div>
@@ -93,6 +93,7 @@
                     </div>
                 </div>
             </div>
+            @endhasrole
         </div>
     </div>
 

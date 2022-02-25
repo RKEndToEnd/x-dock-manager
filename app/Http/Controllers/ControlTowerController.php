@@ -8,6 +8,7 @@ use App\Models\Ramp;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -34,7 +35,9 @@ class ControlTowerController extends Controller
                     return $rampTower->trace->name;
                 })
                 ->addColumn('actions', function ($row) {
-                    return '<div class="btn-group">
+                    if(Auth::user()->hasrole('super-admin')){
+                        return '
+                        <div class="btn-group">
                             <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn">SA <i class="fas fa-user-cog"></i></button>
                         </div>
                         <div class="btn-group">
@@ -48,9 +51,49 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
                             <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
                         </div>';
+                    }
+                    if(Auth::user()->hasrole('admin')) {
+                        return '
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                        </div>';
+                    }
+                    if(Auth::user()->hasrole('moderator')) {
+                        return '
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn"><i class="far fa-edit"></i></button>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                        </div>';
+                    }
+                    if(Auth::user()->hasrole('user')) {
+                        return '
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                        </div>';
+                    }
                 })
                 ->addColumn('checkbox', function ($row) {
-                    return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
+                    if(Auth::user()->hasrole('super-admin|admin')) {
+                        return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
+                    }
                 })
                 ->setRowClass(function ($row) {
                     if (Carbon::now() > $row->docking_plan)

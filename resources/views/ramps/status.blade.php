@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md container-fluid">
+    <div class="container">
+        <div class="row justify-content-center" style="margin-top: 30px">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header"><h4>Statusy ramp</h4>
                         <button class="btn btn-sm btn-outline-primary" id="createStatusBtn" data-bs-toggle="modal" data-bs-target=".createStatus">Dodaj status</button>

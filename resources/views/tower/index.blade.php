@@ -6,11 +6,12 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
+                        @hasrole('super-admin|admin|moderator')
                         <div>
                         <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę</button>
                         <button class="btn btn-sm btn-outline-primary" id="importTrackBtn" data-bs-toggle="modal" data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy z pliku</button>
-                        <button class="btn btn-sm btn-outline-primary" id="refreshTrackBtn" ><i class="fas fa-sync-alt"></i> Odśwież</button>
                         </div>
+                        @endhasrole
                     </div>
                     <div class="card-body">
                         <table style="width: 100%" class="table table-sm table-hover table-bordered compact" id="tracks-all">

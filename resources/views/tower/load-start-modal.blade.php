@@ -39,8 +39,8 @@
                         <span class="text-danger error-text worker_id_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Rozpocznij przeładunek</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary">Rozpocznij przeładunek</button>
                     </div>
                 </form>
             </div>

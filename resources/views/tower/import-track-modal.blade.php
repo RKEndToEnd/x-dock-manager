@@ -14,8 +14,8 @@
                         <input type="file" name="file" class="form-control" >
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Import tras</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary">Import tras</button>
                     </div>
                 </form>
             </div>

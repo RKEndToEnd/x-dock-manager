@@ -63,8 +63,8 @@
                         <span class="text-danger error-text comment_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary" id="openDelay">Odjazd</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary" id="openDelay">Odjazd</button>
                     </div>
                 </form>
             </div>

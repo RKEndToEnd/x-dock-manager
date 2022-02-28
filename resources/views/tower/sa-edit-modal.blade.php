@@ -95,8 +95,8 @@
                         <span class="text-danger error-text comment_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Zapisz wprowadzone zmiany</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary">Zapisz wprowadzone zmiany</button>
                     </div>
                 </form>
             </div>

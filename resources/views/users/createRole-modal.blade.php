@@ -20,8 +20,8 @@
                         <span class="text-danger error-text guard_name_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Dodaj rolę</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary">Dodaj rolę</button>
                     </div>
                 </form>
             </div>

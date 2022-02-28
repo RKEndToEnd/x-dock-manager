@@ -43,8 +43,8 @@
                         <span class="text-danger error-text task_end_exp_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Zakończ przeładunek</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary">Zakończ przeładunek</button>
                     </div>
                 </form>
             </div>

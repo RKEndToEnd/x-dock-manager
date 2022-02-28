@@ -30,8 +30,8 @@
                         <span class="text-danger error-text ramp_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary">Podstaw samochód pod rampę</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary">Podstaw samochód pod rampę</button>
                     </div>
                 </form>
             </div>

@@ -53,8 +53,8 @@
                         <span class="text-danger error-text comment_error"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                        <button type="submit" class="btn btn-primary" id="openDelay">Dokumenty gotowe do odbioru</button>
+                        <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-outline-primary" id="openDelay">Dokumenty gotowe do odbioru</button>
                     </div>
                 </form>
             </div>

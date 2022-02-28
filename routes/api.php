@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DepartedTracksController;
+use App\Http\Controllers\Api\TowerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('departed',[DepartedTracksController::class,'departedTracks']);
+Route::get('tower',[TowerController::class,'towerLive']);

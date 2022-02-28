@@ -25,7 +25,7 @@ class DepartedTracksResource extends JsonResource
         'reloading start'=>$this->task_start,
         'reloading end'=>$this->task_end,
         'departure'=>$this->departure,
+        'comment'=>$this->comment,
        ];
-        // return parent::toArray($request);
     }
 }

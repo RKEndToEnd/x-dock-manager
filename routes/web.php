@@ -95,6 +95,7 @@ Route::middleware(['auth'])->group(function (){
     Route::controller(DeparturesControlTowerController::class)->group(function (){
         Route::get('/departed_tracks','index')->name('departed_tracks.index')->middleware('role:super-admin|admin|moderator|user|observer');
         Route::get('getDepartedTrackList','getDepartedTrackList')->name('get.departed.track.list')->middleware('role:super-admin|admin|moderator|user|observer');
+        Route::get('/departed_tracks/export','export')->name('departed.tracks.export')->middleware('role:super-admin|admin|moderator');
         });
 });
 

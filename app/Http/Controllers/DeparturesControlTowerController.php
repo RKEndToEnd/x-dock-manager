@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DepartedTracksExport;
 use App\Models\DeparturesControlTower;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
 
 class DeparturesControlTowerController extends Controller
@@ -34,5 +35,10 @@ class DeparturesControlTowerController extends Controller
             ->rawColumns(['actions'])
             ->make(true);
 
+    }
+//Export to excel
+    public function export()
+    {
+        return new DepartedTracksExport;
     }
 }

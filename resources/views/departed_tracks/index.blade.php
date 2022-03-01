@@ -5,9 +5,17 @@
         <div class="row" style="margin-top: 30px">
             <div class="container-fluid">
                 <div class="card">
-                    <div class="card-header"><h4>Trasy przeładowane</h4></div>
+                    <div class="card-header"><h4>Trasy przeładowane</h4>
+                        @hasrole('super-admin|admin|moderator')
+                        <div>
+                            <a href="{{ route('departed.tracks.export') }}">
+                                <button  class="btn btn-sm btn-outline-primary" id="exportTrackBtn"><i class="far fa-file-excel"></i> Export tras do pliku</button>
+                            </a>
+                        </div>
+                        @endhasrole
+                    </div>
                     <div class="card-body">
-                        <table style="width: 100%" class="table table-sm table-hover table-bordered compact"  id="tracks-departed" >
+                        <table style="width: 100%" class="table table-sm table-hover table-bordered compact"  id="tracks-departed">
                             <thead >
                             <th>#</th>
                             <th>Pojazd</th>

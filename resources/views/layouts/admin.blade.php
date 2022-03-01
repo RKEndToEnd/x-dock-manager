@@ -69,7 +69,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>{{ Auth::user()->name }} {{Auth::user()->surname}}</p>
+                        <p>{{ Auth::user()->name }} {{Auth::user()->surname}}</p><br>
+                        <p>{{ Auth::user()->email }}</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -245,9 +246,7 @@
         <strong>Copyright &copy; 2022 <a href="https://rkendtoend.pl">RK EndToEnd</a>.</strong> All rights reserved.
     </footer>
 </div>
-<!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
 <script src="{{ asset('js/app.js') }}"></script>

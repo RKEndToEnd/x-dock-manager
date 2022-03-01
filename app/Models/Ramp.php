@@ -30,4 +30,8 @@ class Ramp extends Model
     {
         return $this->belongsTo(RampStatus::class,'status');
     }
+    public function dram(): HasOne
+    {
+        return $this->hasOne(DeparturesControlTower::class)->withDefault();
+    }
 }

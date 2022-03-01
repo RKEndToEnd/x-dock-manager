@@ -20,7 +20,8 @@ class DepartedTracksExport implements FromCollection, Responsable, WithMapping, 
     */
     public function collection()
     {
-        return DeparturesControlTower::all();
+        return DeparturesControlTower::with('dids','dtrace')->get();
+
     }
     public function map($row): array
     {
@@ -32,8 +33,8 @@ class DepartedTracksExport implements FromCollection, Responsable, WithMapping, 
             $row->eta,
             $row->docking_plan,
             $row->docked_at,
-            $row->ramp,
-            $row->worker_id,
+            $row->dtrace->name,
+            $row->dids->worker_id,
             $row->task_start,
             $row->task_end_exp,
             $row->doc_return_exp,

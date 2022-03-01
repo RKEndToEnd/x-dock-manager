@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DeparturesControlTower extends Model
 {
@@ -31,4 +32,12 @@ class DeparturesControlTower extends Model
         'comment',
         'departure',
     ];
+    public function dtrace(): BelongsTo
+    {
+        return $this->belongsTo(Ramp::class,'ramp')->withDefault();
+    }
+    public function dids():BelongsTo
+    {
+        return $this->belongsTo(User::class,'worker_id')->withDefault();
+    }
 }

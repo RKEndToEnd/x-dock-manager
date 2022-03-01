@@ -48,6 +48,10 @@ class User extends Authenticatable
     {
         $this->hasMany(ModelHasRole::class,'model_id');
     }
+    public function did(): HasMany
+    {
+        return $this->hasMany(DeparturesControlTower::class);
+    }
 
     public static function boot()
     {

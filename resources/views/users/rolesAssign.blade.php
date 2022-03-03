@@ -25,10 +25,12 @@
     </div>
 
     @include('users.assignRole-modal')
+    @include('users.editRole-modal')
 @endsection
 
 @section('javascript')
     const getAsRolesUrl = "{{ route('get.as.roles') }}";
+    const getUserRoleUrl = "{{ route('get.user.role')}}"
 
 
     $.ajaxSetup({

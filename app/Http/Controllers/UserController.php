@@ -195,10 +195,11 @@ class UserController extends Controller
                     return $roleName->rrole->name;
                 })
                 ->addColumn('actions', function ($row){
-                    return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-warning" data-id="'.$row['id'].'" id="editAssignedRoleBtn"><i class="fas fa-user-edit"></i></button>
-                                            <button class="btn btn-sm btn-outline-danger" data-id="'.$row['id'].'" id="deleteAssignedRoleBtn"><i class="fas fa-trash"></i></button>
+                    if(Auth::user()->hasrole('super-admin')) {
+                        return '<div class="btn-group">
+                                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['model_id'] . '" id="editAssignedRoleBtn"><i class="fas fa-user-edit"></i></button>
                                         </div>';
+                    }
                 })
                 ->rawColumns(['actions'])
                 ->make(true);
@@ -226,5 +227,12 @@ class UserController extends Controller
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }
         }
+    }
+//Get user details
+    public function getUserRole(Request $request)
+    {
+        $model_id = $request->model_id;
+        $modelDetails = ModelHasRole::find($model_id);
+        return response()->json(['details' => $modelDetails]);
     }
 }

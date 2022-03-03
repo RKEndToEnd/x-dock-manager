@@ -26,6 +26,7 @@ $('#users-all').DataTable({
         {data:'actions', name:'actions'},
     ]
 });
+//Create new user
 $('#create-user').on('submit', function (e){
     e.preventDefault()
     var form = this;

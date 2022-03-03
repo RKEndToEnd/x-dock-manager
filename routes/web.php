@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function (){
             Route::get('users/roles/assigned','assignedRoles')->name('assigned.roles');
             Route::get('getAsRoles','getAsRoles')->name('get.as.roles');
             Route::post('assignRole','assignRole')->name('assign.role');
+            Route::post('getUserRole','getUserRole')->name('get.user.role');
         });
     });
     Route::controller(DepotController::class)->group(function (){

@@ -51,3 +51,15 @@ $('#assign-role-form').on('submit', function (e){
         }
     });
 });
+//Edit assigned role
+$(document).on('click', '#editAssignedRoleBtn', function (){
+    var role = $(this).data('id');
+    $('.editRole').find('form')[0].reset();
+    $('.editRole').find('span.error-text').text('');
+    $.post(getUserRoleUrl,{model_id:role}, function(data){
+        $('.editRole').find('input[name="cid"]').val(data.details.id);
+        $('.editRole').find('input[name="model_id"]').val(data.details.model_id);
+        $('.editRole').find('select[name="role_id"]').val(data.details.role_id);
+        $('.editRole').modal('show');
+    },'json');
+});

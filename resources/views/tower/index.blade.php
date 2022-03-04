@@ -14,6 +14,7 @@
                         @endhasrole
                     </div>
                     <div class="card-body">
+                        @include('helpers.flash-messeges')
                         <table style="width: 100%" class="table table-sm table-hover table-bordered compact" id="tracks-all">
                             <thead>
                             <th><input type="checkbox" name="tracks-checkbox"><label></label></th>

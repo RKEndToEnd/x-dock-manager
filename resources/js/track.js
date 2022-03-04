@@ -75,6 +75,12 @@ $('#create-track-form').on('submit', function (e){
         }
     });
 });
+//Import track from file - alert close
+$(document).ready(function(){
+    setTimeout(function(){
+        $("#al").remove();
+    }, 8000 );
+});
 //Edit track - get details
 $(document).on('click', '#editTrackBtn', function (){
     var track_id = $(this).data('id');

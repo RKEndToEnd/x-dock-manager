@@ -139,7 +139,7 @@ class ControlTowerController extends Controller
     public function import (Request $request)
     {
         Excel::import(new TrackImport,$request->file);
-        return response()->json(['code' => 1, 'msg' => 'Trasy zostały dodane do bazy danych']);
+        return redirect(route('tower.index'))->with('status','Trasy zaimportowane');
     }
 
 //Get track details

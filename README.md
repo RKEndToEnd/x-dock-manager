@@ -1,9 +1,10 @@
-
-## EN X-Dock Manager - application for managing processes in cross-dock warehouses
+![Desktop-screenshot (87)](https://user-images.githubusercontent.com/79422696/156925775-25f66cd2-d017-4d7f-90dd-0d4e924ffadd.jpg)
+## EN X-Dock Manager - application for  processes managing in cross-dock warehouses
 ## Enviroment
 * Laravel 8
 * JQuerry
 * Bootsrap 5
+
 * SQL
 ## Description of the application
 #### Application can be used in the area of full-pallet transport as well as in the area of courier shipments. The application is monitoring the key elements in the process that affect the cost of the transshipment operation:
@@ -27,7 +28,8 @@
 * Users permissions management
 * Ramps management
 * Depots management
-## Application modules
+## Application modules![tablica ops](https://user-images.githubusercontent.com/79422696/156925850-30a6c9b9-281a-41c7-807a-39e1835f058c.jpg)
+
 #### An application is build from 3 modules
 * Operations - contains Control Tower table for current operations and Departed tracks table - for finished operations
 * Management - module for users, ramps, depots management

@@ -22,13 +22,13 @@ class RampStatusController extends Controller
             ->addIndexColumn()
             ->addColumn('actions', function ($row) {
                 if (Auth::user()->hasrole('super-admin')) {
-                    return '<button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editStatusBtn"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn"><i class="fas fa-trash"></i></button>
+                    return '<button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editStatusBtn" title="Edycja ststusu rampy"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn" title="Usuwanie statusu rampy"><i class="fas fa-trash"></i></button>
                         ';
                 }
                 if (Auth::user()->hasrole('admin')) {
-                    return '<button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editStatusBtn"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn" disabled><i class="fas fa-trash"></i></button>
+                    return '<button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editStatusBtn"title="Edycja statusu rampy"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteStatusBtn" title="Usuwanie statusu rampy" disabled><i class="fas fa-trash"></i></button>
                         ';
                 }
             })

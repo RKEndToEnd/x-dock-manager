@@ -38,55 +38,55 @@ class ControlTowerController extends Controller
                     if(Auth::user()->hasrole('super-admin')){
                         return '
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn">SA <i class="fas fa-user-cog"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn" title="Edycja trasy Super-Admin" >SA <i class="fas fa-user-cog"></i></button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn"><i class="far fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn" title="Edycja trasy"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn" title="Usuwanie trasy"><i class="fas fa-trash"></i></button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
-                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
-                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
-                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn" title="Podstawienie trasy pod rampę"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn" title="Rozpoczęcie operacji przeładunku"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn" title="Zakończenie operacji przeładunku"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn title="Dokumenty gotowe do wydania"><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
                     if(Auth::user()->hasrole('admin')) {
                         return '
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn"><i class="far fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn"><i class="fas fa-trash"></i></button>
+                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn" title="Edycja trasy"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteTrackBtn" title="Usuwanie trasy"><i class="fas fa-trash"></i></button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
-                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
-                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
-                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn" title="Podstawienie trasy pod rampę"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn" title="Rozpoczęcie operacji przeładunku"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn" title="Zakończenie operacji przeładunku"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn title="Dokumenty gotowe do wydania"><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
                     if(Auth::user()->hasrole('moderator')) {
                         return '
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn"><i class="far fa-edit"></i></button>
+                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn" title="Edycja trasy"><i class="far fa-edit"></i></button>
                         </div>
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
-                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
-                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
-                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn" title="Podstawienie trasy pod rampę"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn" title="Rozpoczęcie operacji przeładunku"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn" title="Zakończenie operacji przeładunku"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn title="Dokumenty gotowe do wydania"><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
                     if(Auth::user()->hasrole('user')) {
                         return '
                         <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn"><i class="fas fa-anchor"></i></button>
-                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn"><i class="fas fa-play"></i></button>
-                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn"><i class="fas fa-stop"></i></button>
-                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn><i class="fas fa-file-alt"></i></button>
-                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn"><i class="fas fa-plane-departure"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn" title="Podstawienie trasy pod rampę"><i class="fas fa-anchor"></i></button>
+                            <button class="btn btn-sm btn-outline-primary" data-id="' . $row['id'] . '" id="startTrackBtn" title="Rozpoczęcie operacji przeładunku"><i class="fas fa-play"></i></button>
+                            <button class="btn btn-sm btn-outline-success" data-id="' . $row['id'] . '" id="stopTrackBtn" title="Zakończenie operacji przeładunku"><i class="fas fa-stop"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" data-id="' . $row['id'] . '" id=docReadyBtn title="Dokumenty gotowe do wydania"><i class="fas fa-file-alt"></i></button>
+                            <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
                 })

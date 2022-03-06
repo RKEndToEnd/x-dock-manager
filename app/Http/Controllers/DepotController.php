@@ -23,21 +23,20 @@ class DepotController extends Controller
             ->addColumn('actions', function ($row){
                 if(Auth::user()->hasrole('super-admin')) {
                     return '<div class="btn-group">
-                                <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editDepotBtn"><i class="far fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepotBtn"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editDepotBtn" title="Edycja danych depotu"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepotBtn" title="Usuwanie depotu"><i class="fas fa-trash"></i></button>
                             </div>';
                 }
                 if(Auth::user()->hasrole('admin')) {
                     return '<div class="btn-group">
-                                <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editDepotBtn"><i class="far fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepotBtn" disabled><i class="fas fa-trash"></i></button>
-
+                                <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editDepotBtn" title="Edycja danych depotu"><i class="far fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepotBtn" title="Usuwanie depotu" disabled><i class="fas fa-trash"></i></button>
                             </div>';
                 }
                 if(Auth::user()->hasrole('moderator')) {
                     return '<div class="btn-group">
-                                <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editDepotBtn" disabled><i class="far fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepotBtn" disabled><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editDepotBtn" title="Edycja danych depotu" disabled><i class="far fa-edit"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="deleteDepotBtn" title="Usuwanie depotu" disabled><i class="fas fa-trash"></i></button>
                             </div>';
                 }
             })

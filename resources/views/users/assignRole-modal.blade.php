@@ -12,7 +12,7 @@
                     <div class="form-group">
                         <label for="">Użytkownik</label>
                         <select id="model_id" class="form-control" name="model_id">
-                            <option value="null">Wybierz użytkownika z listy</option>
+                            <option value="">Wybierz użytkownika z listy</option>
                             @foreach($users as $user)
                                 <option name="model_id" value="{{ $user->id }}">{{ $user->name }} {{$user->surname}}</option>
                             @endforeach
@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label for="">Poziom uprawnień</label>
                         <select id="role_id" class="form-control" name="role_id">
-                            <option value="null">Wybierz poziom uprawnień z listy</option>
+                            <option value="">Wybierz poziom uprawnień z listy</option>
                             @foreach($roles as $role)
                                 <option name="role_id" value="{{ $role->id }}">{{ $role->name }}</option>
                             @endforeach

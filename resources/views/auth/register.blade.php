@@ -43,9 +43,9 @@
 
                         <div class="input-group mb-3">
                             <select id="depot_id" class="form-control" name="depot_id">
-                                <option value="null">Depot - wybierz z listy</option>
+                                <option value="">Depot - wybierz z listy</option>
                                     @foreach($depots as $depot)
-                                        <option name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
+                                        <option id="depot_id" name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
                                     @endforeach
                             </select>
                         </div>

@@ -210,7 +210,7 @@ class UserController extends Controller
     {
         /*$role_id = $request->cid_create_role;*/
         $validator = \Validator::make($request->all(),[
-            'model_id'=>'required|unique:model_has_roles|max:50',
+            'model_id'=>'required|max:50',
             'role_id'=>'required|max:50',
         ]);
         if (!$validator->passes()){

@@ -113,9 +113,21 @@ class ControlTowerController extends Controller
         $validator = \Validator::make($request->all(), [
             'vehicle_id' => 'required|max:20',
             'track_id' => 'required|unique:control_towers|unique:departures_control_towers|max:10',
-            'track_type' => 'required|max:5',
+            'track_type' => 'required|max:2',
             'freight' => 'required|numeric|between:1,66',
             'eta' => 'required|date',
+        ],[
+            'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
+            'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
+            'track_id.required' =>'Wprowadź numer trasy.',
+            'track_id.unique' => 'Nie można użyć numeru trasy. Wprowadzony numer trasy istnieje w bazie danych aktualnych przeładunków lub tras przeładowanych.',
+            'track_id.max' => 'Nr trasy nie może być dłuszy niż 10 znaków.',
+            'track_type.required'=>'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'track_type.max' => 'Oznaczenie typu trasy nie może zawierać więcej niż 2 znaki. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'freight.required' => 'Ilość miejsc paletowych jest wymagana. Należy podać ilośc z przedziału 1 do 66.',
+            'freight.between' =>'Iloś miejsc paletowych musi byz z przedziału od 1 do 66',
+            'eta.required' =>'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -156,9 +168,18 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_track;
         $validator = \Validator::make($request->all(), [
             'vehicle_id' => 'required|max:20',
-            'track_type' => 'required|max:5',
+            'track_type' => 'required|max:2',
             'freight' => 'required|numeric|between:1,66',
             'eta' => 'required|date',
+        ],[
+            'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
+            'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
+            'track_type.required' => 'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'track_type.max' => 'Oznaczenie typu trasy nie może zawierać więcej niż 2 znaki. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'freight.required' => 'Ilość miejsc paletowych jest wymagana. Należy podać ilośc z przedziału 1 do 66.',
+            'freight.between' => 'Iloś miejsc paletowych musi byz z przedziału od 1 do 66',
+            'eta.required' => 'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -216,6 +237,10 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_dock_track;
         $validator = \Validator::make($request->all(), [
             'ramp' => 'required|max:5|unique:control_towers',
+        ],[
+            'ramp.required' => 'Rampa jest wymagana. Należy wybrać z listy.',
+            'ramp.max' => 'Oznaczenie ramy nie może być dłuższe niż 5 znaków',
+            'ramp.unique' => 'Rampa jest zajęta. Wybierz inną.',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -227,16 +252,8 @@ class ControlTowerController extends Controller
             if (!ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
                 $track->ramp = $request->ramp;
                 $track->docked_at = Carbon::now();
-
-/*                $ramp = Ramp::find('id','status')->get($this->$track->ramp);
-
-
-                   $ramp->status = 2;
-                $ramp->save();*/
                 $query = $track->save();
-
-
-                if ($query) {
+         if ($query) {
                     return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
                 } else {
                     return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
@@ -261,6 +278,9 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_l_start_track;
         $validator = \Validator::make($request->all(), [
             'worker_id' => 'required|max:5',
+        ],[
+            'worker_id.required' => 'Wybierz ID pracownika z listy.',
+            'worker_id.max' => 'ID pracownika może zawierać maksymalnie 5 znaków.'
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -340,6 +360,9 @@ class ControlTowerController extends Controller
         if ($track->eta < Carbon::now()){
             $validator = \Validator::make($request->all(), [
                 'comment'=>'required|string|max:255',
+            ],[
+                'comment.required' => 'Komentarz jest wymagany dla tras załadowanych z opóźnieniem oraz dla tras z przekroczonym przewidywanym czasem przeładunku.',
+                'comment.max' => 'Maksymalna długość komentarza to 255 znaków.'
             ]);
             if (!$validator->passes()) {
                 return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -437,14 +460,22 @@ class ControlTowerController extends Controller
         $validator = \Validator::make($request->all(), [
             'vehicle_id' => 'required|max:20',
             'track_type' => 'required|max:5',
-            'freight' => 'required|numeric|between:1,66',
-            'eta' => 'required|date',
             'worker_id'=>'max:5',
-            'task_start'=>'date|nullable',
+            'docked_at'=>'date|nullable',
             'task_end'=>'date|nullable',
             'doc_ready'=>'date|nullable',
             'comment'=>'max:255|nullable',
-            'departure' => 'date|nullable',
+            'departure' => 'date|nullable'
+        ],[
+            'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
+            'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
+            'track_type.required' => 'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'track_type.max' => 'Oznaczenie typu trasy nie może zawierać więcej niż 2 znaki. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'worker_id.max' => 'ID pracownika może zawierać maksymalnie 5 znaków.',
+            'docked_at.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'task_end.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'departure.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'comment.max' => 'Maksymalna długość komentarza to 255 znaków.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
@@ -454,19 +485,43 @@ class ControlTowerController extends Controller
             $track->track_type = $request->track_type;
             $track->freight = $request->freight;
             if($track->isDirty('freight')){
-                $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+                $validator = \Validator::make($request->all(), [
+                    'freight' => 'required|numeric|between:1,66'
+                ],[
+                    'freight.required' => 'Ilość miejsc paletowych jest wymagana. Należy podać ilośc z przedziału 1 do 66.',
+                    'freight.between' => 'Iloś miejsc paletowych musi byz z przedziału od 1 do 66'
+                ]);
+                if(!$validator->passes()){
+                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+                }else {
+                    $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+                }
             }
             $track->eta = $request->eta;
             if($track->isDirty('eta')) {
-                $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+                $validator = \Validator::make($request->all(), [
+                    'eta' => 'required|date'
+                ],[
+                    'eta.required' => 'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+                    'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.'
+                ]);
+                if(!$validator->passes()){
+                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+                }else {
+                    $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
+                }
             }
             $track->docked_at = $request->docked_at;
             $track->worker_id = $request->worker_id;
             $track->ramp = $request->ramp;
             if($track->isDirty('ramp')){
                 $validator = \Validator::make($request->all(), [
-                    'ramp' => 'nullable|unique:control_towers'
-                    ]);
+                    'ramp' => 'nullable|max:5|unique:control_towers'
+                ],[
+                    'ramp.required' => 'Rampa jest wymagana. Należy wybrać z listy.',
+                    'ramp.max' => 'Oznaczenie ramy nie może być dłuższe niż 5 znaków',
+                    'ramp.unique' => 'Rampa jest zajęta. Wybierz inną.',
+                ]);
                 if(!$validator->passes()){
                     return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
                 }else{
@@ -475,9 +530,18 @@ class ControlTowerController extends Controller
             }
             $track->task_start = $request->task_start;
             if($track->isDirty('task_start')){
-                $track->task_start = $request->task_start;
-                $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
-                $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+                $validator = \Validator::make($request->all(), [
+                    'task_start'=>'date|nullable'
+                ],[
+                    'task_start.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.'
+                ]);
+                if(!$validator->passes()){
+                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
+                }else {
+                    $track->task_start = $request->task_start;
+                    $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
+                    $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+                }
             }
             $track->task_start = $request->task_start;
             $track->task_end = $request->task_end;

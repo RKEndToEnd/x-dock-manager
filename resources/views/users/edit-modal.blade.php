@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input id="email" type="text" class="form-control" name="email" placeholder="Wpisz email">
+                        <input id="email" type="text" class="form-control" name="email" placeholder="Wpisz email" disabled>
                         <span class="text-danger error-text email_error"></span>
                     </div>
                     <div class="form-group">

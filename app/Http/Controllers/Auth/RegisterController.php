@@ -65,7 +65,7 @@ class RegisterController extends Controller
             'email.email' => 'Niewłaściwy format adresu email.',
             'email.max' => 'Adres email nie może być dłuiższy niż 255 znaków.',
             'email.unique' => 'Adres email istnieje w systemie. Skorzystaj z innego adresu email',
-            'depot_id' => 'Wybierz depot z listy',
+            'depot_id.required' => 'Wybierz depot z listy',
             'depot_id.exists' => 'Depot nie istnieje.',
             'password.required' => 'Wpisz hasło. Hasło musi zawierać min. 8 znaków.',
             'password.min' => 'Hasło musi zawierać min. 8 znaków.'

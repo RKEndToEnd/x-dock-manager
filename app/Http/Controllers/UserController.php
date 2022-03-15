@@ -60,11 +60,24 @@ class UserController extends Controller
     //Add user
     public function addUser(Request $request){
         $validator = \Validator::make($request->all(),[
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'depot_id' => ['required'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'depot_id' => 'required|exists:App\Models\Depot,id',
+            'password' => 'required|string|min:8|confirmed',
+        ],[
+            'name.required' => 'Wpisz imię.',
+            'name.max' => 'Imię nie może być dłuższe niż 255 znaków.',
+            'surname.required' => 'Wpisz nazwisko.',
+            'surname.max' => 'Nazwisko nie może być dłuższe niż 255 znaków.',
+            'email.required' => 'Wpisz adres email.',
+            'email.email' => 'Niewłaściwy format adresu email.',
+            'email.max' => 'Adres email nie może być dłuiższy niż 255 znaków.',
+            'email.unique' => 'Adres email istnieje w systemie. Skorzystaj z innego adresu email.',
+            'depot_id.required' => 'Wybierz depot z listy.',
+            'depot_id.exists' => 'Depot nie istnieje.',
+            'password.required' => 'Wpisz hasło. Hasło musi zawierać min. 8 znaków.',
+            'password.min' => 'Hasło musi zawierać min. 8 znaków.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -97,7 +110,11 @@ class UserController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string|max:50',
             'surname'=>'required|string|max:50',
-            'depot_id'=>'string|max:10',
+        ],[
+            'name.required' => 'Wpisz imię.',
+            'name.max' => 'Imię nie może być dłuższe niż 255 znaków.',
+            'surname.required' => 'Wpisz nazwisko.',
+            'surname.max' => 'Nazwisko nie może być dłuższe niż 255 znaków.',
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -105,17 +122,6 @@ class UserController extends Controller
             $user = User::find($user_id);
             $user->name = $request->name;
             $user->surname = $request->surname;
-            $user->email = $request->email;
-            if ($user->isDirty('email')){
-                $validator = \Validator::make($request->all(), [
-                    'email' => 'required|email|unique:users'
-                ]);
-                if(!$validator->passes()){
-                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else{
-                    $user->email = $request->email;
-                }
-            }
             $user->depot_id = $request->depot;
             $query = $user->save();
             if ($query){
@@ -160,6 +166,10 @@ class UserController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string|unique:roles|max:50',
             'guard_name'=>'required|string|max:50',
+        ],[
+            'name.required' => 'Wpisz nazwę roli.',
+            'name.unique' => 'Rola istnieje. Wybierz inną nazwę.',
+            'guard_name.required' => 'Guard name jest wymagane. Domyślnie wpisz: web.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -197,8 +207,8 @@ class UserController extends Controller
                 ->addColumn('actions', function ($row){
                     if(Auth::user()->hasrole('super-admin')) {
                         return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-outline-warning" data-id="' . $row['model_id'] . '" id="editAssignedRoleBtn"><i class="fas fa-user-edit"></i></button>
-                                        </div>';
+                                    <button class="btn btn-sm btn-outline-warning" data-id="' . $row['model_id'] . '" id="editAssignedRoleBtn"><i class="fas fa-user-edit"></i></button>
+                                </div>';
                     }
                 })
                 ->rawColumns(['actions'])
@@ -210,8 +220,13 @@ class UserController extends Controller
     {
         /*$role_id = $request->cid_create_role;*/
         $validator = \Validator::make($request->all(),[
-            'model_id'=>'required|max:50',
+            'model_id'=>'required|max:255',
             'role_id'=>'required|max:50',
+        ],[
+            'model_id.required' => 'Wybierz nazwę uzytkownika z listy.',
+            'model_id.max' => 'Nazwa użytkownika nie może być dłuższa niż 255 znaków',
+            'role_id.required' => 'Wybierz poziom uprawnień z listy.',
+            'role_id.max' => 'Nazwa popziomu uprawnień nie może być dłuższa niż 50 znaków.',
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);

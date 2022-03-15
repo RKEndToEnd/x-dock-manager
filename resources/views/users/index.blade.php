@@ -29,59 +29,58 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('add.user') }}" id="create-user">
                             @csrf
-
                             <div class="input-group mb-3">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Imię">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Imię">
 
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <div class="input-group mb-3">
-                                    <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" autofocus placeholder=Nazwisko>
+                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" autocomplete="surname" autofocus placeholder="Nazwisko">
 
-                                    @error('surname')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('surname')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <div class="input-group mb-3">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email">
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <div class="input-group mb-3">
-                                    <select id="depot_id" class="form-control" name="depot_id">
-                                        <option value="null">Depot - wybierz z listy</option>
-                                        @foreach($depots as $depot)
-                                            <option name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
-                                        @endforeach
-                                    </select>
+                                <select id="depot_id" class="form-control" name="depot_id">
+                                    <option value="null">Depot - wybierz z listy</option>
+                                    @foreach($depots as $depot)
+                                        <option id="depot_id" name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="input-group mb-3">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Hasło">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Haslo">
 
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <div class="input-group mb-3">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Powtórz hasło">
-                                </div>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" placeholder="Powtórz hasło">
+                            </div>
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">

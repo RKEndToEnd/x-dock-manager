@@ -56,6 +56,12 @@ class DepotController extends Controller
             'name'=>'required|string|unique:depots|max:5',
             'city'=>'required|string|max:50',
             'map_link'=>'string|max:300|nullable',
+        ],[
+            'name.required' => 'Podaj nazwę depotu.',
+            'name.unique' => 'Depot istnieje. Podaj inną nazwę depotu.',
+            'name.max' => 'Nazwa depotu jest za długa. Dopuszczalna ilość znakow to 5.',
+            'city.required' => 'Podaj lokalizację deppotu - miejscowość.',
+            'city.max' => 'Nazwa miejscowości depotu nie może być dłuższa niż 50 znaków.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
@@ -86,6 +92,12 @@ class DepotController extends Controller
             'name'=>'required|string|unique:depots|max:5',
             'city'=>'required|string|max:50',
             'map_link'=>'string|max:300|nullable',
+        ],[
+            'name.required' => 'Podaj nazwę depotu.',
+            'name.unique' => 'Depot istnieje. Podaj inną nazwę depotu.',
+            'name.max' => 'Nazwa depotu jest za długa. Dopuszczalna ilość znakow to 5.',
+            'city.required' => 'Podaj lokalizację deppotu - miejscowość.',
+            'city.max' => 'Nazwa miejscowości depotu nie może być dłuższa niż 50 znaków.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);

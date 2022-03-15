@@ -51,11 +51,24 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'depot_id' => ['required','exists:App\Models\Depot,id'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'depot_id' => 'required|exists:App\Models\Depot,id',
+            'password' => 'required|string|min:8|confirmed',
+        ],[
+            'name.required' => 'Wpisz imię.',
+            'name.max' => 'Imię nie może być dłuższe niż 255 znaków.',
+            'surname.required' => 'Wpisz nazwisko',
+            'surname.max' => 'Nazwisko nie może być dłuższe niż 255 znaków.',
+            'email.required' => 'Wpisz adres email.',
+            'email.email' => 'Niewłaściwy format adresu email.',
+            'email.max' => 'Adres email nie może być dłuiższy niż 255 znaków.',
+            'email.unique' => 'Adres email istnieje w systemie. Skorzystaj z innego adresu email',
+            'depot_id' => 'Wybierz depot z listy',
+            'depot_id.exists' => 'Depot nie istnieje.',
+            'password.required' => 'Wpisz hasło. Hasło musi zawierać min. 8 znaków.',
+            'password.min' => 'Hasło musi zawierać min. 8 znaków.'
         ]);
     }
 

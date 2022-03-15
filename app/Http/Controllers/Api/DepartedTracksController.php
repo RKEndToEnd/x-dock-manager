@@ -11,7 +11,7 @@ class DepartedTracksController extends Controller
 {
     public function departedTracks()
     {
-        return DepartedTracksResource::collection(Cache::remember('dep',60*60*24,function (){
+        return DepartedTracksResource::collection(Cache::remember('dep', 60 * 60 * 24, function () {
             return DeparturesControlTower::all();
         }));
     }

@@ -16,9 +16,9 @@ class CreateDeparturesControlTowersTable extends Migration
         Schema::create('departures_control_towers', function (Blueprint $table) {
             $table->id();
             $table->string('vehicle_id', 20);
-            $table->string('track_id',20)->unique();
+            $table->bigInteger('track_id',20)->unique();
             $table->string('track_type',10);
-            $table->decimal('freight',5);
+            $table->bigInteger('freight',5);
             $table->dateTime('eta');
             $table->dateTime('docking_plan')->nullable();
             $table->dateTime('docked_at')->nullable();

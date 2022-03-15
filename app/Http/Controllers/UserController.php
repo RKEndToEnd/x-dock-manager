@@ -110,6 +110,7 @@ class UserController extends Controller
         $validator = \Validator::make($request->all(),[
             'name'=>'required|string|max:50',
             'surname'=>'required|string|max:50',
+
         ],[
             'name.required' => 'Wpisz imię.',
             'name.max' => 'Imię nie może być dłuższe niż 255 znaków.',

@@ -66,6 +66,11 @@
                                         <option id="depot_id" name="depot_id" value="{{ $depot->id }}">{{ $depot->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('depot_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
 
                             <div class="input-group mb-3">

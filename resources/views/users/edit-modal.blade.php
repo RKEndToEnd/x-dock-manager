@@ -27,12 +27,12 @@
                     <div class="form-group">
                         <label for="depot">Depot</label>
                         <select id="depot" class="form-control" name="depot">
-                            <option value="null">Wybierz depot z listy</option>
+                            <option  name="depot" value="">Wybierz depot z listy</option>
                             @foreach($depots as $depot)
                                 <option name="depot" value="{{ $depot->id }}">{{ $depot->name }}</option>
                             @endforeach
                         </select>
-                        <span class="text-danger error-text depot_error"></span>
+                        <span class="text-danger error-text depot_id_error"></span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Anuluj</button>

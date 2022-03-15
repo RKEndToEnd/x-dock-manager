@@ -17,19 +17,17 @@
                     <div class="form-group">
                         <label for="">Status</label>
                         <select id="status" class="form-control" name="status">
-                            <option value="null">Wybierz status z listy</option>
+                            <option name="status" class="form-control" value="">Wybierz status z listy</option>
                             @foreach($ramp_statuses as $status)
                                 <option name="status" value="{{ $status->id }}" @if(!is_null($status->status_id) && $status->status_id->id == $status->id) selected @endif>{{ $status->status }}</option>
                             @endforeach
                         </select>
-
-                        {{--<input type="text" class="form-control" value="" name="status"placeholder="Wpisz status">--}}
                         <span class="text-danger error-text status_error"></span>
                     </div>
                     <div class="form-group">
                         <label for="power">Zasilanie przy rampie</label>
                         <select id="power" class="form-control" name="power">
-                            <option value="null">Wybierz z listy</option>
+                            <option value="">Wybierz z listy</option>
                             <option value="Tak">Tak</option>
                             <option value="Nie">Nie</option>
                             <option value="Awaria">Awaria</option>

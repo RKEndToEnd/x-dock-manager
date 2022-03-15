@@ -65,6 +65,12 @@ class RampController extends Controller
             'name' => 'required|max:5|unique:ramps',
             'status' => 'required|max:50',
             'power' => 'required|max:20',
+        ],[
+            'name.required' => 'Wpisz nazwę / oznaczenie rampy.',
+            'name.max' => 'Dopuszczalna ilość znaków: 5.',
+            'name.unique' => 'Rampa istnieje. Wybierz inną nazwę / oznaczenie.',
+            'status.required' => 'Wybierz status rampy z listy.',
+            'power.required' => 'Wybierz z listy.'
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -99,29 +105,21 @@ class RampController extends Controller
         $statusRampDetails = Ramp::find($statusRamp_id);
         return response()->json(['details' => $statusRampDetails]);
     }
-//Update user details
+//Update ramp details
     public function updateRampStatus(Request $request) {
         $statusRamp_id = $request->cid_edit_ramp;
 
         $validator = \Validator::make($request->all(),[
             'status'=>'required|string|max:50',
             'power'=>'required|string|max:20',
+        ],[
+            'status.required' => 'Wybierz status rampy z listy.',
+            'power.required' => 'Wybierz z listy.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
         }else{
             $statusRamp = Ramp::find($statusRamp_id);
-            $statusRamp->name = $request->name;
-            if ($statusRamp->isDirty('name')){
-                $validator = \Validator::make($request->all(), [
-                    'name' => 'required|string|max:50|unique:ramps'
-                ]);
-                if(!$validator->passes()){
-                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else{
-                    $statusRamp->name = $request->name;
-                }
-            }
             $statusRamp->status = $request->status;
             $statusRamp->power = $request->power;
             $query = $statusRamp->save();

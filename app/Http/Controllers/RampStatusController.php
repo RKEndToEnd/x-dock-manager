@@ -42,6 +42,10 @@ class RampStatusController extends Controller
         $status_id = $request->cid_create_ramp;
         $validator = \Validator::make($request->all(), [
             'status' => 'required|max:50|unique:ramp_statuses',
+        ],[
+            'status.required' => "Wpisz nazwę statusu.",
+            'status.max' => 'Dopuszczalna długość nazwy statusu to 50 znaków.',
+            'status.unique' => 'Nazwa statusu istnieje. Wybierz inną nazwę.'
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -63,7 +67,7 @@ class RampStatusController extends Controller
         $status_id = $request->status_id;
         $query = RampStatus::find($status_id)->delete();
         if ($query) {
-            return response()->json(['code' => 1, 'msg' => 'Status został usuniety z bazy danych']);
+            return response()->json(['code' => 1, 'msg' => 'Status został usunięty z bazy danych']);
         } else {
             return response()->json(['code' => 0, 'msg' => 'Wystapił nieoczekiwany błąd']);
         }
@@ -81,6 +85,10 @@ class RampStatusController extends Controller
         $status_id = $request->cid_edit_status;
         $validator = \Validator::make($request->all(),[
             'status'=>'required|string|unique:ramp_statuses|max:50',
+        ],[
+            'status.required' => "Wpisz nazwę statusu.",
+            'status.max' => 'Dopuszczalna długość nazwy statusu to 50 znaków.',
+            'status.unique' => 'Nazwa statusu istnieje. Wybierz inną nazwę.'
         ]);
         if (!$validator->passes()){
             return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);

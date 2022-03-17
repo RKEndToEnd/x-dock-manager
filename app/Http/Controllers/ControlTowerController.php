@@ -13,29 +13,28 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
-use function PHPUnit\Framework\isNull;
 
 class ControlTowerController extends Controller
 {
     public function index(): View
     {
-        return view("tower.index",['users' => User::all()],['ramps' =>Ramp::all()]);
+        return view("tower.index",['users' => User::all()],['ramps' =>Ramp::all()->where('status', '=', '1')]);
     }
 
     public function getTrackList(Request $request)
     {
         if ($request->ajax()) {
-            $tracks = ControlTower::with('ids','trace');
+            $tracks = ControlTower::with('ids', 'trace');
             return DataTables::of($tracks)
                 ->addIndexColumn()
-                ->addColumn('ids', function(ControlTower $tower){
-                      return $tower->ids->worker_id;
+                ->addColumn('ids', function (ControlTower $tower) {
+                    return $tower->ids->worker_id;
                 })
-                ->addColumn('trace', function(ControlTower $rampTower){
+                ->addColumn('trace', function (ControlTower $rampTower) {
                     return $rampTower->trace->name;
                 })
                 ->addColumn('actions', function ($row) {
-                    if(Auth::user()->hasrole('super-admin')){
+                    if (Auth::user()->hasrole('super-admin')) {
                         return '
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-danger" data-id="' . $row['id'] . '" id="saEditTrackBtn" title="Edycja trasy Super-Admin" >SA <i class="fas fa-user-cog"></i></button>
@@ -52,7 +51,7 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
-                    if(Auth::user()->hasrole('admin')) {
+                    if (Auth::user()->hasrole('admin')) {
                         return '
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn" title="Edycja trasy"><i class="far fa-edit"></i></button>
@@ -66,7 +65,7 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
-                    if(Auth::user()->hasrole('moderator')) {
+                    if (Auth::user()->hasrole('moderator')) {
                         return '
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-warning" data-id="' . $row['id'] . '" id="editTrackBtn" title="Edycja trasy"><i class="far fa-edit"></i></button>
@@ -79,7 +78,7 @@ class ControlTowerController extends Controller
                             <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="departureTrackBtn" title="Odjazd trasy"><i class="fas fa-plane-departure"></i></button>
                         </div>';
                     }
-                    if(Auth::user()->hasrole('user')) {
+                    if (Auth::user()->hasrole('user')) {
                         return '
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-info" data-id="' . $row['id'] . '" id="dockTrackBtn" title="Podstawienie trasy pod rampę"><i class="fas fa-anchor"></i></button>
@@ -91,7 +90,7 @@ class ControlTowerController extends Controller
                     }
                 })
                 ->addColumn('checkbox', function ($row) {
-                    if(Auth::user()->hasrole('super-admin|admin')) {
+                    if (Auth::user()->hasrole('super-admin|admin')) {
                         return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
                     }
                 })
@@ -115,7 +114,7 @@ class ControlTowerController extends Controller
             'track_id' => 'required|unique:control_towers|unique:departures_control_towers|max:10',
             'track_type' => 'required|max:2',
             'freight' => 'required|numeric|between:1,66',
-            'eta' => 'required|date',
+            'eta' => 'required|date|after:yesterday',
         ],[
             'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
             'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
@@ -128,6 +127,7 @@ class ControlTowerController extends Controller
             'freight.between' =>'Iloś miejsc paletowych musi byz z przedziału od 1 do 66',
             'eta.required' =>'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
             'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'eta.after' => 'Data wyjazdu trasy nie może być wcześniejsza niż aktualny dzień.',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
@@ -147,11 +147,12 @@ class ControlTowerController extends Controller
             }
         }
     }
+
 //Track import from file
-    public function import (Request $request)
+    public function import(Request $request)
     {
-        Excel::import(new TrackImport,$request->file);
-        return redirect(route('tower.index'))->with('status','Trasy zaimportowane');
+        Excel::import(new TrackImport, $request->file);
+        return redirect(route('tower.index'))->with('status', 'Trasy zaimportowane');
     }
 
 //Get track details
@@ -170,8 +171,8 @@ class ControlTowerController extends Controller
             'vehicle_id' => 'required|max:20',
             'track_type' => 'required|max:2',
             'freight' => 'required|numeric|between:1,66',
-            'eta' => 'required|date',
-        ],[
+            'eta' => 'required|date|after:yesterday',
+        ], [
             'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
             'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
             'track_type.required' => 'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
@@ -180,12 +181,13 @@ class ControlTowerController extends Controller
             'freight.between' => 'Iloś miejsc paletowych musi byz z przedziału od 1 do 66',
             'eta.required' => 'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
             'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'eta.after' => 'Data wyjazdu trasy nie może być wcześniejsza niż aktualny dzień.',
         ]);
         if (!$validator->passes()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            if (!ControlTower::where('task_end_exp','=',$request->input($track->task_end_exp))->exists()){
+            if (!ControlTower::where('task_end_exp', '=', $request->input($track->task_end_exp))->exists()) {
                 $track->vehicle_id = $request->vehicle_id;
                 $track->track_type = $request->track_type;
                 $track->freight = $request->freight;
@@ -197,7 +199,7 @@ class ControlTowerController extends Controller
                 } else {
                     return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                 }
-            }else{
+            } else {
                 return response()->json(['code' => 1, 'msg' => 'Załadunek trasy został rozpoczęty. Zmian można dokonać w trybie Super Admin!']);
             }
         }
@@ -249,16 +251,16 @@ class ControlTowerController extends Controller
           //  $ramp = Ramp::all()->get($this->$track->ramp);
 
 
-            if (!ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
+            if (!ControlTower::where('ramp', '=', $request->input($track->ramp))->exists()) {
                 $track->ramp = $request->ramp;
                 $track->docked_at = Carbon::now();
                 $query = $track->save();
-         if ($query) {
+                if ($query) {
                     return response()->json(['code' => 1, 'msg' => 'Samochód podstawiony pod rampę']);
                 } else {
                     return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                 }
-            }else{
+            } else {
                 return response()->json(['code' => 1, 'msg' => 'Trasa jest już podstawiona pod rampę. Zmiany można dokonać w trybie edycji Super Admin.']);
             }
         }
@@ -278,7 +280,7 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_l_start_track;
         $validator = \Validator::make($request->all(), [
             'worker_id' => 'required|max:5',
-        ],[
+        ], [
             'worker_id.required' => 'Wybierz ID pracownika z listy.',
             'worker_id.max' => 'ID pracownika może zawierać maksymalnie 5 znaków.'
         ]);
@@ -286,22 +288,22 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            if (ControlTower::where('ramp','=',$request->input($track->ramp))->exists()){
-                    if (!ControlTower::where('worker_id','=',$request->input($track->worker_id))->exists()) {
-                        $track->worker_id = $request->worker_id;
-                        $track->task_start = Carbon::now();
-                        $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
-                        $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
-                        $query = $track->save();
-                        if ($query) {
-                            return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku rozpoczęta']);
-                        } else {
-                            return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
-                        }
-                    }else{
-                        return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już rozpoczęta. Zmiany mozna dokonać w trybie edycji Super Admin']);
+            if (ControlTower::where('ramp', '=', $request->input($track->ramp))->exists()) {
+                if (!ControlTower::where('worker_id', '=', $request->input($track->worker_id))->exists()) {
+                    $track->worker_id = $request->worker_id;
+                    $track->task_start = Carbon::now();
+                    $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
+                    $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);
+                    $query = $track->save();
+                    if ($query) {
+                        return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku rozpoczęta']);
+                    } else {
+                        return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                     }
-            }else{
+                } else {
+                    return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już rozpoczęta. Zmiany mozna dokonać w trybie edycji Super Admin']);
+                }
+            } else {
                 return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można ropocząć operacji załadunku. Trasa nie jest podstawiona pod rampę.']);
             }
         }
@@ -325,8 +327,8 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            if (ControlTower::where('task_start','=',$request->input($track->task_start))->exists()) {
-                if (!ControlTower::where('task_end','=',$request->input($track->task_end))->exists()) {
+            if (ControlTower::where('task_start', '=', $request->input($track->task_start))->exists()) {
+                if (!ControlTower::where('task_end', '=', $request->input($track->task_end))->exists()) {
                     $track->task_end = Carbon::now();
                     $query = $track->save();
                     if ($query) {
@@ -334,10 +336,10 @@ class ControlTowerController extends Controller
                     } else {
                         return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                     }
-                }else{
+                } else {
                     return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już zakończona. Edycji można dokonać w trybie Super Admin']);
                 }
-            }else{
+            } else {
                 return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można zakończyć operacji załadunku, ponieważ nie została ona ropoczęta.']);
             }
         }
@@ -357,10 +359,10 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_doc_ready;
         $track = ControlTower::find($track_id);
 
-        if ($track->eta < Carbon::now()){
+        if ($track->eta < Carbon::now()) {
             $validator = \Validator::make($request->all(), [
-                'comment'=>'required|string|max:255',
-            ],[
+                'comment' => 'required|string|max:255',
+            ], [
                 'comment.required' => 'Komentarz jest wymagany dla tras załadowanych z opóźnieniem oraz dla tras z przekroczonym przewidywanym czasem przeładunku.',
                 'comment.max' => 'Maksymalna długość komentarza to 255 znaków.'
             ]);
@@ -368,8 +370,8 @@ class ControlTowerController extends Controller
                 return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
             } else {
                 $track = ControlTower::find($track_id);
-                if (ControlTower::where('task_end','=',$request->input($track->task_end))->exists()) {
-                    if (!ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
+                if (ControlTower::where('task_end', '=', $request->input($track->task_end))->exists()) {
+                    if (!ControlTower::where('doc_ready', '=', $request->input($track->doc_ready))->exists()) {
                         $track->doc_ready = Carbon::now();
                         $track->comment = $request->comment;
                         $query = $track->save();
@@ -378,17 +380,17 @@ class ControlTowerController extends Controller
                         } else {
                             return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                         }
-                    }else{
+                    } else {
                         return response()->json(['code' => 1, 'msg' => 'Uwaga! Dokumenty zostały już zarejestrowane. Edycji można dokonać w trybie Super Admin']);
                     }
-                }else{
+                } else {
                     return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można przygotować dokumentów. Trasa nie została załadowana.']);
                 }
             }
         } else {
             $track = ControlTower::find($track_id);
             if (ControlTower::where('task_end', '=', $request->input($track->task_end))->exists()) {
-                if (!ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
+                if (!ControlTower::where('doc_ready', '=', $request->input($track->doc_ready))->exists()) {
                     $track->doc_ready = Carbon::now();
                     $track->comment = $request->comment;
                     $query = $track->save();
@@ -397,7 +399,7 @@ class ControlTowerController extends Controller
                     } else {
                         return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                     }
-                }else{
+                } else {
                     return response()->json(['code' => 1, 'msg' => 'Uwaga! Dokumenty zostały już zarejestrowane. Edycji można dokonać w trybie Super Admin']);
                 }
             } else {
@@ -424,22 +426,22 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-            if (ControlTower::where('doc_ready','=',$request->input($track->doc_ready))->exists()) {
-                if (!ControlTower::where('departure','=',$request->input($track->departure))->exists()) {
+            if (ControlTower::where('doc_ready', '=', $request->input($track->doc_ready))->exists()) {
+                if (!ControlTower::where('departure', '=', $request->input($track->departure))->exists()) {
                     $track->departure = Carbon::now();
-                    $newTrack=$track->replicate();
+                    $newTrack = $track->replicate();
                     $newTrack->setTable('departures_control_towers');
                     $track->delete();
-                    $query=$newTrack->save();
+                    $query = $newTrack->save();
                     if ($query) {
                         return response()->json(['code' => 1, 'msg' => 'Operacja przeładunku zakończona, dokumenty wydane kierowcy. Trasa przeniesiona do widoku tras zakończonych.']);
                     } else {
                         return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
                     }
-                }else{
+                } else {
                     return response()->json(['code' => 1, 'msg' => 'Uwaga! Operacja przeładunku została już zakończona. Edycji można dokonać w trybie Super Admin']);
                 }
-            }else{
+            } else {
                 return response()->json(['code' => 1, 'msg' => 'Uwaga! Nie można zarejestrować wyjazdu trasy, ponieważ dokumenty do trasy nie zostały przygotowane.']);
             }
         }
@@ -460,13 +462,13 @@ class ControlTowerController extends Controller
         $validator = \Validator::make($request->all(), [
             'vehicle_id' => 'required|max:20',
             'track_type' => 'required|max:5',
-            'worker_id'=>'max:5',
-            'docked_at'=>'date|nullable',
-            'task_end'=>'date|nullable',
-            'doc_ready'=>'date|nullable',
-            'comment'=>'max:255|nullable',
+            'worker_id' => 'max:5',
+            'docked_at' => 'date|nullable',
+            'task_end' => 'date|nullable',
+            'doc_ready' => 'date|nullable',
+            'comment' => 'max:255|nullable',
             'departure' => 'date|nullable'
-        ],[
+        ], [
             'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
             'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
             'track_type.required' => 'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
@@ -477,67 +479,67 @@ class ControlTowerController extends Controller
             'departure.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
             'comment.max' => 'Maksymalna długość komentarza to 255 znaków.'
         ]);
-        if (!$validator->passes()){
-            return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-        }else{
+        if (!$validator->passes()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
             $track = ControlTower::find($track_id);
             $track->vehicle_id = $request->vehicle_id;
             $track->track_type = $request->track_type;
             $track->freight = $request->freight;
-            if($track->isDirty('freight')){
+            if ($track->isDirty('freight')) {
                 $validator = \Validator::make($request->all(), [
                     'freight' => 'required|numeric|between:1,66'
-                ],[
+                ], [
                     'freight.required' => 'Ilość miejsc paletowych jest wymagana. Należy podać ilośc z przedziału 1 do 66.',
                     'freight.between' => 'Iloś miejsc paletowych musi byz z przedziału od 1 do 66'
                 ]);
-                if(!$validator->passes()){
-                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else {
+                if (!$validator->passes()) {
+                    return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+                } else {
                     $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
                 }
             }
             $track->eta = $request->eta;
-            if($track->isDirty('eta')) {
+            if ($track->isDirty('eta')) {
                 $validator = \Validator::make($request->all(), [
                     'eta' => 'required|date'
-                ],[
+                ], [
                     'eta.required' => 'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
                     'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.'
                 ]);
-                if(!$validator->passes()){
-                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else {
+                if (!$validator->passes()) {
+                    return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+                } else {
                     $track->docking_plan = Carbon::parse($track->eta)->subMinutes($track->freight * 1.5 + 15);
                 }
             }
             $track->docked_at = $request->docked_at;
             $track->worker_id = $request->worker_id;
             $track->ramp = $request->ramp;
-            if($track->isDirty('ramp')){
+            if ($track->isDirty('ramp')) {
                 $validator = \Validator::make($request->all(), [
                     'ramp' => 'nullable|max:5|unique:control_towers'
-                ],[
+                ], [
                     'ramp.required' => 'Rampa jest wymagana. Należy wybrać z listy.',
                     'ramp.max' => 'Oznaczenie ramy nie może być dłuższe niż 5 znaków',
                     'ramp.unique' => 'Rampa jest zajęta. Wybierz inną.',
                 ]);
-                if(!$validator->passes()){
-                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else{
+                if (!$validator->passes()) {
+                    return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+                } else {
                     $track->ramp = $request->ramp;
                 }
             }
             $track->task_start = $request->task_start;
-            if($track->isDirty('task_start')){
+            if ($track->isDirty('task_start')) {
                 $validator = \Validator::make($request->all(), [
-                    'task_start'=>'date|nullable'
-                ],[
+                    'task_start' => 'date|nullable'
+                ], [
                     'task_start.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.'
                 ]);
-                if(!$validator->passes()){
-                    return response()->json(['code' => 0,'error' => $validator->errors()->toArray()]);
-                }else {
+                if (!$validator->passes()) {
+                    return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+                } else {
                     $track->task_start = $request->task_start;
                     $track->task_end_exp = Carbon::parse($track->task_start)->addMinutes($track->freight * 1.5 + 15);
                     $track->doc_return_exp = Carbon::parse($track->eta)->subMinutes(15);

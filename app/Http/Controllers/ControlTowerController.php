@@ -18,7 +18,7 @@ class ControlTowerController extends Controller
 {
     public function index(): View
     {
-        return view("tower.index",['users' => User::all()],['ramps' =>Ramp::all()->where('status', '=', '1')]);
+        return view("tower.index", ['users' => User::all()], ['ramps' => Ramp::all()->where('status', '=', '1')]);
     }
 
     public function getTrackList(Request $request)
@@ -115,17 +115,17 @@ class ControlTowerController extends Controller
             'track_type' => 'required|max:2',
             'freight' => 'required|numeric|between:1,66',
             'eta' => 'required|date|after:yesterday',
-        ],[
+        ], [
             'vehicle_id.required' => 'Nr rejestracyjny pojazdu jest wymagany.',
             'vehicle_id.max' => 'Nr rejestracyjny nie może być dłuszy niż 20 znaków.',
-            'track_id.required' =>'Wprowadź numer trasy.',
+            'track_id.required' => 'Wprowadź numer trasy.',
             'track_id.unique' => 'Nie można użyć numeru trasy. Wprowadzony numer trasy istnieje w bazie danych aktualnych przeładunków lub tras przeładowanych.',
             'track_id.max' => 'Nr trasy nie może być dłuszy niż 10 znaków.',
-            'track_type.required'=>'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
+            'track_type.required' => 'Typ trasy jest wymagany. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
             'track_type.max' => 'Oznaczenie typu trasy nie może zawierać więcej niż 2 znaki. Dostepne typy tras to: h -wahadło, d - dostawa, hp - wahadło przyjazd, p - odbiór.',
             'freight.required' => 'Ilość miejsc paletowych jest wymagana. Należy podać ilośc z przedziału 1 do 66.',
-            'freight.between' =>'Iloś miejsc paletowych musi byz z przedziału od 1 do 66',
-            'eta.required' =>'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
+            'freight.between' => 'Iloś miejsc paletowych musi byz z przedziału od 1 do 66',
+            'eta.required' => 'Zaplanowana godzina przyjazdu/wyjazdu jest wymagana. Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
             'eta.date' => 'Dane należy wprowadzic w formacie RRRR-MM-DD HH:MM.',
             'eta.after' => 'Data wyjazdu trasy nie może być wcześniejsza niż aktualny dzień.',
         ]);
@@ -239,7 +239,7 @@ class ControlTowerController extends Controller
         $track_id = $request->cid_dock_track;
         $validator = \Validator::make($request->all(), [
             'ramp' => 'required|max:5|unique:control_towers',
-        ],[
+        ], [
             'ramp.required' => 'Rampa jest wymagana. Należy wybrać z listy.',
             'ramp.max' => 'Oznaczenie ramy nie może być dłuższe niż 5 znaków',
             'ramp.unique' => 'Rampa jest zajęta. Wybierz inną.',
@@ -248,9 +248,6 @@ class ControlTowerController extends Controller
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
             $track = ControlTower::find($track_id);
-          //  $ramp = Ramp::all()->get($this->$track->ramp);
-
-
             if (!ControlTower::where('ramp', '=', $request->input($track->ramp))->exists()) {
                 $track->ramp = $request->ramp;
                 $track->docked_at = Carbon::now();

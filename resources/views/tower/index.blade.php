@@ -24,7 +24,6 @@
                                    id="tracks-all">
                                 <thead>
                                 <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
-                                <th>#</th>
                                 <th>Pojazd</th>
                                 <th>Trasa</th>
                                 <th>Typ trasy</th>

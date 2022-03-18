@@ -18,7 +18,6 @@ $('#tracks-all').DataTable({
     ajax: trackAllUrl,
     columns: [
         {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},
-        {data: 'DT_RowIndex', name: 'DT_RowIndex'},
         {data: 'vehicle_id', name: 'vehicle_id'},
         {data: 'track_id', name: 'track_id'},
         {data: 'track_type', name: 'track_type'},

@@ -56,6 +56,7 @@
                                     <th></th>
                                     </thead>
                                     <tbody></tbody>
+                                    <a href="{{ route('ramps.index') }}" class="btn btn-sm btn-outline-primary">Opcje</a>
                                 </table>
                             </div>
                         </div>

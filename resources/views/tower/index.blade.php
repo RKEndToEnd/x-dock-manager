@@ -8,43 +8,56 @@
                     <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
                         @hasrole('super-admin|admin|moderator')
                         <div>
-                        <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal" data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę</button>
-                        <button class="btn btn-sm btn-outline-primary" id="importTrackBtn" data-bs-toggle="modal" data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy z pliku</button>
+                            <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal"
+                                    data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary" id="importTrackBtn" data-bs-toggle="modal"
+                                    data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy z pliku
+                            </button>
                         </div>
                         @endhasrole
                     </div>
-                    <div class="card-body">
-                        @include('helpers.flash-messeges')
-                        <table style="width: 100%" class="table table-sm table-hover table-bordered compact" id="tracks-all">
-                            <thead>
-                            <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
-                            <th>#</th>
-                            <th>Pojazd</th>
-                            <th>Trasa</th>
-                            <th>Typ trasy</th>
-                            <th>MP</th>
-                            <th>Godz. przyjazdu / wyjazdu</th>
-                            <th>Podstawienie plan</th>
-                            <th>Podstawiono</th>
-                            <th>Rampa</th>
-                            <th>ID</th>
-                            <th>Operacja START</th>
-                            <th>STOP PLAN</th>
-                            <th>Dokumenty PLAN</th>
-                            <th>Operacja STOP</th>
-                            <th>Dokumenty gotowe</th>
-                            <th>Komentarz</th>
-                            <th>Operacje<button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone<i class="fas fa-trash-alt"></i></button></th>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
+                    <div class="card-body row">
+                        <div class="col-md-11">
+                            @include('helpers.flash-messeges')
+                            <table style="width: 100%" class="table table-sm table-hover table-bordered compact"
+                                   id="tracks-all">
+                                <thead>
+                                <th><input type="checkbox" name="tracks-checkbox"><label></label></th>
+                                <th>#</th>
+                                <th>Pojazd</th>
+                                <th>Trasa</th>
+                                <th>Typ trasy</th>
+                                <th>MP</th>
+                                <th>Godz. przyjazdu / wyjazdu</th>
+                                <th>Podstawienie plan</th>
+                                <th>Podstawiono</th>
+                                <th>Rampa</th>
+                                <th>ID</th>
+                                <th>Operacja START</th>
+                                <th>STOP PLAN</th>
+                                <th>Dokumenty PLAN</th>
+                                <th>Operacja STOP</th>
+                                <th>Dokumenty gotowe</th>
+                                <th>Komentarz</th>
+                                <th>Operacje
+                                    <button class="btn btn-sm btn-danger d-none" id="deleteAllMarkedBtn">Usuń zaznaczone<i
+                                            class="fas fa-trash-alt"></i></button>
+                                </th>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                         <div class="col-md-1">
-                        <table class="table table-sm table-borderless" id="ramp-schema">
-                            <thead class="">
-                            <th class=""></th>
-                            </thead>
-                            <tbody class=""></tbody>
-                        </table>
+                            <div class="card">
+                                <div class="card-header" style="text-align: center"><h6>Rampy</h6></div>
+                                <table class="table table-sm table" id="ramp-schema" style="text-align: center">
+                                    <thead class="">
+                                    <th></th>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +92,7 @@
     $.ajaxSetup({
     headers:{
     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-        }
+    }
     });
 
 @endsection

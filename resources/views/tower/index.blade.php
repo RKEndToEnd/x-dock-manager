@@ -3,22 +3,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="row" style="margin-top: 30px">
-            <div class="container-fluid">
+            <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header"><h4>Przeładunki - tablica operacyjna</h4>
-                        @hasrole('super-admin|admin|moderator')
-                        <div>
-                            <button class="btn btn-sm btn-outline-primary" id="createTrackBtn" data-bs-toggle="modal"
-                                    data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę
-                            </button>
-                            <button class="btn btn-sm btn-outline-primary" id="importTrackBtn" data-bs-toggle="modal"
-                                    data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy z pliku
-                            </button>
-                        </div>
-                        @endhasrole
-                    </div>
+                    <div class="card-header"><h5>Przeładunki - tablica operacyjna</h5></div>
                     <div class="card-body row">
-                        <div class="col-md-11">
+                        <div class="">
                             @include('helpers.flash-messeges')
                             <table style="width: 100%" class="table table-sm table-hover table-bordered compact"
                                    id="tracks-all">
@@ -45,20 +34,35 @@
                                 </th>
                                 </thead>
                                 <tbody></tbody>
+                                @hasrole('super-admin|admin|moderator')
+                                <div class="col-md-auto">
+                                    <button class="btn btn-sm btn-outline-primary" id="createTrackBtn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target=".createTrack"><i class="fas fa-plus"></i> Dodaj trasę
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary" id="importTrackBtn"
+                                            data-bs-toggle="modal"
+                                            data-bs-target=".importTrack"><i class="far fa-file-excel"></i> Import trasy
+                                        z pliku
+                                    </button>
+                                </div>
+                                @endhasrole
                             </table>
                         </div>
-                        <div class="col-md-1">
-                            <div class="card">
-                                <div class="card-header" style="text-align: center"><h6>Rampy</h6></div>
-                                <table class="table table-sm table" id="ramp-schema" style="text-align: center">
-                                    <thead class="">
-                                    <th></th>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <a href="{{ route('ramps.index') }}" class="btn btn-sm btn-outline-primary">Opcje</a>
-                                </table>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="card">
+                    <div class="card-header" style="text-align: center"><h5>Rampy</h5></div>
+                    <div class="card-body row-cols-1">
+                        <table class="table table-sm  table-bordered compact" id="ramp-schema" style="text-align: center">
+                            <thead class="">
+                            <th></th>
+                            </thead>
+                            <tbody></tbody>
+                            <a href="{{ route('ramps.index') }}" class="btn btn-sm btn-outline-primary">Opcje</a>
+                        </table>
                     </div>
                 </div>
             </div>

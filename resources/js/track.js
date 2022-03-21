@@ -14,7 +14,11 @@ const Toast = Swal.mixin({
 //Get all tracks
 $('#tracks-all').DataTable({
     processing: true,
-    info: true,
+    info: false,
+    paging: false,
+    "language": {
+        "search": "Szukaj:",
+    },
     ajax: trackAllUrl,
     columns: [
         {data: 'checkbox', name: 'checkbox', orderable: false, searchable: false},

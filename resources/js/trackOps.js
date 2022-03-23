@@ -225,3 +225,19 @@ $('#departure-form').on('submit', function (e) {
         }
     });
 });
+//Vehicle waiting in the area status
+$(document).on('change', '.areaSwitch', function () {
+    var area = $(this).prop('checked') == true ? 1 : 0;
+    var track_id = $(this).data('id');
+    $.ajax({
+        type: 'GET',
+        dataType: 'JSON',
+        url: areaUrl,
+        data: {
+            'area': area,
+            'track_id': track_id,
+        }, success: function (data) {
+            Toast.fire(data.msg);
+        }
+    });
+});

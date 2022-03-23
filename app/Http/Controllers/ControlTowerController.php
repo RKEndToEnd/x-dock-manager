@@ -9,7 +9,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\DataTables;
@@ -94,13 +93,21 @@ class ControlTowerController extends Controller
                         return '<input type="checkbox" name="track-checkbox" data-id="' . $row['id'] . '"><label></label>';
                     }
                 })
+                ->addColumn('area', function ($row) {
+                    $checked = ($row->area == 1) ? 'checked' : '';
+                    return '
+                        <div class="form-check form-switch">
+                          <input class="form-check-input areaSwitch" type="checkbox" role="switch" id="areaSwitch" data-id="' . $row['id'] . '" ' . $checked . '>
+                          <label class="form-check-label" for="areaSwitch"></label>
+                        </div>';
+                })
                 ->setRowClass(function ($row) {
                     if (Carbon::now() > $row->docking_plan)
                         return 2 == 0 ? '' : 'alert-danger';
                     else if (Carbon::now() > Carbon::parse($row->docking_plan)->subMinutes(30) && $row->ramp == null)
                         return 2 == 0 ? '' : 'alert-warning';
                 })
-                ->rawColumns(['actions', 'checkbox', 'departure'])
+                ->rawColumns(['actions', 'checkbox', 'departure', 'area'])
                 ->make(true);
         }
     }
@@ -553,6 +560,19 @@ class ControlTowerController extends Controller
             } else {
                 return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
             }
+        }
+    }
+
+    public function areaReady(Request $request)
+    {
+        $track = ControlTower::find($request->track_id);
+        $track->area = $request->area;
+        $track->area_arrived = Carbon::now();
+        $query = $track->save();
+        if ($query) {
+            return response()->json(['code' => 1, 'msg' => 'Status gotowości do przeładunku został zmieniony.']);
+        } else {
+            return response()->json(['code' => 0, 'msg' => 'Wystąpił nieoczekiwany błąd']);
         }
     }
 }

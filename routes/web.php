@@ -92,6 +92,7 @@ Route::middleware(['auth'])->group(function (){
         Route::post('/docReady','docReady')->name('doc.ready')->middleware('role:super-admin|admin|moderator|user');
         Route::post('/getDepartureData','getDepartureData')->name('get.departure.data')->middleware('role:super-admin|admin|moderator|user');
         Route::post('/trackDeparted','trackDeparted')->name('track.departed')->middleware('role:super-admin|admin|moderator|user');
+        Route::get('/areaReady','areaReady')->name('area.ready')->middleware('role:super-admin|admin|moderator|user');
     });
     Route::controller(DeparturesControlTowerController::class)->group(function (){
         Route::get('/departed_tracks','index')->name('departed_tracks.index')->middleware('role:super-admin|admin|moderator|user|observer');

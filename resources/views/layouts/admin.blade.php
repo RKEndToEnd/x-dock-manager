@@ -243,7 +243,7 @@
             design->code->test->deploy->improve
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2022 <a href="https://rkendtoend.pl">RK EndToEnd</a>.</strong> All rights reserved.
+        Copyright &copy; 2022 <a href="https://rkendtoend.pl">RK EndToEnd</a>  All rights reserved.
     </footer>
 </div>
 

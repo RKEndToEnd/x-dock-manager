@@ -28,6 +28,7 @@ $('#tracks-all').DataTable({
         {data: 'freight', name: 'freight'},
         {data: 'eta', name: 'eta'},
         {data: 'docking_plan', name: 'docking_plan'},
+        {data: 'area', name: 'area', orderable: false, searchable: false},
         {data: 'docked_at', name: 'docked_at'},
         {data: 'trace', name: 'trace.name'},
         {data: 'ids', name: 'ids.worker_id'},

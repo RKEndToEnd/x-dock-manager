@@ -19,6 +19,7 @@
                                 <th>MP</th>
                                 <th>Godz. przyjazdu / wyjazdu</th>
                                 <th>Podstawienie plan</th>
+                                <th>Plac</th>
                                 <th>Podstawiono</th>
                                 <th>Rampa</th>
                                 <th>ID</th>
@@ -56,7 +57,8 @@
                 <div class="card">
                     <div class="card-header" style="text-align: center"><h5>Rampy</h5></div>
                     <div class="card-body row-cols-1">
-                        <table class="table table-sm  table-bordered compact" id="ramp-schema" style="text-align: center">
+                        <table class="table table-sm  table-bordered compact" id="ramp-schema"
+                               style="text-align: center">
                             <thead class="">
                             <th></th>
                             </thead>
@@ -92,12 +94,15 @@
     const departureUrl = "{{ route('get.departure.data') }}"
     const importUpdtUrl = "{{ route('import.update') }}"
     const rampAllUrl = "{{ route('get.ramps.list') }}";
+    const areaUrl = "{{ route('area.ready') }}"
 
     $.ajaxSetup({
     headers:{
     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
     }
     });
+
+
 
 @endsection
 

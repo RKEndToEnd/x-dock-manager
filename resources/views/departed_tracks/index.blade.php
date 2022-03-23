@@ -24,6 +24,7 @@
                             <th>MP</th>
                             <th>Godz. przyjazdu / wyjazdu</th>
                             <th>Podstawienie plan</th>
+                            <th>Plac</th>
                             <th>Podstawiono</th>
                             <th>Rampa</th>
                             <th>ID</th>

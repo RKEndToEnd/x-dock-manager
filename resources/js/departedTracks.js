@@ -27,6 +27,7 @@ $('#tracks-departed').DataTable({
         {data: 'freight', name: 'freight'},
         {data: 'eta', name: 'eta'},
         {data: 'docking_plan', name: 'docking_plan'},
+        {data: 'area_arrived', name: 'area_arrived'},
         {data: 'docked_at', name: 'docked_at'},
         {data: 'dtrace', name: 'dtrace.name'},
         {data: 'dids', name: 'dids.worker_id'},

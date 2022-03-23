@@ -21,6 +21,8 @@ class DeparturesControlTower extends Model
         'freight',
         'eta',
         'docking_plan',
+        'area',
+        'area_arrived',
         'docked_at',
         'ramp',
         'worker_id',

@@ -32,6 +32,7 @@ class DepartedTracksExport implements FromCollection, Responsable, WithMapping, 
             $row->freight,
             $row->eta,
             $row->docking_plan,
+            $row->area_arrived,
             $row->docked_at,
             $row->dtrace->name,
             $row->dids->worker_id,
@@ -47,29 +48,30 @@ class DepartedTracksExport implements FromCollection, Responsable, WithMapping, 
     public function headings(): array
     {
         return [
-            'vehicle id',
-            'track number',
-            'track type',
-            'freight',
-            'eta',
-            'docking plan',
-            'docked at',
-            'ramp',
-            'worker id',
-            'operation start',
-            'expecting stop',
-            'expecting doc return',
-            'operation stop',
-            'documents ready',
-            'comment',
-            'departure',
+            'nr rejestracyjny',
+            'nr trasy',
+            'typ trasy',
+            'mp',
+            'godz. przyjazdu / wyjazdu',
+            'podstawienie plan',
+            'plac',
+            'podstawiono',
+            'rampa',
+            'id pracownika',
+            'przeładunek start',
+            'oczekiwane zakończenie',
+            'oczekiwany zwrot dokumentów',
+            'przeładunek koniec',
+            'dokumenty gotowe do wydania',
+            'komentarz',
+            'odjazd',
         ];
     }
     public function registerEvents(): array
     {
         return[
             AfterSheet::class=>function(AfterSheet $event){
-            $event->sheet->getStyle('A1:P1')->applyFromArray([
+            $event->sheet->getStyle('A1:Q1')->applyFromArray([
                 'font'=>[
                     'bold'=>true
                 ]

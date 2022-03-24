@@ -41,3 +41,13 @@ $('#tracks-departed').DataTable({
         {data: 'actions', name: 'actions', orderable: false, searchable: false},
     ]
 });
+let eds = document.getElementById('eta_date_start')
+eds.onfocus = function (event) {
+    this.type = 'datetime-local';
+    this.focus();
+}
+let ede = document.getElementById('eta_date_end')
+ede.onfocus = function (event) {
+    this.type = 'datetime-local';
+    this.focus();
+}
